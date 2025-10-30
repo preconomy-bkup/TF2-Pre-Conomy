@@ -816,18 +816,20 @@ void CTFProjectile_Arrow::ArrowTouch( CBaseEntity *pOther )
 	if ( !closest_box )
 	{
 		// Locate the hitbox closest to our point of impact on the collision box.
-		Vector position, start, forward;
+		Vector position, start, forward, origin;
 		QAngle angles;
 		float closest_dist = 99999;
 
 		// Intense, but extremely accurate:
 		AngleVectors( GetAbsAngles(), &forward );
-		start = GetAbsOrigin() + forward*16;
+		origin = GetAbsOrigin();
 		for ( int i = 0; i < set->numhitboxes; i++ )
 		{
 			mstudiobbox_t *pbox = set->pHitbox( i );
 
 			pAnimOther->GetBonePosition( pbox->bone, position, angles );
+
+			start = origin + (position - origin).Dot(forward) * forward;
 
 			Ray_t ray;
 			ray.Init( start, position );
