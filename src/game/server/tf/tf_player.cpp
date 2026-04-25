@@ -14959,6 +14959,11 @@ void CTFPlayer::Taunt( taunts_t iTauntIndex, int iTauntConcept )
 			m_flTauntAttackTime = gpGlobals->curtime + 3.695f;
 			m_iTauntAttack = TAUNTATK_ENGINEER_GUITAR_SMASH;
 		}
+		else if ( !V_stricmp( szResponse, "scenes/player/engineer/low/taunt09.vcd" ) )
+		{
+			m_flTauntAttackTime = gpGlobals->curtime + 3.2f;
+			m_iTauntAttack = TAUNTATK_ENGINEER_ARM_IMPALE;
+		}
 	}
 }
 
@@ -15208,7 +15213,8 @@ void CTFPlayer::DoTauntAttack( void )
 			TFGameRules()->RadiusDamage( radiusinfo );
 		}
 	}
-	else if ( iTauntAttack == TAUNTATK_SNIPER_ARROW_STAB_IMPALE || iTauntAttack == TAUNTATK_SNIPER_ARROW_STAB_KILL )
+	else if ( iTauntAttack == TAUNTATK_SNIPER_ARROW_STAB_IMPALE || iTauntAttack == TAUNTATK_SNIPER_ARROW_STAB_KILL ||
+			  iTauntAttack == TAUNTATK_ENGINEER_ARM_IMPALE || iTauntAttack == TAUNTATK_ENGINEER_ARM_KILL || iTauntAttack == TAUNTATK_ENGINEER_ARM_BLEND )
 	{
 		Vector vecForward;
 		AngleVectors( EyeAngles(), &vecForward );
@@ -15228,10 +15234,17 @@ void CTFPlayer::DoTauntAttack( void )
 				switch ( iTauntAttack )
 				{
 				case TAUNTATK_SNIPER_ARROW_STAB_IMPALE:
+				case TAUNTATK_ENGINEER_ARM_IMPALE:
 					if ( pVictim )
 					{
-						pVictim->m_Shared.StunPlayer( 3.0f, 1.0, TF_STUN_BOTH | TF_STUN_NO_EFFECTS, this );
+
+							pVictim->m_Shared.StunPlayer( 3.0f, 1.0, TF_STUN_BOTH | TF_STUN_NO_EFFECTS, this );
+						}
 					}
+					break;
+
+				case TAUNTATK_ENGINEER_ARM_BLEND:
+					pEnt->TakeDamage( CTakeDamageInfo( this, this, GetActiveTFWeapon(), vecForward, pEnt->WorldSpaceCenter(), 1, DMG_BULLET | DMG_PREVENT_PHYSICS_FORCE, TF_DMG_CUSTOM_TAUNTATK_ENGINEER_ARM_KILL ) );
 					break;
 
 				case TAUNTATK_SNIPER_ARROW_STAB_KILL:
@@ -15239,6 +15252,10 @@ void CTFPlayer::DoTauntAttack( void )
 					vecForward = (WorldSpaceCenter() - pEnt->WorldSpaceCenter());
 					VectorNormalize( vecForward );
 					pEnt->TakeDamage( CTakeDamageInfo( this, this, GetActiveTFWeapon(), vecForward * 12000, pEnt->WorldSpaceCenter(), 500.0f, DMG_BULLET | DMG_PREVENT_PHYSICS_FORCE, TF_DMG_CUSTOM_TAUNTATK_ARROW_STAB ) );
+					break;
+
+				case TAUNTATK_ENGINEER_ARM_KILL:
+					pEnt->TakeDamage( CTakeDamageInfo( this, this, GetActiveTFWeapon(), vecForward * 12000, pEnt->WorldSpaceCenter(), 500.0f, DMG_BLAST, TF_DMG_CUSTOM_TAUNTATK_ENGINEER_ARM_KILL ) );
 					break;
 				}
 			}
@@ -15248,6 +15265,22 @@ void CTFPlayer::DoTauntAttack( void )
 		{
 			m_iTauntAttack = TAUNTATK_SNIPER_ARROW_STAB_KILL;
 			m_flTauntAttackTime = gpGlobals->curtime + 1.30;
+		}
+		else if ( iTauntAttack == TAUNTATK_ENGINEER_ARM_IMPALE )
+		{
+			m_iTauntAttack = TAUNTATK_ENGINEER_ARM_BLEND;
+			m_flTauntAttackTime = gpGlobals->curtime + 0.05;
+			m_iTauntAttackCount = 0;
+		}
+		else if ( iTauntAttack == TAUNTATK_ENGINEER_ARM_BLEND )
+		{
+			m_iTauntAttack = TAUNTATK_ENGINEER_ARM_BLEND;
+			m_flTauntAttackTime = gpGlobals->curtime + 0.05;
+			m_iTauntAttackCount++;
+			if ( m_iTauntAttackCount == 13 )
+			{
+				m_iTauntAttack = TAUNTATK_ENGINEER_ARM_KILL;
+			}
 		}
 	}
 	else if ( iTauntAttack == TAUNTATK_HEAVY_EAT )
