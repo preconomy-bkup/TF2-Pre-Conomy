@@ -10518,21 +10518,28 @@ const char *CTFGameRules::GetKillingWeaponName( const CTakeDamageInfo &info, CTF
 		CObjectSentrygun *pSentrygun = assert_cast<CObjectSentrygun*>( pInflictor );
 		if ( pSentrygun )
 		{
-			int iSentryLevel = pSentrygun->GetUpgradeLevel();
-			switch( iSentryLevel)
+			if ( pSentrygun->IsMiniBuilding() )
 			{
-			case 1:
-				killer_weapon_name = "obj_sentrygun";
-				break;
-			case 2:
-				killer_weapon_name = "obj_sentrygun2";
-				break;
-			case 3:
-				killer_weapon_name = "obj_sentrygun3";
-				break;
-			default:
-				killer_weapon_name = "obj_sentrygun";
-				break;
+				killer_weapon_name = "obj_minisentry";
+			}
+			else
+			{
+				int iSentryLevel = pSentrygun->GetUpgradeLevel();
+				switch( iSentryLevel)
+				{
+				case 1:
+					killer_weapon_name = "obj_sentrygun";
+					break;
+				case 2:
+					killer_weapon_name = "obj_sentrygun2";
+					break;
+				case 3:
+					killer_weapon_name = "obj_sentrygun3";
+					break;
+				default:
+					killer_weapon_name = "obj_sentrygun";
+					break;
+				}
 			}
 		}
 	}

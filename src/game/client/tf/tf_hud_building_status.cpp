@@ -213,7 +213,10 @@ void CBuildingStatusItem::PerformLayout( void )
 			m_pUpgradeIcons[2]->SetVisible( false );
 
 			// show the correct upgrade level icon
-			m_pUpgradeIcons[iUpgradeLevel-1]->SetVisible( true );
+			if ( !pObj->IsMiniBuilding() )
+			{
+				m_pUpgradeIcons[iUpgradeLevel-1]->SetVisible( true );
+			}
 		}
 	}
 	else
@@ -801,7 +804,7 @@ void CBuildingStatusItem_Dispenser::PerformLayout( void )
 
 	int iAmmo = pDispenser->GetMetalAmmoCount();
 
-	float flMaxMetal = DISPENSER_MAX_METAL_AMMO;
+	float flMaxMetal = pDispenser->IsMiniBuilding() ? MINI_DISPENSER_MAX_METAL : DISPENSER_MAX_METAL_AMMO;
 	float flProgress = (float)iAmmo / flMaxMetal;
 	m_pAmmoProgress->SetProgress( flProgress );
 
@@ -1365,6 +1368,8 @@ void CHudBuildingStatusContainer::RecalculateAlertState( void )
 			BuildingHudAlert_t alertLevel = pObj->GetBuildingAlertLevel();
 			if ( alertLevel > maxAlertLevel )
 			{
+				if ( pObj->IsMiniBuilding() && alertLevel != BUILDING_HUD_ALERT_LOW_HEALTH && alertLevel != BUILDING_HUD_ALERT_VERY_LOW_HEALTH && alertLevel != BUILDING_HUD_ALERT_SAPPER )
+					continue;
 				maxAlertLevel = alertLevel;
 			}
 		}

@@ -206,6 +206,8 @@ public:
 
 	virtual bool TestHitboxes( const Ray_t &ray, unsigned int fContentsMask, trace_t& tr );
 
+	bool				IsMiniBuilding() { return m_bMiniBuilding; }
+
 // ITargetIDProvidesHint
 public:
 	virtual void		DisplayHintTo( C_BasePlayer *pPlayer );
@@ -272,6 +274,7 @@ private:
 	bool			m_bCarried;
 	bool			m_bCarryDeploy;
 	bool			m_bOldCarryDeploy;
+	bool			m_bMiniBuilding;
 	float			m_flPercentageConstructed;
 	EHANDLE			m_hBuiltOnEntity;
 	int				m_iObjectMode;

@@ -72,6 +72,9 @@ public:
 	void			CreateShield( void );
 	void			DestroyShield( void );
 
+	void			CreateSiren( void );
+	void			DestroySiren( void );
+
 	virtual void	OnGoActive( void );
 	virtual void	OnGoInactive( void );
 	virtual void	OnStartDisabled( void );
@@ -110,6 +113,9 @@ private:
 	bool m_bOldPlayerControlled;
 	uint32 m_nShieldLevel;
 	uint32 m_nOldShieldLevel;
+	bool m_bOldCarried;
+
+	bool m_bPDQSentry;
 
 	int m_iOldModelIndex;
 
@@ -120,6 +126,7 @@ private:
 
 	C_LocalTempEntity *m_pTempShield;
 
+	HPARTICLEFFECT  m_hSirenEffect;
 	HPARTICLEFFECT  m_hShieldEffect;
 	HPARTICLEFFECT	m_hLaserBeamEffect;
 	CNetworkHandle( CBaseEntity, m_hEnemy );
