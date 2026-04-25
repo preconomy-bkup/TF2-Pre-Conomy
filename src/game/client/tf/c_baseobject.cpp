@@ -69,6 +69,7 @@ IMPLEMENT_CLIENTCLASS_DT(C_BaseObject, DT_BaseObject, CBaseObject)
 	RecvPropInt( RECVINFO(m_iUpgradeMetalRequired) ),
 	RecvPropInt( RECVINFO(m_iHighestUpgradeLevel) ),
 	RecvPropInt( RECVINFO(m_iObjectMode) ),
+	RecvPropBool( RECVINFO( m_bDisposableBuilding ) ),
 	RecvPropBool( RECVINFO( m_bWasMapPlaced ) ),
 	RecvPropBool( RECVINFO( m_bPlasmaDisable ) ),
 END_RECV_TABLE()
@@ -99,6 +100,7 @@ C_BaseObject::C_BaseObject(  )
 	m_bOldCarryDeploy = false;
 
 	m_bMiniBuilding = false;
+	m_bDisposableBuilding = false;
 
 	m_vecBuildForward = vec3_origin;
 	m_flBuildDistance = 0.0f;
@@ -897,7 +899,7 @@ void C_BaseObject::GetTargetIDString( OUT_Z_BYTECAP( iMaxLenInBytes ) wchar_t *s
 		bool bHasMode = false;
 		const char *printFormatString = "#TF_playerid_object";
 
-		if ( IsMiniBuilding() )
+		if ( IsMiniBuilding() && !IsDisposableBuilding() )
 		{
 			printFormatString = "#TF_playerid_object_mini";
 		}
@@ -998,7 +1000,7 @@ void C_BaseObject::GetTargetIDDataString( OUT_Z_BYTECAP(iMaxLenInBytes) wchar_t 
 	}
 
 	// level 1 and 2 show upgrade progress
-	if ( !IsMiniBuilding() )
+	if ( !IsMiniBuilding() && !IsDisposableBuilding() )
 	{
 		_snwprintf( wszUpgradeProgress, ARRAYSIZE(wszUpgradeProgress) - 1, L"%d / %d", m_iUpgradeMetal, GetUpgradeMetalRequired() );
 		wszUpgradeProgress[ ARRAYSIZE(wszUpgradeProgress)-1 ] = '\0';
