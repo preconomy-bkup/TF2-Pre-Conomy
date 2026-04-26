@@ -15239,7 +15239,6 @@ void CTFPlayer::DoTauntAttack( void )
 					{
 
 							pVictim->m_Shared.StunPlayer( 3.0f, 1.0, TF_STUN_BOTH | TF_STUN_NO_EFFECTS, this );
-						}
 					}
 					break;
 
