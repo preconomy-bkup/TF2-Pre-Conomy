@@ -2735,10 +2735,6 @@
 			{
 				"pyro"	"1"
 			}
-			"static_attrs"
-			{
-				"extinguish restores health"			"20"
-			}
 			"visuals"
 			{
 				"animation_replacement"
@@ -2798,8 +2794,9 @@
 			"static_attrs"
 			{
 				"min_viewmodel_offset"					"10 -3 -10"
-				"airblast cost increased"				"2.5"
+				"airblast disabled"						"1"
 				"mod flamethrower back crit"			"1"
+				"damage bonus"							"1.15"
 				"crit mod disabled hidden"				"0"
 			}
 			"visuals"
@@ -4883,103 +4880,6 @@
 			"mouse_pressed_sound"	"ui/item_heavy_gun_pickup.wav"
 			"drop_sound"		"ui/item_heavy_gun_drop.wav"
 		}
-
-		"weapon_lochnload"
-		{
-			"enabled"		"1"
-			"item_class"		"tf_weapon_grenadelauncher"
-			"craft_class"		"weapon"
-			"craft_material_type"		"weapon"
-			"capabilities"
-			{
-				"nameable"		"1"
-			}
-			"tags"
-			{
-				"can_deal_damage"		"1"
-				"can_deal_gib_damage"	"1"
-				"can_be_equipped_by_soldier_or_demo"	"1"
-				"can_deal_posthumous_damage"	"1"
-				"can_deal_critical_damage"	"1"
-				"can_deal_long_distance_damage"	"1"
-			}
-			"show_in_armory"	"1"
-			"item_logname"	"loch_n_load"
-			"item_iconname"	"loch_n_load"
-			"item_type_name"	"#TF_Weapon_GrenadeLauncher"
-			"item_name"		"#TF_LochNLoad"
-			"item_slot"		"primary"
-			"anim_slot"		"secondary"
-			"item_quality"		"unique"
-			"min_ilevel"		"10"
-			"max_ilevel"		"10"
-			"propername"		"1"
-			"attach_to_hands"	"1"
-			"inspect_panel_dist" "55"
-			"image_inventory"	"backpack/workshop/weapons/c_models/c_lochnload/c_lochnload"
-			"image_inventory_size_w"		"128"
-			"image_inventory_size_h"		"82"
-			"model_player"	"models/workshop/weapons/c_models/c_lochnload/c_lochnload.mdl"
-			"used_by_classes"
-			{
-				"demoman"	"1"
-			}
-			"static_attrs"
-			{
-				"min_viewmodel_offset"					"10 0 -10"
-			}
-			"mouse_pressed_sound"	"ui/item_heavy_gun_pickup.wav"
-			"drop_sound"		"ui/item_heavy_gun_drop.wav"
-			"attributes"
-			{
-				"clip size penalty"
-				{
-					"attribute_class"	"mult_clipsize"
-					"value" "0.75"
-				}
-				"dmg bonus vs buildings"
-				{
-					"attribute_class"	"mult_dmg_vs_buildings"
-					"value"	"1.2"
-				}
-				"Projectile speed increased"
-				{
-					"attribute_class"	"mult_projectile_speed"
-					"value" "1.25"
-				}
-				"Blast radius decreased"
-				{
-					"attribute_class"	"mult_explosion_radius"
-					"value"	"0.75"
-				}
-				"sticky air burst mode"
-				{
-					"attribute_class"	"set_detonate_mode"
-					"value"	"2"
-				}
-				"grenade no spin"
-				{
-					"attribute_class"	"grenade_no_spin"
-					"value"	"1"
-				}
-			}
-			"visuals"
-			{
-				"sound_single_shot"	"Weapon_LochnLoad.Single"
-				"sound_burst"			"Weapon_LochnLoad.SingleCrit"
-				"animation_replacement"
-				{
-					"ACT_RELOAD_START"		"ACT_PRIMARY_RELOAD_START_2"
-					"ACT_VM_RELOAD"			"ACT_PRIMARY_VM_RELOAD_2"
-					"ACT_RELOAD_FINISH"		"ACT_PRIMARY_RELOAD_FINISH_2"
-
-					"ACT_PRIMARY_VM_INSPECT_START"		"ACT_PRIMARY_ALT1_VM_INSPECT_START"
-					"ACT_PRIMARY_VM_INSPECT_IDLE"		"ACT_PRIMARY_ALT1_VM_INSPECT_IDLE"
-					"ACT_PRIMARY_VM_INSPECT_END"		"ACT_PRIMARY_ALT1_VM_INSPECT_END"
-				}
-			}
-		}
-
 		"weapon_sniperrifle_alt1"
 		{
 			"visuals"
@@ -7652,9 +7552,10 @@
 			"image_inventory"	"backpack/weapons/c_models/c_w_ludmila/c_w_ludmila"
 			"image_inventory_size_w"		"128"
 			"image_inventory_size_h"		"82"
-			"model_player"	"models/weapons/c_models/c_minigun/c_minigun_natascha.mdl"
+			"model_player"	"models/weapons/v_models/v_minigun_heavy.mdl"
+			"model_world"	"models/weapons/w_models/w_minigun.mdl"
 			"inspect_panel_dist" "88"
-			"attach_to_hands"	"1"
+			"attach_to_hands"	"0"
 			"item_quality"	"unique"
 			"min_ilevel"	"5"
 			"max_ilevel"	"5"
@@ -7678,24 +7579,28 @@
 					"attribute_class"	"mult_dmg"
 					"value"	"0.75"
 				}
-				"minigun spinup time increased"
-				{
-					"attribute_class"	"mult_minigun_spinup_time"
-					"value" "1.3"
-				}
 				"lunchbox adds minicrits"
 				{
 					"attribute_class"	"set_weapon_mode"
 					"value"	"1"
 				}
-				"spunup_damage_resistance"
-				{
-					"attribute_class"		"spunup_damage_resistance"
-					"value"					"0.80"
-				}
 			}
 			"visuals"
 			{
+				"attached_models"
+				{
+					"0"
+					{
+						"model"		"models/weapons/c_models/c_v_ludmila/c_v_ludmila.mdl"
+						"model_display_flags"	"2"
+					}
+					"1"
+					{
+						"model"		"models/weapons/c_models/c_w_ludmila/c_w_ludmila.mdl"
+						"model_display_flags"	"1"
+					}
+				}
+				"skin"	"2"
 				"sound_reload"	"Weapon_Minifun.Reload"
 				"sound_empty"	"Weapon_Minifun.ClipEmpty"
 				"sound_double_shot"	"Weapon_Minifun.Fire"
@@ -7704,6 +7609,7 @@
 				"sound_special3"	"Weapon_Minifun.Spin"
 				"sound_burst"	"Weapon_Minifun.FireCrit"
 			}
+
 			"mouse_pressed_sound"	"ui/item_heavy_gun_pickup.wav"
 			"drop_sound"		"ui/item_heavy_gun_drop.wav"
 		}
@@ -8318,25 +8224,15 @@
 					"attribute_class"	"set_weapon_mode"
 					"value"	"1"
 				}
-				"cloak consume rate decreased"
+				"mult cloak meter consume rate"
 				{
 					"attribute_class"	"mult_cloak_meter_consume_rate"
-					"value"	"0.6"
-				}
-				"cloak_consume_on_feign_death_activate"
-				{
-					"attribute_class"	"cloak_consume_on_feign_death_activate"
-					"value"	"0.5"
+					"value"	"1.6"
 				}
 				"mult cloak meter regen rate"
 				{
 					"attribute_class"	"mult_cloak_meter_regen_rate"
-					"value"	"1.5"
-				}
-				"NoCloakWhenCloaked"
-				{
-					"attribute_class"	"NoCloakWhenCloaked"
-					"value"	"1"
+					"value"	"1.8"
 				}
 				"ReducedCloakFromAmmo"
 				{
@@ -9747,11 +9643,11 @@
 			"propername"	"1"
 			"min_ilevel"	"10"
 			"max_ilevel"	"10"
-			"image_inventory" "backpack/weapons/c_models/c_pickaxe/c_pickaxe_s2"
+			"image_inventory" "backpack/weapons/c_models/c_pickaxe/c_pickaxe"
 			"image_inventory_size_w"		"128"
 			"image_inventory_size_h"		"82"
 			"inspect_panel_dist" 				"50"			
-			"model_player"	"models/weapons/c_models/c_pickaxe/c_pickaxe_s2.mdl"
+			"model_player"	"models/weapons/c_models/c_pickaxe/c_pickaxe.mdl"
 			"attach_to_hands" "1"
 			"used_by_classes"
 			{
@@ -9773,10 +9669,10 @@
 					"attribute_class"	"set_weapon_mode"
 					"value"	"1"
 				}
-				"reduced_healing_from_medics"
+				"mod weapon blocks healing"
 				{
-					"attribute_class"	"mult_healing_from_medics"
-					"value" "0.1"
+					"attribute_class"	"weapon_blocks_healing"
+					"value" "1"
 				}
 				"special taunt"
 				{
@@ -10272,6 +10168,110 @@
 			}
 			"xifier_class_remap"	"frontier_justice"
 		}
+		"142"
+		{
+			"name"	"The Gunslinger"
+			"prefab"	"valve"
+			"first_sale_date"	"2010/09/29"
+			"item_class"	"tf_weapon_robot_arm"
+			"craft_class"	"weapon"
+			"craft_material_type"	"weapon"
+			"capabilities"
+			{
+				"nameable"		"1"
+			}
+			"tags"
+			{
+				"can_deal_damage"			"1"
+				"can_deal_critical_damage"	"1"
+				"can_destroy_sappers"		"1"
+				"can_deal_taunt_damage"		"1"
+			}
+			"show_in_armory"	"1"
+			"item_type_name"	"#TF_Weapon_Robot_Arm"
+			"item_name"	"#TF_Unique_Robot_Arm"
+			"item_slot"	"melee"
+			"equip_region"	"arms"
+			"item_quality"	"unique"
+			"anim_slot"	"item2"
+			"min_ilevel"	"15"
+			"max_ilevel"	"15"
+			"propername"	"1"
+			"item_logname"	"robot_arm"
+			"item_iconname"	"robot_arm_kill"
+			"image_inventory"	"backpack/weapons/gunslinger"
+			"image_inventory_size_w"		"128"
+			"image_inventory_size_h"		"82"
+			"inspect_panel_dist" 				"40"
+			"attach_to_hands" "1"
+			"disable_backpack_inspect"	"1"
+			"used_by_classes"
+			{
+				"engineer"	"1"
+			}
+			"static_attrs"
+			{
+				"min_viewmodel_offset"		"10 -2 -7"				
+			}
+			"attributes"
+			{
+				"gunslinger punch combo"
+				{
+					"attribute_class"	"gunslinger_punch_combo"
+					"value"				"1"
+				}
+				"mod wrench builds minisentry"
+				{
+					"attribute_class"	"wrench_builds_minisentry"
+					"value"	"1"
+				}
+				"max health additive bonus"
+				{
+					"attribute_class"	"add_maxhealth"
+					"value" "25"
+				}		
+				"engineer sentry build rate multiplier"
+				{
+					"attribute_class"	"sentry_build_rate_multiplier"
+					"value"		"2.5"
+				}
+				"crit mod disabled"
+				{
+					"attribute_class"	"mult_crit_chance"
+					"value"	"0"
+				}
+				"kill eater score type"
+				{
+					"attribute_class"	"kill_eater_score_type"
+					"value" 	"3"									
+				}
+				"kill eater score type 2"
+				{
+					"attribute_class"	"kill_eater_score_type_2"
+					"value" 	"0"									
+				}
+				"special taunt"
+				{
+					"attribute_class"	"special_taunt"
+					"value" "1"
+				}
+			}
+			"visuals"
+			{
+				"player_bodygroups"
+				{
+					"rightarm"			"1"
+				}
+				"animation_replacement"
+				{
+					"ACT_MELEE_VM_INSPECT_START"	"ACT_ITEM2_VM_INSPECT_START"
+					"ACT_MELEE_VM_INSPECT_IDLE"		"ACT_ITEM2_VM_INSPECT_IDLE"
+					"ACT_MELEE_VM_INSPECT_END"		"ACT_ITEM2_VM_INSPECT_END"
+				}
+			}
+			"mouse_pressed_sound"	"ui/item_robot_arm_pickup.wav"
+			"drop_sound"		"ui/item_robot_arm_drop.wav"
+		}
 		"144"
 		{
 			"name"	"Medic Mask"
@@ -10525,6 +10525,63 @@
 			"mouse_pressed_sound"	"ui/item_metal_weapon_pickup.wav"
 			"drop_sound"		"ui/item_metal_weapon_drop.wav"
 		}
+		"159"
+		{
+			"name"	"The Dalokohs Bar"
+			"first_sale_date"	"2010/09/29"
+			"prefab"	"weapon_lunchbox"
+			"craft_class"	"weapon"
+			"craft_material_type"	"weapon"
+			"capabilities"
+			{
+				"nameable"		"1"
+			}
+			"tags"
+			{
+				"can_heal_allies"		"1"
+				"can_extinguish"		"1"
+			}
+			"item_name"	"#TF_Unique_Lunchbox_Chocolate"
+			"item_description" "#TF_Lunchbox_Chocolate_desc"
+			"image_inventory"	"backpack/workshop/weapons/c_models/c_chocolate/c_chocolate"
+			"model_player"	"models/workshop/weapons/c_models/c_chocolate/c_chocolate.mdl"
+			"propername"	"1"
+			"inspect_panel_dist" "31"
+			"used_by_classes"
+			{
+				"heavy"	"1"
+			}
+			"static_attrs"
+			{
+				"min_viewmodel_offset"			"10 0 -11"
+				"item_meter_charge_type"				"1"
+				"item_meter_charge_rate"	"10"
+				"meter_label"					"#TF_Sandwich"
+			}
+			"attributes"
+			{
+				"kill eater score type"
+				{
+					"attribute_class"	"kill_eater_score_type"
+					"value" 	"50" 
+				}
+				"lunchbox adds maxhealth bonus"
+				{
+					"attribute_class"	"set_weapon_mode"
+					"value"	"1"
+				}
+				"special taunt"
+				{
+					"attribute_class"	"special_taunt"
+					"value" "1"
+				}
+				"allowed in medieval mode"
+				{
+					"attribute_class"	"allowed_in_medieval_mode"
+					"value"	"1"
+				}
+			}
+		}
 		"182"
 		{
 			"name"	"Pyro Helm"
@@ -10557,73 +10614,7 @@
 			}
 			"mouse_pressed_sound" 	"ui/item_helmet_pickup.wav"
 			"drop_sound" 		"ui/item_helmet_drop.wav"
-		}
-		"307"
-		{
-			"name"	"The Ullapool Caber"
-			"first_sale_date"	"2010/12/08"
-			"item_class"	"tf_weapon_stickbomb"
-			"craft_class"	"weapon"
-			"craft_material_type"	"weapon"
-			"tags"
-			{
-				"can_deal_damage"		"1"
-				"can_deal_gib_damage"	"1"
-				"can_be_equipped_by_soldier_or_demo"	"1"
-			}
-			"show_in_armory"	"1"
-			"item_type_name"	"#TF_Weapon_StickBomb"
-			"item_name"	"#TF_UllapoolCaber"
-			"item_description"	"#TF_UllapoolCaber_Desc"
-			"item_logname"	"ullapool_caber"
-			"item_iconname"	"ullapool_caber"
-			"item_slot"	"melee"
-			"item_quality"	"unique"
-			"propername"	"1"
-			"min_ilevel"	"10"
-			"max_ilevel"	"10"
-			"image_inventory" "backpack/workshop/weapons/c_models/c_caber/c_caber"
-			"image_inventory_size_w"		"128"
-			"image_inventory_size_h"		"82"
-			"inspect_panel_dist" 				"35"			
-			"model_player"	"models/workshop/weapons/c_models/c_caber/c_caber.mdl"
-			"attach_to_hands" "1"
-			"used_by_classes"
-			{
-				"demoman"	"1"
-			}
-			"static_attrs"
-			{
-				"min_viewmodel_offset"		"12 0 -17"				
-			}
-			"mouse_pressed_sound"	"ui/item_metal_weapon_pickup.wav"
-			"drop_sound"		"ui/item_metal_weapon_drop.wav"
-			"attributes"
-			{
-				"fire rate penalty"
-				{
-					"attribute_class"	"mult_postfiredelay"
-					"value"	"1.2"
-				}
-				"single wep deploy time increased"
-				{
-					"attribute_class"	"mult_single_wep_deploy_time"
-					"value"	"2.0"
-				}
-				"crit mod disabled"
-				{
-					"attribute_class"	"mult_crit_chance"
-					"value"	"0"
-				}
-			}
-		}
-		"308"
-		{
-			"name"			"The Loch-n-Load"
-			"prefab" "weapon_lochnload"
-			"first_sale_date"	"2010/12/08"
-			"particle_suffix"	"loch_n_load"
-		}
+     		}
 	}
 	"attributes"
 	{
@@ -12043,6 +12034,16 @@
 			"description_format"	"value_is_percentage"
 			"hidden"	"0"
 			"effect_type"	"negative"
+			"stored_as_integer"	"0"
+		}
+		"139"
+		{
+			"name"	"lunchbox adds maxhealth bonus"
+			"attribute_class"	"set_weapon_mode"
+			"description_string"	"#Attrib_LunchboxAddsMaxHealth"
+			"description_format"	"value_is_additive"
+			"hidden"	"0"
+			"effect_type"	"positive"
 			"stored_as_integer"	"0"
 		}
 		"140"
@@ -18023,6 +18024,14 @@
 			"hidden"	"1"
 			"effect_type"	"negative"
 			"stored_as_integer"	"0"
+		}
+		"2049"
+		{
+			"name"	"gunslinger punch combo"
+			"attribute_class"	"gunslinger_punch_combo"
+			"description_format"	"value_is_additive"
+			"description_string"	"#Attrib_GunslingerPunchCombo"
+			"effect_type"			"positive"
 		}
 		"2050"
 		{
