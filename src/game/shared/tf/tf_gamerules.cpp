@@ -541,8 +541,8 @@ extern ConVar mp_autoteambalance;
 
 // STAGING_SPY
 ConVar tf_feign_death_activate_damage_scale( "tf_feign_death_activate_damage_scale", "0.25", FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY );
-ConVar tf_feign_death_damage_scale( "tf_feign_death_damage_scale", "0.35", FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY );
-ConVar tf_stealth_damage_reduction( "tf_stealth_damage_reduction", "0.8", FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY );
+ConVar tf_feign_death_damage_scale( "tf_feign_death_damage_scale", "0.1", FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY );
+ConVar tf_stealth_damage_reduction( "tf_stealth_damage_reduction", "1", FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY );
 
 // training
 ConVar training_class( "training_class", "3", FCVAR_REPLICATED, "Class to use in training." );
