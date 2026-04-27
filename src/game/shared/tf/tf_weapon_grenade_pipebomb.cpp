@@ -1276,17 +1276,5 @@ float CTFGrenadePipebombProjectile::GetDamageRadius()
 {
 	float flRadiusMod = 1.0f;
 
-#ifdef GAME_DLL
-	// winbomb prevention.
-	// Air Det
-	if ( m_iType == TF_GL_MODE_REMOTE_DETONATE )
-	{
-		if ( m_bTouched == false )
-		{
-			float flArmTime = tf_grenadelauncher_livetime.GetFloat();
-			flRadiusMod *= RemapValClamped( gpGlobals->curtime - m_flCreationTime, flArmTime, flArmTime + tf_sticky_radius_ramp_time.GetFloat(), tf_sticky_airdet_radius.GetFloat(), 1.0 );
-		}
-	}
-#endif // GAME_DLL
 	return BaseClass::GetDamageRadius() * flRadiusMod;
 }
