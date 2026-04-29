@@ -116,7 +116,6 @@ void CTFLunchBox::Precache( void )
 	{
 		PrecacheModel( "models/items/medkit_medium.mdl" );
 		PrecacheModel( LUNCHBOX_DROP_MODEL );
-		PrecacheModel( LUNCHBOX_STEAK_DROP_MODEL );
 		PrecacheModel( LUNCHBOX_CHOCOLATE_BAR_DROP_MODEL );
 	}
 
@@ -489,6 +488,31 @@ bool CTFLunchBox_Drink::Holster( CBaseCombatWeapon *pSwitchingTo )
 	}
 
 	return BaseClass::Holster( pSwitchingTo );
+}
+
+//-----------------------------------------------------------------------------
+// Purpose:
+//-----------------------------------------------------------------------------
+const char* CTFLunchBox_Drink::ModifyEventParticles( const char* token )
+{
+	if ( GetLunchboxType() == LUNCHBOX_ADDS_MINICRITS )
+	{
+		if ( FStrEq( token, "energydrink_splash") )
+		{
+			CEconItemView *pItem = m_AttributeManager.GetItem();
+			int iSystems = pItem->GetStaticData()->GetNumAttachedParticles( GetTeamNumber() );
+			for ( int i = 0; i < iSystems; i++ )
+			{
+				attachedparticlesystem_t *pSystem = pItem->GetStaticData()->GetAttachedParticleData( GetTeamNumber(),i );
+				if ( pSystem->iCustomType == 1 )
+				{
+					return pSystem->pszSystemName;
+				}
+			}
+		}
+	}
+
+	return BaseClass::ModifyEventParticles( token );
 }
 
 #endif // CLIENT_DLL

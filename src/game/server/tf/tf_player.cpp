@@ -15376,12 +15376,19 @@ void CTFPlayer::DoTauntAttack( void )
 			{
 				float flDropDeadTime = ( 100.f / tf_scout_energydrink_consume_rate.GetFloat() ) + 1.f;	// Just in case.  Normally over in 8 seconds.
 
-
-				m_Shared.AddCond( TF_COND_PHASE, flDropDeadTime );
-
-				if ( HasTheFlag() )
+				CTFLunchBox *pLunchbox = static_cast< CTFLunchBox* >( pActiveWeapon );
+				if ( pLunchbox && pLunchbox->GetLunchboxType() == LUNCHBOX_ADDS_MINICRITS )
 				{
-					DropFlag();
+					m_Shared.AddCond( TF_COND_ENERGY_BUFF, flDropDeadTime );
+				}
+				else
+				{
+					m_Shared.AddCond( TF_COND_PHASE, flDropDeadTime );
+
+					if (HasTheFlag())
+					{
+						DropFlag();
+					}
 				}
 
 				SelectLastItem();
