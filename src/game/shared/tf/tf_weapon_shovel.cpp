@@ -89,44 +89,112 @@ void CTFShovel::PrimaryAttack()
 
 	BaseClass::PrimaryAttack();
 }
+
+// -----------------------------------------------------------------------------
+// Purpose: 
+// -----------------------------------------------------------------------------
+float CTFShovel::GetSpeedMod(void)
+{
+	if (m_bHolstering || !HasDamageBoost())
+		return 1.0f;
+
+	CTFPlayer* pOwner = ToTFPlayer( GetOwner());
+	if (!pOwner)
+		return 1.0f;
+
+	int iHealth = pOwner->GetHealth();
+
+	if (iHealth <= 40)  return 1.6f;  
+	if (iHealth <= 80)  return 1.4f;  
+	if (iHealth <= 120) return 1.2f;  
+	if (iHealth <= 160) return 1.1f;  
+
+	return 1.0f; 
+}
+
 // -----------------------------------------------------------------------------
 // Purpose:
 // -----------------------------------------------------------------------------
 void CTFShovel::ItemPreFrame( void )
 {
-	return BaseClass::ItemPreFrame();
+	CTFPlayer* pOwner = ToTFPlayer( GetOwner() );
+	if (pOwner && pOwner->IsAlive() && HasDamageBoost())
+	{
+		float flCurrentHealthRatio = (float)pOwner->GetHealth() / (float)pOwner->GetMaxHealth();
+		if (flCurrentHealthRatio != m_flLastHealthRatio)
+		{
+			pOwner->TeamFortress_SetSpeed();
+			m_flLastHealthRatio = flCurrentHealthRatio;
+		}
+	}
+	BaseClass::ItemPreFrame();
 }
 
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-float CTFShovel::GetMeleeDamage( CBaseEntity *pTarget, int* piDamageType, int* piCustomDamage )
+float CTFShovel::GetMeleeDamage(CBaseEntity* pTarget, int* piDamageType, int* piCustomDamage)
 {
-	float flDamage = BaseClass::GetMeleeDamage( pTarget, piDamageType, piCustomDamage );
+	if (!HasDamageBoost())
+		return BaseClass::GetMeleeDamage(pTarget, piDamageType, piCustomDamage);
 
-	if ( !HasDamageBoost() )
-		return flDamage;
+	CTFPlayer* pOwner = ToTFPlayer(GetOwner());
+	if (!pOwner)
+		return 33.0f;
 
-	CTFPlayer *pOwner = ToTFPlayer( GetOwner() );
-	if ( !pOwner )
-		return 0;
+	int iHealth = pOwner->GetHealth();
 
-	float flOwnerHealthRatio = (float) pOwner->GetHealth() / (float) pOwner->GetMaxHealth();
-	float flDamageScale = RemapValClamped( flOwnerHealthRatio, 0.f, 1.f, 1.65f, 0.5f );
+	if (iHealth >= 200) return 33.0f;
+	if (iHealth >= 121) return 65.0f; 
+	if (iHealth >= 100) return 73.0f;
+	if (iHealth >= 50)  return 93.0f;
 
-	return flDamage * flDamageScale;
+	return 113.0f; 
 }
 
 //-----------------------------------------------------------------------------
-// Purpose: 
+// Purpose:  
 //-----------------------------------------------------------------------------
-bool CTFShovel::Holster( CBaseCombatWeapon *pSwitchingTo )
+bool CTFShovel::Deploy(void)
+{
+	CTFPlayer* pOwner = ToTFPlayer(GetOwner());
+	if (pOwner)
+	{
+		m_flLastHealthRatio = (float)pOwner->GetHealth() / (float)pOwner->GetMaxHealth();
+	}
+	return BaseClass::Deploy();
+}
+
+//-----------------------------------------------------------------------------
+// Purpose:
+//-----------------------------------------------------------------------------
+bool CTFShovel::Holster(CBaseCombatWeapon* pSwitchingTo)
 {
 	m_bHolstering = true;
-	bool ret = BaseClass::Holster( pSwitchingTo );
+	CTFPlayer* pOwner = ToTFPlayer(GetOwner());
+	if (pOwner)
+	{
+		pOwner->TeamFortress_SetSpeed();
+	}
+	bool ret = BaseClass::Holster(pSwitchingTo);
 	m_bHolstering = false;
-
 	return ret;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CTFShovel::MoveSpeedThink(void)
+{
+	CTFPlayer* pOwner = ToTFPlayer(GetOwner());
+	if (!pOwner || !pOwner->IsAlive() || this != pOwner->GetActiveWeapon())
+		return;
+
+	pOwner->TeamFortress_SetSpeed();
+
+	m_flLastHealthRatio = (float)pOwner->GetHealth() / (float)pOwner->GetMaxHealth();
+
+	SetContextThink(&CTFShovel::MoveSpeedThink, gpGlobals->curtime + 0.25f, "SHOVEL_SPEED_THINK");
 }
 
 #ifndef CLIENT_DLL
