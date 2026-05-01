@@ -5663,14 +5663,8 @@ void CTFPlayerShared::OnAddFeignDeath( void )
 		AddCond( TF_COND_STEALTHED, -1.f, m_pOuter );
 	}
 
-	// STAGING_SPY
-	// Add a speed boost while feigned and afterburn immunity while running away
-	AddCond( TF_COND_SPEED_BOOST, tf_feign_death_speed_duration.GetFloat() );
-	//AddCond(TF_COND_AFTERBURN_IMMUNE, tf_feign_death_speed_duration.GetFloat());
-
 	SetFeignDeathReady( false );
 
-	m_flFeignDeathEnd = gpGlobals->curtime + tf_feign_death_speed_duration.GetFloat();
 }
 
 //-----------------------------------------------------------------------------
@@ -9976,6 +9970,14 @@ bool CTFPlayer::CanAttack( int iCanAttackFlags )
 
 	Assert( pRules );
 
+	if ((m_Shared.GetStealthNoAttackExpireTime() > gpGlobals->curtime && !m_Shared.InCond(TF_COND_STEALTHED_USER_BUFF)) || m_Shared.InCond(TF_COND_STEALTHED))
+	{
+#ifdef CLIENT_DLL
+		HintMessage(HINT_CANNOT_ATTACK_WHILE_CLOAKED, true, true);
+#endif
+		return false;
+	}
+
 	if ( m_Shared.IsFeignDeathReady() )
 	{
 #ifdef CLIENT_DLL
@@ -11529,37 +11531,6 @@ void CTFPlayerShared::UpdateCloakMeter( void )
 		{
 			FadeInvis( 1.0f );
 		}
-
-		// Update Debuffs
-		// Decrease duration if cloaked
-#ifdef GAME_DLL
-		// staging_spy
-		float flReduction = gpGlobals->frametime * 0.75f;
-		for ( int i = 0; g_aDebuffConditions[i] != TF_COND_LAST; i++ )
-		{
-			if ( InCond( g_aDebuffConditions[i] ) )
-			{
-				if ( m_ConditionData[g_aDebuffConditions[i]].m_flExpireTime != PERMANENT_CONDITION )
-				{			
-					m_ConditionData[g_aDebuffConditions[i]].m_flExpireTime = MAX( m_ConditionData[g_aDebuffConditions[i]].m_flExpireTime - flReduction, 0 );
-				}
-				// Burning and Bleeding and extra timers
-				if ( g_aDebuffConditions[i] == TF_COND_BURNING )
-				{
-					// Reduce the duration of this burn
-					m_flAfterburnDuration -= flReduction;
-				}
-				else if ( g_aDebuffConditions[i] == TF_COND_BLEEDING )
-				{
-					// Reduce the duration of this bleeding 
-					FOR_EACH_VEC( m_PlayerBleeds, i )
-					{
-						m_PlayerBleeds[i].flBleedingRemoveTime -= flReduction;
-					}
-				}
-			}
-		}
-#endif
 	} 
 	else
 	{

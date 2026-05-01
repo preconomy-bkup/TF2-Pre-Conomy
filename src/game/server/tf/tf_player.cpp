@@ -12941,8 +12941,6 @@ void CTFPlayer::SpyDeadRingerDeath( const CTakeDamageInfo& info )
 	if ( !CanGoInvisible( true ) || ( m_Shared.GetSpyCloakMeter() < 100.0f ) )
 		return;
 
-	//m_Shared.SetSpyCloakMeter( 50.0f );
-
 	m_bGoingFeignDeath = true; 
 
 	FeignDeath( info, true );
