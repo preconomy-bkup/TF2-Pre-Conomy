@@ -63,8 +63,6 @@ END_DATADESC()
 #endif
 
 #define LUNCHBOX_DROP_MODEL  "models/items/plate.mdl"
-#define LUNCHBOX_STEAK_DROP_MODEL  "models/workshop/weapons/c_models/c_buffalo_steak/plate_buffalo_steak.mdl"
-#define LUNCHBOX_CHOCOLATE_BAR_DROP_MODEL		"models/workshop/weapons/c_models/c_chocolate/plate_chocolate.mdl"
 
 #define LUNCHBOX_DROPPED_MINS	Vector( -17, -17, -10 )
 #define LUNCHBOX_DROPPED_MAXS	Vector( 17, 17, 10 )
@@ -116,7 +114,6 @@ void CTFLunchBox::Precache( void )
 	{
 		PrecacheModel( "models/items/medkit_medium.mdl" );
 		PrecacheModel( LUNCHBOX_DROP_MODEL );
-		PrecacheModel( LUNCHBOX_CHOCOLATE_BAR_DROP_MODEL );
 	}
 
 	BaseClass::Precache();
@@ -154,6 +151,11 @@ bool CTFLunchBox::DropAllowed( void )
 	{
 		if ( pOwner->m_Shared.InCond( TF_COND_TAUNTING ) )
 			return false;
+	}
+
+	if ( GetLunchboxType() == LUNCHBOX_CHOCOLATE_BAR )
+	{
+		return false;
 	}
 
 	return true;
@@ -230,16 +232,6 @@ void CTFLunchBox::SecondaryAttack( void )
 		AngleVectors( angForward, &vecForward, &vecRight, &vecUp );
 		Vector vecVelocity = vecForward * 500.0;
 		
-		if ( nLunchBoxType == LUNCHBOX_CHOCOLATE_BAR )
-		{
-			pMedKit->SetModel( LUNCHBOX_CHOCOLATE_BAR_DROP_MODEL );
-			pMedKit->m_nSkin = ( pPlayer->GetTeamNumber() == TF_TEAM_RED ) ? 0 : 1;
-		}
-		else
-		{
-			pMedKit->SetModel( LUNCHBOX_DROP_MODEL );
-		}
-
 		pMedKit->SetAbsAngles( vec3_angle );
 		pMedKit->SetSize( LUNCHBOX_DROPPED_MINS, LUNCHBOX_DROPPED_MAXS );
 
