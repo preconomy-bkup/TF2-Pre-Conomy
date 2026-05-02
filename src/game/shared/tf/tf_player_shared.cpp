@@ -9008,7 +9008,7 @@ float CTFPlayer::TeamFortress_CalculateMaxSpeed( bool bIgnoreSpecialAbility /*= 
 	if ( m_Shared.IsCarryingObject() && bAllowSlowing )
 	{
 		// STAGING_ENGY
-		maxfbspeed *= 0.90f;
+		maxfbspeed *= 0.75f;
 	}
 
 	if ( m_Shared.IsLoserStateStunned() && bAllowSlowing )
