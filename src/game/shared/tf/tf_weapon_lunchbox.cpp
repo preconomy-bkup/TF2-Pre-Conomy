@@ -231,7 +231,9 @@ void CTFLunchBox::SecondaryAttack( void )
 		Vector vecForward, vecRight, vecUp;
 		AngleVectors( angForward, &vecForward, &vecRight, &vecUp );
 		Vector vecVelocity = vecForward * 500.0;
-		
+	
+		pMedKit->SetModel(LUNCHBOX_DROP_MODEL);
+
 		pMedKit->SetAbsAngles( vec3_angle );
 		pMedKit->SetSize( LUNCHBOX_DROPPED_MINS, LUNCHBOX_DROPPED_MAXS );
 
