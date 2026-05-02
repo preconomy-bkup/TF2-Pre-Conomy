@@ -10027,11 +10027,6 @@
 				{
 					"attribute_class"	"add_maxhealth"
 					"value" "25"
-				}		
-				"engineer sentry build rate multiplier"
-				{
-					"attribute_class"	"sentry_build_rate_multiplier"
-					"value"		"2.5"
 				}
 				"crit mod disabled"
 				{
@@ -10070,6 +10065,65 @@
 			"mouse_pressed_sound"	"ui/item_robot_arm_pickup.wav"
 			"drop_sound"		"ui/item_robot_arm_drop.wav"
 		}
+		"143"
+		{
+			"name"	"OSX Item"
+			"first_sale_date"	"2010/09/29"
+			"prefab"		"base_misc"
+			"loadondemand"	"1"
+			"hidden"	"0"
+			"item_class"	"tf_wearable"
+			"show_in_armory"	"1"
+			"item_type_name" "#TF_Wearable_Headphones"
+			"item_name"	"#TF_OSXItem"
+			"item_description"	"#TF_OSXItem_Desc"
+			"item_slot"	"misc"
+			"item_quality"	"unique"
+			"image_inventory"	"backpack/player/items/all_class/earbuds"
+			"image_inventory_size_w"		"128"
+			"image_inventory_size_h"		"82"
+			"model_player_per_class"
+			{
+				"basename"	"models/player/items/%s/%s_earbuds.mdl"
+			}
+			"drop_type"	"none"
+			"used_by_classes"
+			{
+				"scout"	"1"
+				"sniper"	"1"
+				"soldier"	"1"
+				"demoman"	"1"
+				"medic"	"1"
+				"heavy"	"1"
+				"spy" "1"
+				"engineer" "1"
+				"pyro" "1"
+			}
+			"visuals"
+			{
+				"attached_particlesystems"
+				{
+					"0"
+					{
+						"system"	"headphone_notes"
+						"attachment" "ear_R"
+					}
+					"1"
+					{
+						"system"	"headphone_notes"
+						"attachment" "ear_L"
+					}
+				}
+			}
+			"capabilities"
+			{
+				"nameable"		"1"
+			}
+			"static_attrs"
+			{
+				"limited quantity item"		"1"
+			}
+		}
 		"144"
 		{
 			"name"	"Medic Mask"
@@ -10103,6 +10157,302 @@
 			}
 			"mouse_pressed_sound"	"ui/item_hat_pickup.wav"
 			"drop_sound"		"ui/item_hat_drop.wav"
+		}
+		"145"
+		{
+			"name"	"Heavy Hair"
+			"first_sale_date"	"2010/09/29"
+			"prefab"		"base_hat"
+			"loadondemand"	"1"
+			"hidden"	"0"
+			"item_class"	"tf_wearable"
+			"craft_class"	"hat"
+			"craft_material_type"	"hat"
+			"capabilities"
+			{
+				"nameable"		"1"
+				"paintable"		"1"
+				"can_craft_if_purchased"	"1"
+			}
+			"show_in_armory"	"1"
+			"item_type_name" "#TF_Wearable_Hair"
+			"item_name"	"#TF_HeavyHair"
+			"item_description"	"#TF_HeavyHair_Desc"
+			"item_slot"	"head"
+			"equip_regions"
+			{
+				"hat"		"1"
+				"glasses"	"1"			
+			}
+			"item_quality"	"unique"
+			"image_inventory"	"backpack/player/items/heavy/hounddog"
+			"image_inventory_size_w"		"128"
+			"image_inventory_size_h"		"82"
+			"model_player"	"models/player/items/heavy/hounddog.mdl"
+			"drop_type"	"none"
+			"propername"	"1"
+			"used_by_classes"
+			{
+				"heavy"	"1"
+			}
+			"mouse_pressed_sound" 	"ui/item_hat_pickup.wav"
+			"drop_sound" 		"ui/item_hat_drop.wav"
+		}
+		"146"
+		{
+			"name"	"Demoman Hallmark"
+			"first_sale_date"	"2010/09/29"
+			"prefab"		"base_hat"
+			"loadondemand"	"1"
+			"hidden"	"0"
+			"item_class"	"tf_wearable"
+			"craft_class"	"hat"
+			"craft_material_type"	"hat"
+			"capabilities"
+			{
+				"nameable"		"1"
+				"paintable"		"1"
+				"can_craft_if_purchased"	"1"
+			}
+			"show_in_armory"	"1"
+			"item_type_name" "#TF_Wearable_Hat"
+			"item_name"	"#TF_DemomanHallmark"
+			"item_description"	"#TF_DemomanHallmark_Desc"
+			"item_slot"	"head"
+			"equip_region"	"hat"
+			"item_quality"	"unique"
+			"image_inventory"	"backpack/player/items/demo/hallmark"
+			"image_inventory_size_w"		"128"
+			"image_inventory_size_h"		"82"
+			"model_player"	"models/player/items/demo/hallmark.mdl"
+			"drop_type"	"drop"
+			"used_by_classes"
+			{
+				"demoman"	"1"
+			}
+			"visuals"
+			{
+				"player_bodygroups"
+				{
+					"hat"			"1"
+				}
+			}
+			"mouse_pressed_sound"	"ui/item_hat_pickup.wav"
+			"drop_sound"		"ui/item_hat_drop.wav"
+		}
+		"147"
+		{
+			"name"	"Spy Noble Hair"
+			"first_sale_date"	"2010/09/29"
+			"prefab"		"base_hat"
+			"loadondemand"	"1"
+			"hidden"	"0"
+			"item_class"	"tf_wearable"
+			"craft_class"	"hat"
+			"craft_material_type"	"hat"
+			"capabilities"
+			{
+				"nameable"		"1"
+				"paintable"		"1"
+				"can_craft_if_purchased"	"1"
+			}
+			"show_in_armory"	"1"
+			"item_type_name" "#TF_Wearable_Hair"
+			"item_name"	"#TF_SpyNobleHair"
+			"item_description"	"#TF_SpyNobleHair_Desc"
+			"item_slot"	"head"
+			"equip_region"	"hat"
+			"item_quality"	"unique"
+			"image_inventory"	"backpack/player/items/spy/noblehair"
+			"image_inventory_size_w"		"128"
+			"image_inventory_size_h"		"82"
+			"model_player"	"models/player/items/spy/noblehair.mdl"
+			"drop_type"	"none"
+			"used_by_classes"
+			{
+				"spy"	"1"
+			}
+			"visuals"
+			{
+				"player_bodygroups"
+				{
+					"hat"			"1"
+				}
+			}
+			"mouse_pressed_sound"	"ui/item_hat_pickup.wav"
+			"drop_sound"		"ui/item_hat_drop.wav"
+		}
+		"148"
+		{
+			"name"	"Engineer Welding Mask"
+			"first_sale_date"	"2010/09/29"
+			"prefab"		"base_hat"
+			"loadondemand"	"1"
+			"hidden"	"0"
+			"item_class"	"tf_wearable"
+			"craft_class"	"hat"
+			"craft_material_type"	"hat"
+			"capabilities"
+			{
+				"nameable"		"1"
+				"can_craft_if_purchased"	"1"
+			}
+			"show_in_armory"	"1"
+			"item_type_name" "#TF_Wearable_Mask"
+			"item_name"	"#TF_EngineerWeldingMask"
+			"item_description"	"#TF_EngineerWeldingMask_Desc"
+			"item_slot"	"head"
+			"equip_region"	"hat"
+			"item_quality"	"unique"
+			"image_inventory"	"backpack/player/items/engineer/weldingmask"
+			"image_inventory_size_w"		"128"
+			"image_inventory_size_h"		"82"
+			"model_player"	"models/player/items/engineer/weldingmask.mdl"
+			"drop_type"	"drop"
+			"used_by_classes"
+			{
+				"engineer"	"1"
+			}
+			"visuals"
+			{
+				"player_bodygroups"
+				{
+					"hat"			"1"
+				}
+				"playback_activity"
+				{
+					"on_spawn"	"ACT_IDLE"
+					"start_building"	"ACT_RUN"
+					"stop_building"	"ACT_IDLE"
+				}
+			}
+			"mouse_pressed_sound" 	"ui/item_helmet_pickup.wav"
+			"drop_sound" 		"ui/item_helmet_drop.wav"
+		}
+		"150"
+		{
+			"name"	"Scout Beanie"
+			"first_sale_date"	"2010/09/29"
+			"prefab"		"base_hat"
+			"loadondemand"	"1"
+			"item_class"	"tf_wearable"
+			"craft_class"	"hat"
+			"craft_material_type"	"hat"
+			"capabilities"
+			{
+				"nameable"		"1"
+				"paintable"		"1"
+				"can_craft_if_purchased"	"1"
+			}
+			"show_in_armory"	"1"
+			"item_type_name" "#TF_Wearable_Hat"
+			"item_name"	"#TF_ScoutBeanie"
+			"item_description"	"#TF_ScoutBeanie_Desc"
+			"item_slot"	"head"
+			"equip_region"	"hat"
+			"item_quality"	"unique"
+			"image_inventory"	"backpack/player/items/scout/beanie"
+			"image_inventory_size_w"		"128"
+			"image_inventory_size_h"		"82"
+			"model_player"	"models/player/items/scout/beanie.mdl"
+			"drop_type"	"drop"
+			"used_by_classes"
+			{
+				"scout"	"1"
+			}
+			"visuals"
+			{
+				"player_bodygroups"
+				{
+					"hat"			"1"
+					"headphones"	"1"
+				}
+			}
+			"mouse_pressed_sound"	"ui/item_hat_pickup.wav"
+			"drop_sound"		"ui/item_hat_drop.wav"
+		}
+		"151"
+		{
+			"name"	"Pyro Brain Sucker"
+			"first_sale_date"	"2010/09/29"
+			"prefab"		"base_hat"
+			"loadondemand"	"1"
+			"item_class"	"tf_wearable"
+			"craft_class"	"hat"
+			"craft_material_type"	"hat"
+			"capabilities"
+			{
+				"nameable"		"1"
+				"paintable"		"1"
+				"can_craft_if_purchased"	"1"
+			}
+			"show_in_armory"	"1"
+			"item_type_name" "#TF_Wearable_Mascot"
+			"item_name"	"#TF_PyroBrainSucker"
+			"item_description"	"#TF_PyroBrainSucker_Desc"
+			"item_slot"	"head"
+			"equip_region"	"hat"
+			"item_quality"	"unique"
+			"image_inventory"	"backpack/player/items/pyro/pyro_brainsucker"
+			"image_inventory_size_w"		"128"
+			"image_inventory_size_h"		"82"
+			"model_player"	"models/player/items/pyro/pyro_brainsucker.mdl"
+			"drop_type"	"none"
+			"used_by_classes"
+			{
+				"pyro"	"1"
+			}
+			"attributes"
+			{
+				"counts as assister is some kind of pet this update is going to be awesome"
+				{
+					"attribute_class"	"counts_as_assister"
+					"value"				"2"
+				}
+			}
+			"mouse_pressed_sound"	"ui/item_gooey_pickup.wav"
+			"drop_sound"			"ui/item_gooey_pickup.wav"
+		}
+		"152"
+		{
+			"name"	"Soldier Samurai Hat"
+			"first_sale_date"	"2010/09/29"
+			"prefab"		"base_hat"
+			"loadondemand"	"1"
+			"item_class"	"tf_wearable"
+			"craft_class"	"hat"
+			"craft_material_type"	"hat"
+			"capabilities"
+			{
+				"nameable"		"1"
+				"paintable"		"1"
+				"can_craft_if_purchased"	"1"
+			}
+			"show_in_armory"	"1"
+			"item_type_name" "#TF_Wearable_Helmet"
+			"item_name"	"#TF_SoldierSamurai"
+			"item_description"	"#TF_SoldierSamurai_Desc"
+			"item_slot"	"head"
+			"equip_region"	"hat"
+			"item_quality"	"unique"
+			"image_inventory"	"backpack/player/items/soldier/soldier_samurai"
+			"image_inventory_size_w"		"128"
+			"image_inventory_size_h"		"82"
+			"model_player"	"models/player/items/soldier/soldier_samurai.mdl"
+			"drop_type"	"drop"
+			"used_by_classes"
+			{
+				"soldier"	"1"
+			}
+			"visuals"
+			{
+				"player_bodygroups"
+				{
+					"hat"			"1"
+				}
+			}
+			"mouse_pressed_sound" 	"ui/item_helmet_pickup.wav"
+			"drop_sound" 		"ui/item_helmet_drop.wav"
 		}
 		"153"
 		{
@@ -10322,6 +10672,48 @@
 			}
 			"mouse_pressed_sound"	"ui/item_metal_weapon_pickup.wav"
 			"drop_sound"		"ui/item_metal_weapon_drop.wav"
+		}
+		"158"
+		{
+			"name"	"Sniper Pith Helmet"
+			"first_sale_date"	"2010/09/29"
+			"prefab"		"base_hat"
+			"loadondemand"	"1"
+			"hidden"	"0"
+			"item_class"	"tf_wearable"
+			"craft_class"	"hat"
+			"craft_material_type"	"hat"
+			"capabilities"
+			{
+				"nameable"		"1"
+				"paintable"		"1"
+				"can_craft_if_purchased"	"1"
+			}
+			"show_in_armory"	"1"
+			"item_type_name" "#TF_Wearable_Helmet"
+			"item_name"	"#TF_SniperPithHelmet"
+			"item_description"	"#TF_SniperPithHelmet_Desc"
+			"item_slot"	"head"
+			"equip_region"	"hat"
+			"item_quality"	"unique"
+			"image_inventory"	"backpack/player/items/sniper/pith_helmet"
+			"image_inventory_size_w"		"128"
+			"image_inventory_size_h"		"82"
+			"model_player"	"models/player/items/sniper/pith_helmet.mdl"
+			"drop_type"	"drop"
+			"used_by_classes"
+			{
+				"sniper"	"1"
+			}
+			"visuals"
+			{
+				"player_bodygroups"
+				{
+					"hat"			"1"
+				}
+			}
+			"mouse_pressed_sound" 	"ui/item_helmet_pickup.wav"
+			"drop_sound" 		"ui/item_helmet_drop.wav"
 		}
 		"159"
 		{
@@ -17991,6 +18383,7 @@
 			"attribute_class"	"gunslinger_punch_combo"
 			"description_format"	"value_is_additive"
 			"description_string"	"#Attrib_GunslingerPunchCombo"
+			"hidden"	"1"
 			"effect_type"			"positive"
 		}
 		"2050"
