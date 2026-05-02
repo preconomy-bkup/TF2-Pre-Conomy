@@ -1365,7 +1365,7 @@ bool CBaseObject::StartBuilding( CBaseEntity *pBuilder )
 	}
 	else if ( IsMiniBuilding() )
 	{
-		int iHealth = GetMaxHealthForCurrentLevel() / 2;
+		int iHealth = GetMaxHealthForCurrentLevel();
 		SetHealth( iHealth );
 	}
 	else
@@ -2187,7 +2187,7 @@ void CBaseObject::CreateObjectGibs( void )
 	if ( IsMiniBuilding() )
 	{
 		// STAGING_ENGY
-		nMetalPerGib = 0;
+		nMetalPerGib = 7;
 		nLeftOver = 0;
 	}
 
@@ -2852,6 +2852,9 @@ bool CBaseObject::CanBeUpgraded( CTFPlayer *pPlayer )
 int CBaseObject::Command_Repair( CTFPlayer *pActivator, float flAmount, float flRepairMod, float flRepairToMetalRatio /*= 3.f*/, bool bSendEvent /*= false*/ )
 {
 	if ( !CanBeRepaired() )
+		return false;
+
+	if ( IsMiniBuilding() )
 		return false;
 	
 	float flRepairAmountMax = flAmount * flRepairMod;

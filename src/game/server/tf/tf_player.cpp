@@ -6722,6 +6722,10 @@ float CTFPlayer::GetObjectBuildSpeedMultiplier( int iObjectType, bool bIsRedeplo
 	switch( iObjectType )
 	{
 	case OBJ_SENTRYGUN:
+		if (GetMaxHealth() > 125)
+		{
+			return 2.62f;
+		}
 		CALL_ATTRIB_HOOK_FLOAT( flBuildRate, sentry_build_rate_multiplier );
 		flBuildRate += bIsRedeploy ? 2.0 : 0.0f;
 		break;
