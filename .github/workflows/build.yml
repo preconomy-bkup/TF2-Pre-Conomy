@@ -1,0 +1,90 @@
+# I'm old!
+name: Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2025
+            build_script: createallprojects.bat
+            build_cmd: msbuild game.sln /p:Configuration=Release /p:Platform=win64 /m
+            artifact_name: rush-windows
+          - os: ubuntu-latest
+            build_script: ./buildallprojects
+            build_cmd: ""
+            artifact_name: rush-linux
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Setup Python (Windows)
+        if: runner.os == 'Windows'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Python (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y python3
+
+      - name: Install Linux build dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install -y g++-multilib ninja-build lib32z1-dev podman
+
+      - name: Setup MSBuild (Windows only)
+        if: runner.os == 'Windows'
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Generate project files (Windows)
+        run: ${{ matrix.build_script }}
+        shell: cmd
+        working-directory: src
+        if: runner.os == 'Windows'
+
+      - name: Create ccache folder
+        run: mkdir -p /home/runner/.ccache
+        shell: bash
+        if: runner.os == 'Linux'
+
+      - name: Build (Linux)
+        run: ${{ matrix.build_script }}
+        working-directory: src
+        shell: bash
+        if: runner.os == 'Linux'
+
+      - name: Clean and strip (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          find game/tf_goldrush_dev/bin/linux64 -type f -executable -exec strip --strip-all {} +
+          if [ -f game/tf_goldrush_dev_linux64 ]; then
+            strip --strip-all game/tf_goldrush_dev_linux64
+          fi
+        shell: bash
+
+      - name: Build (Windows only)
+        if: runner.os == 'Windows'
+        working-directory: src
+        run: ${{ matrix.build_cmd }}
+
+      - name: Clean up Windows build
+        if: runner.os == 'Windows'
+        run: |
+            for /r "game" %%f in (*.pdb) do del /q "%%f"
+        shell: cmd
+
+      - name: Upload Game Folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: game/
