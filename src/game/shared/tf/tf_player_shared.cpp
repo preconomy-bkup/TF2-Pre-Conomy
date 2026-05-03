@@ -167,7 +167,6 @@ ConVar tf_demoman_charge_drain_time( "tf_demoman_charge_drain_time", "1.5", FCVA
 
 // STAGING_SPY
 ConVar tf_feign_death_duration( "tf_feign_death_duration", "6.0", FCVAR_REPLICATED | FCVAR_DEVELOPMENTONLY | FCVAR_CHEAT, "Time that feign death buffs last." );
-ConVar tf_feign_death_speed_duration( "tf_feign_death_speed_duration", "0", FCVAR_REPLICATED | FCVAR_DEVELOPMENTONLY | FCVAR_CHEAT, "Time that feign death speed boost last." );
 
 ConVar tf_allow_taunt_switch( "tf_allow_taunt_switch", "0", FCVAR_REPLICATED, "0 - players are not allowed to switch weapons while taunting, 1 - players can switch weapons at the start of a taunt (old bug behavior), 2 - players can switch weapons at any time during a taunt." );
 
@@ -5646,11 +5645,6 @@ void CTFPlayerShared::OnRemoveStealthedUserBuffFade( void )
 //-----------------------------------------------------------------------------
 void CTFPlayerShared::OnAddFeignDeath( void )
 {
-#ifdef CLIENT_DLL
-	// STAGING_SPY
-	AddUberScreenEffect( m_pOuter );
-#else
-#endif
 	// Go stealth w/o sound or fade out.
 	if ( !IsStealthed() )
 	{
@@ -5659,6 +5653,7 @@ void CTFPlayerShared::OnAddFeignDeath( void )
 
 	SetFeignDeathReady( false );
 
+	m_flFeignDeathEnd = gpGlobals->curtime + tf_feign_death_duration.GetFloat();
 }
 
 //-----------------------------------------------------------------------------

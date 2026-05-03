@@ -540,7 +540,7 @@ extern ConVar tf_mm_strict;
 extern ConVar mp_autoteambalance;
 
 // STAGING_SPY
-ConVar tf_feign_death_activate_damage_scale( "tf_feign_death_activate_damage_scale", "0.25", FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY );
+ConVar tf_feign_death_activate_damage_scale( "tf_feign_death_activate_damage_scale", "0.1", FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY );
 ConVar tf_feign_death_damage_scale( "tf_feign_death_damage_scale", "0.1", FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY );
 ConVar tf_stealth_damage_reduction( "tf_stealth_damage_reduction", "1", FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY );
 
@@ -6227,8 +6227,14 @@ float CTFGameRules::ApplyOnDamageAliveModifyRules( const CTakeDamageInfo &info, 
 			// Reduce damage taken if we have recently feigned death.
 			if ( pVictim->m_Shared.InCond( TF_COND_FEIGN_DEATH ) || pVictim->m_Shared.IsFeignDeathReady() )
 			{
-				float flDamageReduction = tf_feign_death_activate_damage_scale.GetFloat();
+				// Set a constant reduction based on the Feign Death scale (no longer proportional)
+				float flDamageReduction = tf_feign_death_damage_scale.GetFloat();
 
+				// Keep this to handle the initial hit that triggers the Feign Death
+				if (pVictim->m_Shared.IsFeignDeathReady())
+				{
+					flDamageReduction = tf_feign_death_activate_damage_scale.GetFloat();
+				}
 				outParams.bSendPreFeignDamage = true;
 
 				float flBeforeflRealDamage = flRealDamage;
