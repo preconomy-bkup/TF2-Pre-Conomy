@@ -1164,11 +1164,6 @@ bool CTFWeaponBase::Deploy( void )
 		int iIsSword = 0;
 		CALL_ATTRIB_HOOK_INT_ON_OTHER( pLastWeapon, iIsSword, is_a_sword );
 		CALL_ATTRIB_HOOK_INT( iIsSword, is_a_sword );
-		if ( iIsSword )
-		{
-			// swords deploy and holster 75% slower
-			flDeployTimeMultiplier *= 1.75f;
-		}
 
 		int numHealers = pPlayer->m_Shared.GetNumHealers();
 		if ( numHealers == 0 )

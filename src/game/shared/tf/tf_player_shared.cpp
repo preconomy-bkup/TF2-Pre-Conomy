@@ -4828,12 +4828,6 @@ void CTFPlayerShared::OnAddShieldCharge( void )
 #else
 	m_hPlayersVisibleAtChargeStart.Purge();
 
-	// Remove debuffs
-	for ( int i = 0; g_aDebuffConditions[i] != TF_COND_LAST; i++ )
-	{
-		RemoveCond( g_aDebuffConditions[i] );
-	}
-
 	// store the players we CAN see for the TF_DEMOMAN_KILL_PLAYER_YOU_DIDNT_SEE achievement
 	CUtlVector<CTFPlayer *> vecPlayers;
 	CollectPlayers( &vecPlayers, ( m_pOuter->GetTeamNumber() == TF_TEAM_RED ) ? TF_TEAM_BLUE : TF_TEAM_RED, true );
