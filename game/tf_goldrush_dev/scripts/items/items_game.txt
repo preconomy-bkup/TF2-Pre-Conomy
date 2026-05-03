@@ -7989,39 +7989,6 @@
 			{
 				"limited quantity item"		"1"
 			}
-			"visuals"
-			{
-				"styles"
-				{
-					"0"
-					{
-						"name"		"#TF_HatAndHeadphones_Style"
-						"skin_red"		"0"
-						"skin_blu"		"1"
-					}
-					"1"
-					{
-						"name"		"#TF_NoHat_NoHeadphones_Style"
-						"skin_red"		"0"
-						"skin_blu"		"1"
-						"additional_hidden_bodygroups"
-						{
-							"hat"		"1"
-							"headphones"		"1"
-						}
-					}
-					"2"
-					{
-						"name"		"#TF_NoHat_Style"
-						"skin_red"		"0"
-						"skin_blu"		"1"
-						"additional_hidden_bodygroups"
-						{
-							"hat"		"1"
-						}
-					}
-				}
-			}
 			"mouse_pressed_sound" 	"ui/item_helmet_pickup.wav"
 			"drop_sound" 		"ui/item_helmet_drop.wav"
 		}
