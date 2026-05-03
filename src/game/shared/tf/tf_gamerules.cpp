@@ -6227,14 +6227,8 @@ float CTFGameRules::ApplyOnDamageAliveModifyRules( const CTakeDamageInfo &info, 
 			// Reduce damage taken if we have recently feigned death.
 			if ( pVictim->m_Shared.InCond( TF_COND_FEIGN_DEATH ) || pVictim->m_Shared.IsFeignDeathReady() )
 			{
-				// Damage reduction is proportional to cloak remaining (60%->20%)
-				float flDamageReduction = RemapValClamped( pVictim->m_Shared.GetSpyCloakMeter(), 50.0f, 0.0f, tf_feign_death_damage_scale.GetFloat(), tf_stealth_damage_reduction.GetFloat() );
+				float flDamageReduction = tf_feign_death_activate_damage_scale.GetFloat();
 
-				// On Activate Reduce Remaining Cloak by 50%
-				if ( pVictim->m_Shared.IsFeignDeathReady() )
-				{
-					flDamageReduction = tf_feign_death_activate_damage_scale.GetFloat();
-				}
 				outParams.bSendPreFeignDamage = true;
 
 				float flBeforeflRealDamage = flRealDamage;
