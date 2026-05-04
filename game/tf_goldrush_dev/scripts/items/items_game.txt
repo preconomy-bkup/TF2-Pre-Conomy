@@ -2785,7 +2785,7 @@
 			"image_inventory"	"backpack/weapons/c_models/c_backburner/c_backburner"
 			"image_inventory_size_w"		"128"
 			"image_inventory_size_h"		"82"
-			"model_player"	"models/weapons/c_models/c_flamethrower/c_backburner.mdl"
+			"model_player"	"models/weapons/c_models/c_flamethrower/c_flamethrower.mdl"
 			"attach_to_hands"	"1"
 			"item_quality"	"unique"
 			"propername"	"1"
@@ -2804,6 +2804,13 @@
 				"sound_single_shot"	"Weapon_BackBurner.FireStart"
 				"sound_special1"	"Weapon_BackBurner.FireLoop"
 				"sound_burst"	"Weapon_BackBurner.FireLoopCrit"
+				"attached_models"
+				{
+					"0"
+					{
+						"model"	"models/weapons/c_models/c_backburner/c_backburner.mdl"
+					}
+				}
 			}
 			"mouse_pressed_sound"	"ui/item_heavy_gun_pickup.wav"
 			"drop_sound"		"ui/item_heavy_gun_drop.wav"
@@ -3377,8 +3384,9 @@
 			"image_inventory"	"backpack/weapons/w_models/w_machete"
 			"image_inventory_size_w"		"128"
 			"image_inventory_size_h"		"82"
-			"model_player"	"models/weapons/c_models/c_machete/c_machete.mdl"
-			"attach_to_hands"	"1"
+			"model_player"	"models/weapons/v_models/v_machete_sniper.mdl"
+			"model_world"	"models/weapons/w_models/w_machete.mdl"
+			"attach_to_hands"	"0"
 			"used_by_classes"
 			{
 				"sniper"	"1"
@@ -4386,7 +4394,6 @@
 			"image_inventory_size_w"		"128"
 			"image_inventory_size_h"		"82"
 			"model_player"	"models/weapons/c_models/c_grenadelauncher/c_grenadelauncher.mdl"
-			"model_world"	"models/weapons/w_models/w_grenadelauncher.mdl"
 			"attach_to_hands"	"1"
 			"inspect_panel_dist" "55"
 			"used_by_classes"
@@ -6994,8 +7001,9 @@
 			"image_inventory"	"backpack/weapons/w_models/w_smg"
 			"image_inventory_size_w"		"128"
 			"image_inventory_size_h"		"82"
-			"model_player"	"models/weapons/c_models/c_smg/c_smg.mdl"
-			"attach_to_hands"	"1"
+			"model_player"	"models/weapons/v_models/v_smg_sniper.mdl"
+			"model_world"	"models/weapons/w_models/w_smg.mdl"
+			"attach_to_hands"	"0"
 			"used_by_classes"
 			{
 				"sniper"	"1"
@@ -7498,7 +7506,7 @@
 			"image_inventory"	"backpack/weapons/c_models/c_backburner/c_backburner"
 			"image_inventory_size_w"		"128"
 			"image_inventory_size_h"		"82"
-			"model_player"	"models/weapons/c_models/c_flamethrower/c_backburner.mdl"
+			"model_player"	"models/weapons/c_models/c_flamethrower/c_flamethrower.mdl"
 			"attach_to_hands"	"1"
 			"item_quality"	"unique"
 			"propername"	"1"
@@ -7521,7 +7529,7 @@
 				{
 					"0"
 					{
-						"model"	"models/weapons/c_models/c_flamethrower/c_flamethrower_pilotlight.mdl"
+						"model"	"models/weapons/c_models/c_backburner/c_backburner.mdl"
 					}
 				}
 			}
@@ -10699,8 +10707,8 @@
 				"can_extinguish"		"1"
 			}
 			"item_name"	"#TF_Unique_Lunchbox_Chocolate"
-			"image_inventory"	"backpack/workshop/weapons/c_models/c_chocolate/c_chocolate"
-			"model_player"	"models/workshop/weapons/c_models/c_chocolate/c_chocolate.mdl"
+			"image_inventory"	"backpack/weapons/c_models/c_chocolate/c_chocolate"
+			"model_player"	"models/weapons/c_models/c_chocolate/c_chocolate.mdl"
 			"propername"	"1"
 			"inspect_panel_dist" "31"
 			"used_by_classes"
@@ -10814,6 +10822,7 @@
 			"image_inventory_size_w"		"128"
 			"image_inventory_size_h"		"82"
 			"model_player"	"models/workshop/weapons/c_models/c_ttg_sam_gun/c_ttg_sam_gun.mdl"
+			"model_world"	"models/workshop/weapons/c_models/c_ttg_sam_gun/c_ttg_sam_gun.mdl"
 			"attach_to_hands" "1"
 			"used_by_classes"
 			{
