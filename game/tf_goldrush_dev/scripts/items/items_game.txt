@@ -5974,12 +5974,12 @@
 			"baseitem" "0"
 			"min_ilevel"	"1"
 			"max_ilevel"	"1"
-			"attach_to_hands"	"0"
 			"inspect_panel_dist" "40"
 			"image_inventory"	"backpack/weapons/w_models/w_shotgun"
 			"image_inventory_size_w"		"128"
 			"image_inventory_size_h"		"82"
-			"model_player"	"models/weapons/w_models/w_shotgun.mdl"
+			//"model_player"	"models/weapons/c_models/c_shotgun/c_shotgun.mdl"
+			"model_world"	"models/weapons/w_models/w_shotgun.mdl"
 			"mouse_pressed_sound"	"ui/item_heavy_gun_pickup.wav"
 			"drop_sound"		"ui/item_heavy_gun_drop.wav"
 			"particle_suffix"		"shotgun"
@@ -6017,9 +6017,8 @@
 			"item_quality"		"unique"
 			"min_ilevel"		"1"
 			"max_ilevel"		"99"
-			"attach_to_hands"	"1"
 			"image_inventory"	"backpack/weapons/w_models/w_shotgun"
-			"model_player"	"models/weapons/c_models/c_shotgun/c_shotgun.mdl"
+			//"model_player"	"models/weapons/c_models/c_shotgun/c_shotgun.mdl"
 			"used_by_classes"
 			{
 				"engineer"	"primary"
@@ -6869,6 +6868,7 @@
 			}
 			"attach_to_hands"	"1"
 			"model_player"	"models/weapons/c_models/c_shotgun/c_shotgun.mdl"
+			"model_world"	"models/weapons/w_models/w_shotgun.mdl"
 			"baseitem" "1"
 		}
 		"10"
