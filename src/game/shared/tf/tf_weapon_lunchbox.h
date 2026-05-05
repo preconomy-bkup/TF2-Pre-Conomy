@@ -26,7 +26,7 @@ enum lunchbox_weapontypes_t
 };
 
 #define TF_SANDWICH_REGENTIME	30
-#define TF_CHOCOLATE_BAR_REGENTIME	10
+#define TF_CHOCOLATE_BAR_REGENTIME	30
 
 //=============================================================================
 //

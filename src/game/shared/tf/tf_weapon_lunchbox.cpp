@@ -349,12 +349,12 @@ void CTFLunchBox::ApplyBiteEffects( CTFPlayer *pPlayer )
 	}
 	
 	// Then heal the player
-	int iHeal = ( nLunchBoxType == LUNCHBOX_CHOCOLATE_BAR ) ? 25 : 75;
+	int iHeal = ( nLunchBoxType == LUNCHBOX_CHOCOLATE_BAR ) ? 15 : 75;
 	int iHealType = DMG_GENERIC;
 	if ( ( nLunchBoxType == LUNCHBOX_CHOCOLATE_BAR ) && pPlayer->GetHealth() < ( 300.f + DALOKOHS_MAXHEALTH_BUFF ) )
 	{
 		iHealType = DMG_IGNORE_MAXHEALTH;
-		iHeal = Min( 25, 350 - pPlayer->GetHealth() );
+		iHeal = Min( 15, 350 - pPlayer->GetHealth() );
 	}
 
 	float flHealScale = 1.0f;
