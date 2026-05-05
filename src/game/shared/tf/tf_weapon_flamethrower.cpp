@@ -38,7 +38,7 @@
 	#include "halloween/merasmus/merasmus_trick_or_treat_prop.h"
 
 	ConVar  tf_flamethrower_velocity( "tf_flamethrower_velocity", "2300.0", FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY, "Initial velocity of flame damage entities." );
-	ConVar	tf_flamethrower_drag("tf_flamethrower_drag", "0.87", FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY, "Air drag of flame damage entities." );
+	ConVar	tf_flamethrower_drag("tf_flamethrower_drag", "0.89", FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY, "Air drag of flame damage entities." );
 	ConVar	tf_flamethrower_float("tf_flamethrower_float", "50.0", FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY, "Upward float velocity of flame damage entities." );
 	ConVar  tf_flamethrower_vecrand("tf_flamethrower_vecrand", "0.05", FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY, "Random vector added to initial velocity of flame damage entities." );
 
@@ -78,7 +78,7 @@ ConVar	tf_flamethrower_waterfall_damage_per_tick( "tf_flamethrower_waterfall_dam
 
 #if defined( GAME_DLL )
 // TODO These should be cheat upon shipping probably
-ConVar tf_airblast_cray( "tf_airblast_cray", "1", FCVAR_CHEAT,
+ConVar tf_airblast_cray( "tf_airblast_cray", "0", FCVAR_CHEAT,
                          "Use alternate cray airblast logic globally." );
 ConVar tf_airblast_cray_debug( "tf_airblast_cray_debug", "0", FCVAR_CHEAT,
                                "Enable debugging overlays & output for cray airblast.  "
@@ -110,7 +110,7 @@ ConVar tf_airblast_cray_ground_reflect( "tf_airblast_cray_ground_reflect", "1", 
                                         "If set, cray airblast reflects any airblast power directed into the ground "
                                         "off of it, to prevent ground-stuck and provide a bit more control over "
                                         "up-vs-forward vectoring" );
-ConVar tf_airblast_cray_ground_minz( "tf_airblast_cray_ground_minz", "100", FCVAR_CHEAT,
+ConVar tf_airblast_cray_ground_minz( "tf_airblast_cray_ground_minz", "268.3281572999747", FCVAR_CHEAT,
                                      "If set, cray airblast ensures the target has this minimum Z velocity after "
                                      "reflections and impulse have been applied. "
                                      "Set to 268.3281572999747 for exact old airblast Z behavior." );
