@@ -619,22 +619,13 @@ const char *CTFWeaponBase::GetViewModel( int iViewModel ) const
 	}
 
 	const CEconItemView *pItem = GetAttributeContainer()->GetItem();
-	if ( pPlayer && pItem->IsValid() )
+	if (pPlayer && pItem->IsValid() && pItem->GetStaticData()->ShouldAttachToHands())
 	{
-		const char* pszViewModel;
-		if ( pItem->GetStaticData()->ShouldAttachToHands() )
-		{
-			// Should always be valid, because players without classes shouldn't be carrying items
-			pszViewModel = pPlayer->GetPlayerClass()->GetHandModelName( iHandModelIndex );
-			Assert( pszViewModel );
-		}
-		else
-		{
-			// conn: This weapon must be using the old v_model system, so just get its model_player definition
-			pszViewModel = pItem->GetPlayerDisplayModel( pPlayer->GetPlayerClass()->GetClassIndex(), pPlayer->GetTeamNumber() );
-		}
+		// Should always be valid, because players without classes shouldn't be carrying items
+		const char* pszHandModel = pPlayer->GetPlayerClass()->GetHandModelName(iHandModelIndex);
+		Assert(pszHandModel);
 
-		return pszViewModel;
+		return pszHandModel;
 	}
 
 	return GetTFWpnData().szViewModel;
