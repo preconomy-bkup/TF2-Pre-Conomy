@@ -89,7 +89,7 @@ DESCRIPTION SERVER_OPTIONS
 		{ "0" }
 	}
 	
-	"tf_bot_count"
+	"tf_bot_add"
 	{
 		"Number of CPUs (bots)"
 		{ NUMBER 0 24 }
