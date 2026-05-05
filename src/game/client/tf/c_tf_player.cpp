@@ -4390,6 +4390,17 @@ bool C_TFPlayer::IsPlayerOnSteamFriendsList( C_BasePlayer *pPlayer )
 	return false;
 }
 
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void C_TFPlayer::PreThink(void)
+{
+	// Update timers.
+	UpdateTimers();
+
+	// Pass through to the base class think.
+	BaseClass::PreThink();
+}
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -4521,6 +4532,11 @@ void C_TFPlayer::ClientThink()
 	}
 
 	UpdatedMarkedForDeathEffect();
+}
+
+void C_TFPlayer::UpdateTimers(void)
+{
+	m_Shared.SharedThink();
 }
 
 void C_TFPlayer::Touch( CBaseEntity *pOther )
