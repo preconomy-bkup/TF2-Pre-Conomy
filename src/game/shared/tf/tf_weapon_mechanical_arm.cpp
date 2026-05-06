@@ -16,7 +16,6 @@
 #include "tf_fx.h"
 #include "tf_weapon_grenade_pipebomb.h"
 #include "tf_team.h"
-#include "tf_passtime_logic.h"
 #include "tf_gamerules.h"
 #else
 #include "c_tf_player.h"
