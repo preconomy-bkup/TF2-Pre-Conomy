@@ -111,7 +111,6 @@ public:
 	virtual void	ApplyPostHitEffects( const CTakeDamageInfo &inputInfo, CTFPlayer *pPlayer );
 	virtual void	FinishReload( void );
 	virtual bool	HasKnockback( void );
-	virtual bool	SendWeaponAnim( int iActivity );
 };
 
 class CTFShotgun_Soldier : public CTFShotgun

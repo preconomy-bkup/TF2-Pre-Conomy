@@ -125,11 +125,6 @@ void CTFWrench::OnFriendlyBuildingHit( CBaseObject *pObject, CTFPlayer *pPlayer,
 		// play success sound
 		WeaponSound( SPECIAL1 );
 	}
-	else
-	{
-		// play failure sound
-		WeaponSound( SPECIAL2 );
-	}
 }
 #endif
 

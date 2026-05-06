@@ -865,8 +865,10 @@ void CTFMinigun::StandardBlendingRules( CStudioHdr *hdr, Vector pos[], Quaternio
 //-----------------------------------------------------------------------------
 void CTFMinigun::UpdateBarrelMovement()
 {
-	if ( !prediction->IsFirstTimePredicted() )
+	if ( prediction->InPrediction() && !prediction->IsFirstTimePredicted() )
+	{
 		return;
+	}
 
 	if ( m_flBarrelCurrentVelocity != m_flBarrelTargetVelocity )
 	{
