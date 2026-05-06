@@ -316,7 +316,7 @@ static CDateBasedHolidayNoSpecificYear	g_Holiday_ValentinesDay	( "valentines",	"
 
 static CDateBasedHoliday	g_Holiday_MeetThePyro				( "meet_the_pyro",	"2012-06-26", "2012-07-05" );
 														   /*					starting date		cycle length in days	bonus time in days on both sides */
-static CCyclicalHoliday		g_Holiday_FullMoon					( "fullmoon",		12, 15, 2024,		29.53f,					1.0f );
+static CCyclicalHoliday		g_Holiday_FullMoon					( "fullmoon",		10, 06, 2025,		29.53f,					1.0f );
 																								 // note: the cycle length is 29.5 instead of 29.53 so that the time calculations always start at noon based on the way CCyclicalHoliday works
 static COrHoliday			g_Holiday_HalloweenOrFullMoon		( "halloween_or_fullmoon",	&g_Holiday_Halloween,	&g_Holiday_FullMoon );
 

@@ -255,10 +255,9 @@ void CTFMechanicalArm::SecondaryAttack( void )
 		{
 			fRight *= -1;
 		}
-		Vector vecSrc = pOwner->EyePosition()
-			+ ( vecForward * 40.f )
-			+ ( vecRight * fRight )
-			+ ( vecUp * -10.f );
+// 		Vector vecSrc = pOwner->Weapon_ShootPosition();
+// 		vecSrc = vecSrc + ( vecUp * -9.0f ) + ( vecRight * 7.0f ) + ( vecForward * 3.0f );
+		Vector vecSrc = pOwner->EyePosition() + ( vecForward * 40.f ) + ( vecRight * fRight ) + ( vecUp * -10.f );
 
 		QAngle angForward = pOwner->EyeAngles();
 

@@ -33,6 +33,7 @@
 
 // Client specific.
 #ifdef CLIENT_DLL
+#include "c_baseviewmodel.h"
 #include "c_tf_player.h"
 #include "c_te_effect_dispatch.h"
 #include "c_tf_fx.h"
@@ -430,6 +431,8 @@ BEGIN_PREDICTION_DATA_NO_BASE( CTFPlayerShared )
 	DEFINE_PRED_FIELD( m_nAirDucked, FIELD_INTEGER, FTYPEDESC_INSENDTABLE ),
 	DEFINE_PRED_FIELD( m_flDuckTimer, FIELD_FLOAT, FTYPEDESC_INSENDTABLE ),
 	DEFINE_PRED_FIELD( m_flInvisChangeCompleteTime, FIELD_FLOAT, FTYPEDESC_INSENDTABLE ),
+	DEFINE_PRED_FIELD( m_flLastStealthExposeTime, FIELD_FLOAT, 0 ),
+	DEFINE_PRED_FIELD( m_flStealthNextChangeTime, FIELD_INTEGER, 0 ),
 	DEFINE_PRED_FIELD( m_nDisguiseTeam, FIELD_INTEGER, FTYPEDESC_INSENDTABLE  ),
 	DEFINE_PRED_FIELD( m_nDisguiseClass, FIELD_INTEGER, FTYPEDESC_INSENDTABLE  ),
 	DEFINE_PRED_FIELD( m_nDisguiseSkinOverride, FIELD_INTEGER, FTYPEDESC_INSENDTABLE ),
@@ -937,46 +940,55 @@ void CTFPlayerShared::Spawn( void )
 //-----------------------------------------------------------------------------
 // Purpose:
 //-----------------------------------------------------------------------------
-template < typename tIntType >
+template < typename tType >
 class CConditionVars
 {
 public:
-	CConditionVars( tIntType& nPlayerCond, tIntType& nPlayerCondEx, tIntType& nPlayerCondEx2, tIntType& nPlayerCondEx3, tIntType& nPlayerCondEx4, ETFCond eCond )
+	template < typename t0, typename t1, typename t2, typename t3, typename t4 >
+	CConditionVars( CTFPlayer* pOuter, ETFCond eCond, t0& nPlayerCond, t1& nPlayerCondEx, t2& nPlayerCondEx2, t3& nPlayerCondEx3, t4& nPlayerCondEx4 )
 	{
+		m_pOuter = pOuter;
+
 		if ( eCond >= 128 )
 		{
 			Assert( eCond < 128 + 32 );
-			m_pnCondVar = &nPlayerCondEx4;
-			m_nCondBit = eCond - 128; 
+			m_pnCondVar = ( tType* )&nPlayerCondEx4;
+			m_nCondBit = eCond - 128;
 		}
 		else if ( eCond >= 96 )
 		{
 			Assert( eCond < 96 + 32 );
-			m_pnCondVar = &nPlayerCondEx3;
+			m_pnCondVar = ( tType* )&nPlayerCondEx3;
 			m_nCondBit = eCond - 96;
 		}
-		else if( eCond >= 64 )
+		else if ( eCond >= 64 )
 		{
-			Assert( eCond < (64 + 32) );
-			m_pnCondVar = &nPlayerCondEx2;
+			Assert( eCond < ( 64 + 32 ) );
+			m_pnCondVar = ( tType* )&nPlayerCondEx2;
 			m_nCondBit = eCond - 64;
 		}
 		else if ( eCond >= 32 )
 		{
-			Assert( eCond < (32 + 32) );
-			m_pnCondVar = &nPlayerCondEx;
+			Assert( eCond < ( 32 + 32 ) );
+			m_pnCondVar = ( tType* )&nPlayerCondEx;
 			m_nCondBit = eCond - 32;
 		}
 		else
 		{
-			m_pnCondVar = &nPlayerCond;
+			m_pnCondVar = ( tType* )&nPlayerCond;
 			m_nCondBit = eCond;
 		}
 	}
 
-	tIntType& CondVar() const
+	const int& CondVar() const
 	{
-		return *m_pnCondVar;
+		return m_pnCondVar->m_Value;
+	}
+
+	int& CondVarForModify()
+	{
+		m_pOuter->NetworkStateChanged( m_pnCondVar );
+		return m_pnCondVar->m_Value;
 	}
 
 	int CondBit() const
@@ -985,9 +997,13 @@ public:
 	}
 
 private:
-	tIntType *m_pnCondVar;
+	CTFPlayer* m_pOuter;
+	tType* m_pnCondVar;
 	int m_nCondBit;
 };
+
+#define CONDITION_VARS( name, cond ) \
+CConditionVars< decltype( m_nPlayerCond ) > name( m_pOuter, cond, m_nPlayerCond, m_nPlayerCondEx, m_nPlayerCondEx2, m_nPlayerCondEx3, m_nPlayerCondEx4 )
 
 //-----------------------------------------------------------------------------
 // Purpose: Add a condition and duration
@@ -1020,14 +1036,14 @@ void CTFPlayerShared::AddCond( ETFCond eCond, float flDuration /* = PERMANENT_CO
 
 	// Which bitfield are we tracking this condition variable in? Which bit within
 	// that variable will we track it as?
-	CConditionVars<int> cPlayerCond( m_nPlayerCond.m_Value, m_nPlayerCondEx.m_Value, m_nPlayerCondEx2.m_Value, m_nPlayerCondEx3.m_Value, m_nPlayerCondEx4.m_Value, eCond );
+	CONDITION_VARS( cPlayerCond, eCond );
 
 	// See if there is an object representation of the condition.
 	bool bAddedToExternalConditionList = m_ConditionList.Add( eCond, flDuration, m_pOuter, pProvider );
 	if ( !bAddedToExternalConditionList )
 	{
 		// Set the condition bit for this condition.
-		cPlayerCond.CondVar() |= cPlayerCond.CondBit();
+		cPlayerCond.CondVarForModify() |= cPlayerCond.CondBit();
 
 		// Flag for gamecode to query
 		m_ConditionData[eCond].m_bPrevActive = ( m_ConditionData[eCond].m_flExpireTime != 0.f ) ? true : false;
@@ -1062,14 +1078,14 @@ void CTFPlayerShared::RemoveCond( ETFCond eCond, bool ignore_duration )
 	if ( !InCond( eCond ) )
 		return;
 
-	CConditionVars<int> cPlayerCond( m_nPlayerCond.m_Value, m_nPlayerCondEx.m_Value, m_nPlayerCondEx2.m_Value, m_nPlayerCondEx3.m_Value, m_nPlayerCondEx4.m_Value, eCond );
+	CONDITION_VARS( cPlayerCond, eCond );
 
 	// If this variable is handled by the condition list, abort before doing the
 	// work for the condition flags.
 	if ( m_ConditionList.Remove( eCond, ignore_duration ) )
 		return;
 
-	cPlayerCond.CondVar() &= ~cPlayerCond.CondBit();
+	cPlayerCond.CondVarForModify() &= ~cPlayerCond.CondBit();
 	OnConditionRemoved( eCond );
 
 	if ( m_ConditionData[ eCond ].m_nPreventedDamageFromCondition )
@@ -1105,7 +1121,7 @@ bool CTFPlayerShared::InCond( ETFCond eCond ) const
 	if ( eCond < 32 && m_ConditionList.InCond( eCond ) )
 		return true;
 
-	CConditionVars<const int> cPlayerCond( m_nPlayerCond.m_Value, m_nPlayerCondEx.m_Value, m_nPlayerCondEx2.m_Value, m_nPlayerCondEx3.m_Value, m_nPlayerCondEx4.m_Value, eCond );
+	CONDITION_VARS( cPlayerCond, eCond );
 	return (cPlayerCond.CondVar() & cPlayerCond.CondBit()) != 0;
 }
 
@@ -1119,7 +1135,7 @@ bool CTFPlayerShared::WasInCond( ETFCond eCond ) const
 	// assert. And this comment).
 	Assert( eCond >= 32 && eCond < TF_COND_LAST );
 
-	CConditionVars<const int> cPlayerCond( m_nOldConditions, m_nOldConditionsEx, m_nOldConditionsEx2, m_nOldConditionsEx3, m_nOldConditionsEx4, eCond );
+	CONDITION_VARS( cPlayerCond, eCond );
 	return (cPlayerCond.CondVar() & cPlayerCond.CondBit()) != 0;
 }
 
@@ -1132,8 +1148,8 @@ void CTFPlayerShared::ForceRecondNextSync( ETFCond eCond )
 	// Please check if you hit the assert. (And then remove the assert. And this comment).
 	Assert(eCond >= 32 && eCond < TF_COND_LAST);
 
-	CConditionVars<int> playerCond( m_nForceConditions, m_nForceConditionsEx, m_nForceConditionsEx2, m_nForceConditionsEx3, m_nForceConditionsEx4, eCond );
-	playerCond.CondVar() |= playerCond.CondBit();
+	CONDITION_VARS( cPlayerCond, eCond );
+	cPlayerCond.CondVarForModify() |= cPlayerCond.CondBit();
 }
 
 //-----------------------------------------------------------------------------
@@ -1313,7 +1329,7 @@ void CTFPlayerShared::OnPreDataChanged( void )
 	m_iOldMovementStunParity = m_iMovementStunParity;
 
 	// Local player will run this in PreThink
-	if (!prediction->InPrediction())
+	if ( !prediction->InPrediction() )
 	{
 		SharedThink();
 	}
@@ -1368,6 +1384,7 @@ void CTFPlayerShared::OnDataChanged( void )
 	{
 		m_hDisguiseWeapon->UpdateVisibility();
 		m_hDisguiseWeapon->UpdateParticleSystems();
+		m_hDisguiseWeapon->UpdateAttachmentModels();
 	}
 
 	// XXX(JohnS): This is not the right place to do these things, SetWeaponVisible on the *client* is just stomping
@@ -1380,7 +1397,7 @@ void CTFPlayerShared::OnDataChanged( void )
 	}
 
 	// Local player will run this in PreThink
-	if (!prediction->InPrediction())
+	if ( !prediction->InPrediction() )
 	{
 		InvisibilityThink();
 	}
@@ -5462,15 +5479,24 @@ void CTFPlayerShared::OnRemoveTmpDamageBonus( void )
 void CTFPlayerShared::OnAddStealthed( void )
 {
 #ifdef CLIENT_DLL
-	if ( m_pOuter->GetPredictable() && ( !prediction->IsFirstTimePredicted() || m_bSyncingConditions ) )
-		return;
+	// Local player wants to predict the offhand weapon, but not the fancy effects multiple times!
+	// Other players always run everything
+	bool bFirstPrediction = !m_pOuter->GetPredictable() || ( prediction->IsFirstTimePredicted() && !m_bSyncingConditions );
 
-	if ( !InCond( TF_COND_FEIGN_DEATH ) )
+	if ( bFirstPrediction )
 	{
-		m_pOuter->EmitSound( "Player.Spy_Cloak" );
+		if ( !InCond( TF_COND_FEIGN_DEATH ) )
+		{
+			m_pOuter->EmitSound( "Player.Spy_Cloak" );
+		}
+		m_pOuter->RemoveAllDecals();
+		UpdateCritBoostEffect();
+
+		if ( m_pOuter->m_pTempShield && GetCarryingRuneType() == RUNE_RESIST )
+		{
+			RemoveResistShield( &m_pOuter->m_pTempShield, m_pOuter );
+		}
 	}
-	m_pOuter->RemoveAllDecals();
-	UpdateCritBoostEffect();
 #endif
 
 	bool bSetInvisChangeTime = true;
@@ -5481,7 +5507,7 @@ void CTFPlayerShared::OnAddStealthed( void )
 		bSetInvisChangeTime = false;
 	}
 
-	if ( InCond( TF_COND_STEALTHED_USER_BUFF ) && m_pOuter->IsLocalPlayer() )
+	if ( bFirstPrediction && InCond( TF_COND_STEALTHED_USER_BUFF ) && m_pOuter->IsLocalPlayer() )
 	{
 		IMaterial *pMaterial = materials->FindMaterial( TF_SCREEN_OVERLAY_MATERIAL_STEALTH, TEXTURE_GROUP_CLIENT_EFFECTS, false );
 		if ( !IsErrorMaterial( pMaterial ) )
@@ -5528,10 +5554,14 @@ void CTFPlayerShared::OnAddStealthed( void )
 	m_pOuter->TeamFortress_SetSpeed();
 
 #ifdef CLIENT_DLL
-	// Remove water balloon effect if it on player
-	m_pOuter->ParticleProp()->StopParticlesNamed( "balloontoss_drip", true );
+	if ( bFirstPrediction )
+	{
+		// Remove water balloon effect if it on player
+		m_pOuter->ParticleProp()->StopParticlesNamed( "balloontoss_drip", true );
 
-	m_pOuter->UpdateSpyStateChange();
+		m_pOuter->UpdateSpyStateChange();
+		m_pOuter->UpdateKillStreakEffects( GetStreak( kTFStreak_Kills ) );
+	}
 #endif
 
 #ifdef GAME_DLL
@@ -5545,33 +5575,42 @@ void CTFPlayerShared::OnAddStealthed( void )
 void CTFPlayerShared::OnRemoveStealthed( void )
 {
 #ifdef CLIENT_DLL
-	if ( !m_bSyncingConditions )
-		return;
+	// Local player wants to predict the offhand weapon, but not the fancy effects multiple times!
+	// Other players always run everything
+	bool bFirstPrediction = !m_pOuter->GetPredictable() || ( prediction->IsFirstTimePredicted() && !m_bSyncingConditions );
 
-	CTFWeaponInvis *pWpn = (CTFWeaponInvis *) m_pOuter->Weapon_OwnsThisID( TF_WEAPON_INVIS );
+	if ( bFirstPrediction )
+	{
+		CTFWeaponInvis* pWpn = (CTFWeaponInvis*)m_pOuter->Weapon_OwnsThisID( TF_WEAPON_INVIS );
 
-	int iReducedCloak = 0;
-	CALL_ATTRIB_HOOK_INT_ON_OTHER( m_pOuter, iReducedCloak, set_quiet_unstealth );
-	if ( iReducedCloak == 1 )
-	{
-		m_pOuter->EmitSound( "Player.Spy_UnCloakReduced" );
-	}
-	else if ( pWpn && pWpn->HasFeignDeath() )
-	{
-		m_pOuter->EmitSound( "Player.Spy_UnCloakFeignDeath" );
-	}
-	else
-	{
-		m_pOuter->EmitSound( "Player.Spy_UnCloak" );
-	}
-	UpdateCritBoostEffect( kCritBoost_ForceRefresh );
-
-	if ( m_pOuter->IsLocalPlayer() && !InCond( TF_COND_STEALTHED_USER_BUFF_FADING ) )
-	{
-		IMaterial *pMaterial = view->GetScreenOverlayMaterial();
-		if ( pMaterial && FStrEq( pMaterial->GetName(), TF_SCREEN_OVERLAY_MATERIAL_STEALTH ) )
+		int iReducedCloak = 0;
+		CALL_ATTRIB_HOOK_INT_ON_OTHER( m_pOuter, iReducedCloak, set_quiet_unstealth );
+		if ( iReducedCloak == 1 )
 		{
-			view->SetScreenOverlayMaterial( NULL );
+			m_pOuter->EmitSound( "Player.Spy_UnCloakReduced" );
+		}
+		else if ( pWpn && pWpn->HasFeignDeath() )
+		{
+			m_pOuter->EmitSound( "Player.Spy_UnCloakFeignDeath" );
+		}
+		else
+		{
+			m_pOuter->EmitSound( "Player.Spy_UnCloak" );
+		}
+		UpdateCritBoostEffect( kCritBoost_ForceRefresh );
+
+		if ( m_pOuter->IsLocalPlayer() && !InCond( TF_COND_STEALTHED_USER_BUFF_FADING ) )
+		{
+			IMaterial* pMaterial = view->GetScreenOverlayMaterial();
+			if ( pMaterial && FStrEq( pMaterial->GetName(), TF_SCREEN_OVERLAY_MATERIAL_STEALTH ) )
+			{
+				view->SetScreenOverlayMaterial( NULL );
+			}
+		}
+
+		if ( !m_pOuter->m_pTempShield && GetCarryingRuneType() == RUNE_RESIST )
+		{
+			AddResistShield( &m_pOuter->m_pTempShield, m_pOuter, TF_COND_RUNE_RESIST );
 		}
 	}
 #else
@@ -5606,7 +5645,11 @@ void CTFPlayerShared::OnRemoveStealthed( void )
 	m_bMotionCloak = false;
 
 #ifdef CLIENT_DLL
-	m_pOuter->UpdateSpyStateChange();
+	if ( bFirstPrediction )
+	{
+		m_pOuter->UpdateSpyStateChange();
+		m_pOuter->UpdateKillStreakEffects( GetStreak( kTFStreak_Kills ) );
+	}
 #endif
 
 }
@@ -5704,6 +5747,8 @@ void CTFPlayerShared::OnRemoveDisguising( void )
 void CTFPlayerShared::OnRemoveDisguised( void )
 {
 #ifdef CLIENT_DLL
+	// Save the disguise target before clearing it, so we can mark bodygroups dirty.
+	CTFPlayer *pOldDisguiseTarget = ToTFPlayer( m_hDisguiseTarget.Get() );
 
 	if ( m_pOuter->GetPredictable() && ( !prediction->IsFirstTimePredicted() || m_bSyncingConditions ) )
 		return;
@@ -5727,7 +5772,14 @@ void CTFPlayerShared::OnRemoveDisguised( void )
 	UpdateCritBoostEffect( kCritBoost_ForceRefresh );
 	m_pOuter->UpdateSpyStateChange();
 
+	// Mark the old disguise target's bodygroups as dirty so they'll be recalculated.
+	if ( pOldDisguiseTarget )
+	{
+		pOldDisguiseTarget->SetBodygroupsDirty();
+	}
+
 #else
+
 	m_nDisguiseTeam  = TF_SPY_UNDEFINED;
 	m_nDisguiseClass.Set( TF_CLASS_UNDEFINED );
 	m_nDisguiseSkinOverride = 0;
@@ -6611,6 +6663,15 @@ void CTFPlayerShared::Disguise( int nTeam, int nClass, CTFPlayer* pDesiredTarget
 		}
 	}
 
+#ifdef CLIENT_DLL
+	// Save the old disguise target before changing disguise, so we can clean up bodygroups.
+	CTFPlayer *pOldDisguiseTarget = ToTFPlayer( m_hDisguiseTarget.Get() );
+	if ( pOldDisguiseTarget )
+	{
+		pOldDisguiseTarget->SetBodygroupsDirty();
+	}
+#endif
+
 	m_hDesiredDisguiseTarget.Set( pDesiredTarget );
 	m_nDesiredDisguiseClass = nClass;
 	m_nDesiredDisguiseTeam = nTeam;
@@ -6790,6 +6851,7 @@ void CTFPlayerShared::DetermineDisguiseWeapon( bool bForcePrimary )
 	{
 		CTFWeaponBase *pLastDisguiseWeapon = m_hDisguiseWeapon;
 		CTFWeaponBase *pFirstValidWeapon = NULL;
+
 		// Cycle through the target's weapons and see if we have a match.
 		// Note that it's possible the disguise target doesn't have a weapon in the slot we want,
 		// for example if they have replaced it with an unlockable that isn't a weapon (wearable).
@@ -6887,6 +6949,7 @@ void CTFPlayerShared::DetermineDisguiseWeapon( bool bForcePrimary )
 			m_hDisguiseWeapon->m_bDisguiseWeapon = true;
 			m_hDisguiseWeapon->SetContextThink( &CTFWeaponBase::DisguiseWeaponThink, gpGlobals->curtime + 0.5, "DisguiseWeaponThink" );
 
+			m_hDisguiseWeapon->UpdateExtraWearables();
 
 			// Ammo/clip state is displayed to attached medics
 			m_iDisguiseAmmo = 0;
@@ -6921,14 +6984,31 @@ void CTFPlayerShared::DetermineDisguiseWeapon( bool bForcePrimary )
 void CTFPlayerShared::DetermineDisguiseWearables()
 {
 	CTFPlayer *pDisguiseTarget = ToTFPlayer( m_hDisguiseTarget.Get() );
-	if ( !pDisguiseTarget )
-		return;
 
 	// Remove any existing disguise wearables.
 	RemoveDisguiseWearables();
 
-	if ( GetDisguiseClass() != pDisguiseTarget->GetPlayerClass()->GetClassIndex() )
+	if ( !pDisguiseTarget )
+	{
+		// No target exists, reset disguise body to default state.
+		SetDisguiseBody( 0 );
 		return;
+	}
+
+	if ( GetDisguiseClass() != pDisguiseTarget->GetPlayerClass()->GetClassIndex() )
+	{
+		// Class mismatch, reset disguise body to default.
+		SetDisguiseBody( 0 );
+#ifdef CLIENT_DLL
+		// Mark bodygroups dirty even when not copying wearables (class mismatch).
+		pDisguiseTarget->SetBodygroupsDirty();
+#endif
+		return;
+	}
+
+	// Reset disguise body to default before applying new wearables.
+	// This ensures old bodygroup modifications don't carry over.
+	SetDisguiseBody( 0 );
 
 	// Equip us with copies of our disguise target's wearables.
 	int iPlayerSkinOverride = 0;
@@ -6974,6 +7054,11 @@ void CTFPlayerShared::DetermineDisguiseWearables()
 	}
 
 	m_nDisguiseSkinOverride = iPlayerSkinOverride;
+
+#ifdef CLIENT_DLL
+	// Mark bodygroups dirty after creating disguise wearables.
+	pDisguiseTarget->SetBodygroupsDirty();
+#endif
 }
 
 void CTFPlayerShared::RemoveDisguiseWearables()
@@ -8210,6 +8295,14 @@ void CTFPlayer::GetHorriblyHackedRailgunPosition( const Vector& vStart, Vector *
 	// DO NOT LOOK BEHIND THE MAGIC CURTAIN
 	Vector vForward, vRight, vUp;
 	AngleVectors( EyeAngles(), &vForward, &vRight, &vUp );
+
+#ifdef CLIENT_DLL
+	// Flips the horizontal position.
+	if ( TeamFortress_ShouldFlipClientViewModel() )
+	{
+		vRight *= -1;
+	}
+#endif // CLIENT_DLL
 
 	*out_pvStartPos = vStart
 					+ (vForward * 60.9f)
@@ -10163,6 +10256,9 @@ bool CTFPlayer::CanPickupBuilding( CBaseObject *pPickupObject )
 	if ( pPickupObject->GetUpgradeLevel() != pPickupObject->GetHighestUpgradeLevel() )
 		return false;
 
+	if ( !IsAlive() )
+		return false;
+
 	if ( m_Shared.IsCarryingObject() )
 		return false;
 
@@ -10464,6 +10560,16 @@ bool CTFPlayer::Weapon_CanSwitchTo( CBaseCombatWeapon *pWeapon )
 	return bCanSwitch;
 }
 
+void CTFPlayer::PlayStepSound( Vector &vecOrigin, surfacedata_t *psurface, float fvol, bool force )
+{
+#ifdef CLIENT_DLL
+	// Don't make predicted footstep sounds in third person, animevents will take care of that.
+	if ( prediction->InPrediction() && C_BasePlayer::ShouldDrawLocalPlayer() )
+		return;
+#endif
+
+	BaseClass::PlayStepSound( vecOrigin, psurface, fvol, force );
+}
 
 //-----------------------------------------------------------------------------
 // Purpose: Gives the player an opportunity to abort a double jump.
