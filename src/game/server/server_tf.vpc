@@ -392,6 +392,8 @@ $Project "Server (TF Goldrush Dev)"
 				$File	"$SRCDIR\game\shared\tf\tf_wearable_weapons.h"
 				$File	"$SRCDIR\game\shared\tf\tf_wearable_levelable_item.cpp"
 				$File	"$SRCDIR\game\shared\tf\tf_wearable_levelable_item.h"
+				$File	"$SRCDIR\game\shared\tf\tf_weapon_mechanical_arm.cpp"
+				$File	"$SRCDIR\game\shared\tf\tf_weapon_mechanical_arm.h"
 			}
 
 			$Folder	"Raid"
