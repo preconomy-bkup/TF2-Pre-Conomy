@@ -4937,7 +4937,7 @@ void CTFWeaponBase::ApplyOnHitAttributes( CBaseEntity *pVictimBaseEntity, CTFPla
 			{
 				if ( RandomFloat() < flSlowEnemy )
 				{
-					float flStunAmount = 0.375f;
+					float flStunAmount = 0.75f;
 
 					pVictim->m_Shared.StunPlayer( 0.2, flStunAmount, TF_STUN_MOVEMENT, pAttacker );
 				}
