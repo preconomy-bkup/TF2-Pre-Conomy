@@ -111,10 +111,6 @@ public:
 	virtual void	ApplyPostHitEffects( const CTakeDamageInfo &inputInfo, CTFPlayer *pPlayer );
 	virtual void	FinishReload( void );
 	virtual bool	HasKnockback( void );
-
-#ifdef GAME_DLL
-	virtual void	Equip( CBaseCombatCharacter *pOwner );
-#endif // GAME_DLL
 };
 
 class CTFShotgun_Soldier : public CTFShotgun

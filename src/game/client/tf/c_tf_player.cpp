@@ -4574,11 +4574,6 @@ void C_TFPlayer::UpdateTimers(void)
 	m_Shared.SharedThink();
 }
 
-void C_TFPlayer::UpdateTimers( void )
-{
-	m_Shared.SharedThink();
-}
-
 void C_TFPlayer::Touch( CBaseEntity *pOther )
 {
 	BaseClass::Touch( pOther );
@@ -9271,15 +9266,6 @@ void C_TFPlayer::ClientAdjustStartSoundParams( StartSoundParams_t& params )
 //-----------------------------------------------------------------------------
 void C_TFPlayer::ClientAdjustVOPitch( int& pitch )
 {
-	float flVoicePitchScale = 1.f;
-	CALL_ATTRIB_HOOK_FLOAT( flVoicePitchScale, voice_pitch_scale );
-
-	int iHalloweenVoiceSpell = 0;
-	if ( TF_IsHolidayActive( kHoliday_HalloweenOrFullMoon ) )
-	{
-		CALL_ATTRIB_HOOK_INT( iHalloweenVoiceSpell, halloween_voice_modulation );
-	}
-
 	// Halloween voice futzery?
 	float flVoicePitchScale = 1.f;
 	CALL_ATTRIB_HOOK_FLOAT( flVoicePitchScale, voice_pitch_scale );

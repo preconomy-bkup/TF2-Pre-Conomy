@@ -5491,11 +5491,6 @@ void CTFPlayerShared::OnAddStealthed( void )
 		}
 		m_pOuter->RemoveAllDecals();
 		UpdateCritBoostEffect();
-
-		if ( m_pOuter->m_pTempShield && GetCarryingRuneType() == RUNE_RESIST )
-		{
-			RemoveResistShield( &m_pOuter->m_pTempShield, m_pOuter );
-		}
 	}
 #endif
 
@@ -5560,7 +5555,6 @@ void CTFPlayerShared::OnAddStealthed( void )
 		m_pOuter->ParticleProp()->StopParticlesNamed( "balloontoss_drip", true );
 
 		m_pOuter->UpdateSpyStateChange();
-		m_pOuter->UpdateKillStreakEffects( GetStreak( kTFStreak_Kills ) );
 	}
 #endif
 
@@ -5607,11 +5601,6 @@ void CTFPlayerShared::OnRemoveStealthed( void )
 				view->SetScreenOverlayMaterial( NULL );
 			}
 		}
-
-		if ( !m_pOuter->m_pTempShield && GetCarryingRuneType() == RUNE_RESIST )
-		{
-			AddResistShield( &m_pOuter->m_pTempShield, m_pOuter, TF_COND_RUNE_RESIST );
-		}
 	}
 #else
 	if ( m_flCloakStartTime > 0 )
@@ -5648,7 +5637,6 @@ void CTFPlayerShared::OnRemoveStealthed( void )
 	if ( bFirstPrediction )
 	{
 		m_pOuter->UpdateSpyStateChange();
-		m_pOuter->UpdateKillStreakEffects( GetStreak( kTFStreak_Kills ) );
 	}
 #endif
 
