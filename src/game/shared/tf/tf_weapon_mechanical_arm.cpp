@@ -158,9 +158,6 @@ bool CTFMechanicalArm::IsValidVictim( CTFPlayer *pOwner, CBaseEntity *pTarget )
 	if ( pOwner->FVisible( pTarget, MASK_SOLID_BRUSHONLY ) == false )
 		return false;
 
-	if ( g_pPasstimeLogic && ( g_pPasstimeLogic->GetBall() == pTarget ) )
-		return false;
-
 	return true;
 }
 
@@ -780,10 +777,7 @@ void CTFProjectile_MechanicalArmOrb::CheckForPlayers( int nNumToZap )
 
 		CTFPlayer *pTFPlayer = ToTFPlayer( pTarget );
 		if ( pTFPlayer )
-		{
-			if ( pTFPlayer->m_Shared.InCond( TF_COND_PHASE ) || pTFPlayer->m_Shared.InCond( TF_COND_PASSTIME_INTERCEPTION ) )
-				continue;
-
+		{		
 			if ( pTFPlayer->m_Shared.IsInvulnerable() )
 				continue;
 		}
