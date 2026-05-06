@@ -242,10 +242,10 @@ ConVar sv_vote_late_join_cooldown( "sv_vote_late_join_cooldown", "300", FCVAR_NO
 
 // Goldrush
 ConVar tf_bot_random_weapons( "tf_bot_random_weapons", "1", FCVAR_GAMEDLL, "Gives bots random weapon items." );
-ConVar tf_bot_random_weapons_chance( "tf_bot_random_weapons_chance", "25", FCVAR_GAMEDLL, "Percent chance a bot will get a random weapon." );
+ConVar tf_bot_random_weapons_chance( "tf_bot_random_weapons_chance", "35", FCVAR_GAMEDLL, "Percent chance a bot will get a random weapon." );
 
 ConVar tf_bot_random_hats( "tf_bot_random_hats", "1", FCVAR_GAMEDLL, "Gives bots random hat items." );
-ConVar tf_bot_random_hats_chance( "tf_bot_random_hats_chance", "16", FCVAR_GAMEDLL, "Percent chance a bot will get a random hat." );
+ConVar tf_bot_random_hats_chance( "tf_bot_random_hats_chance", "20", FCVAR_GAMEDLL, "Percent chance a bot will get a random hat." );
 
 extern ConVar tf_voice_command_suspension_mode;
 extern ConVar tf_feign_death_duration;
