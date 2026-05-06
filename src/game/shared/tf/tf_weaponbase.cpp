@@ -4929,7 +4929,7 @@ void CTFWeaponBase::ApplyOnHitAttributes( CBaseEntity *pVictimBaseEntity, CTFPla
 		}
 
 		// Slow enemy on hit, unless they're being healed by a medic
-		if ( !pVictim->m_Shared.InCond( TF_COND_HEALTH_BUFF ) )
+		//if ( !pVictim->m_Shared.InCond( TF_COND_HEALTH_BUFF ) )
 		{
 			float flSlowEnemy = 0.0;
 			CALL_ATTRIB_HOOK_FLOAT( flSlowEnemy, mult_onhit_enemyspeed );
@@ -4937,10 +4937,7 @@ void CTFWeaponBase::ApplyOnHitAttributes( CBaseEntity *pVictimBaseEntity, CTFPla
 			{
 				if ( RandomFloat() < flSlowEnemy )
 				{
-					// Adjust the stun amount based on distance to the target
-					// close range full stun, falls off to zero at 1536 (1024 window size)
-					Vector vecDistance = pVictim->GetAbsOrigin() - pAttacker->GetAbsOrigin();
-					float flStunAmount = RemapValClamped( vecDistance.LengthSqr(), (512.0f * 512.0f), (1536.0f * 1536.0f), 0.60f, 0.0f );
+					float flStunAmount = 0.375f;
 
 					pVictim->m_Shared.StunPlayer( 0.2, flStunAmount, TF_STUN_MOVEMENT, pAttacker );
 				}
