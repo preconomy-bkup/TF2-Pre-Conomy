@@ -4381,8 +4381,8 @@
 			"image_inventory"	"backpack/weapons/w_models/w_grenadelauncher"
 			"image_inventory_size_w"		"128"
 			"image_inventory_size_h"		"82"
-			"model_player"	"models/weapons/c_models/c_grenadelauncher/c_grenadelauncher.mdl"
-			"attach_to_hands"	"1"
+			"model_player"	"models/weapons/v_models/v_grenadelauncher_demo.mdl"
+			"model_world"	"models/weapons/c_models/c_grenadelauncher/c_grenadelauncher.mdl"
 			"inspect_panel_dist" "55"
 			"used_by_classes"
 			{
