@@ -6,7 +6,7 @@
  	"$refractamount" ".5"
 	"$REFRACTTINT" "{246 250 255}"
 	"$scale" "[1 1]"
-//	"$normalmap" "models\weapons\v_cigarette_case\v_cigarette_case_normal"
+	"$normalmap" "models\weapons\v_cigarette_case\v_cigarette_case_normal"
 	"$refracttinttexture" "models\weapons\v_cigarette_case/v_cigarette_case_blue"
 	"$basetexture" "models\weapons\v_cigarette_case/v_cigarette_case_blue"
 	"$lightwarptexture" "models/lightwarps/weapon_lightwarp"

@@ -2,7 +2,7 @@
 {
 	"$baseTexture" "models\weapons\v_cigarette_case\v_cigarette_case_blue"
 	"$selfillum" "1"
-//	"$bumpmap" "models\weapons\v_cigarette_case\v_cigarette_case_normal"
+	"$bumpmap" "models\weapons\v_cigarette_case\v_cigarette_case_normal"
 	
 	"$basemapalphaphongmask" "1"
 	"$phong" "1"
