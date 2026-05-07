@@ -42,6 +42,7 @@
 "]"			"invnext"
 "q"			"lastinv"
 "F5"			"screenshot"
+"F8"			"bug"
 "F10"			"quit prompt"
 "F12"			"screenshot"
 "PAUSE"			"pause"

@@ -280,13 +280,13 @@
 	{
 		"ControlName"	"CLoadoutPresetPanel"
 		"FieldName"		"loadout_preset_panel"
-		"zpos"			"20"
-		"wide"			"150"
-		"tall"			"25"
+		"zpos"			"0"
+		"wide"			"0"
+		"tall"			"0"
 		"autoResize"	"0"
 		"pinCorner"		"0"
-		"visible"		"1"
-		"enabled"		"1"
+		"visible"		"0"
+		"enabled"		"0"
 		"tabPosition"	"0"
 		"paintbackground"	"0"
 	}

@@ -1502,7 +1502,7 @@ const char *g_szLoadoutStringsForDisplay[] =
 
 	// Wearables
 	"#LoadoutSlot_Misc",		// LOADOUT_POSITION_HEAD
-	"#LoadoutSlot_Misc",		// LOADOUT_POSITION_MISC
+	"#LoadoutSlot_MiscOld",		// LOADOUT_POSITION_MISC
 	"#LoadoutSlot_Action",		// LOADOUT_POSITION_ACTION
 	"#LoadoutSlot_Misc",		// LOADOUT_POSITION_MISC2
 	

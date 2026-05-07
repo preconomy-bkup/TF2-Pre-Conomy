@@ -3481,6 +3481,10 @@ bool CTFPlayer::ItemIsAllowed( CEconItemView *pItem )
 	int iClass = GetPlayerClass()->GetClassIndex();
 	int iSlot = pItem->GetStaticData()->GetLoadoutSlot(iClass);
 
+	// Ban misc2
+	if ( iSlot == LOADOUT_POSITION_MISC2 )
+		return false;
+
 	// Holiday Restriction
 	CEconItemDefinition* pData = pItem->GetStaticData();
 	if ( TFGameRules() && pData && pData->GetHolidayRestriction() )

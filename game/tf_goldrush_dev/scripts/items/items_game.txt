@@ -7776,10 +7776,6 @@
 			{
 				"demoman"	"1"
 			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
-			}
 		}
 		"48"	
 		{
@@ -7790,14 +7786,12 @@
 			"item_name"	"#TF_Engineer_Hat_1"
 			"item_description"	"#TF_Engineer_Hat_1_Desc"
 			"image_inventory"	"backpack/player/items/engineer/mining_hat"
+			"item_slot"	"head"
+			"equip_region"	"hat"
 			"model_player"	"models/player/items/engineer/mining_hat.mdl"
 			"used_by_classes"
 			{
 				"engineer"	"1"
-			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
 			}
 			"mouse_pressed_sound" 	"ui/item_helmet_pickup.wav"
 			"drop_sound" 		"ui/item_helmet_drop.wav"
@@ -7832,10 +7826,6 @@
 			{
 				"heavy"	"1"
 			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
-			}
 			"mouse_pressed_sound" 	"ui/item_helmet_pickup.wav"
 			"drop_sound" 		"ui/item_helmet_drop.wav"
 		}
@@ -7868,10 +7858,6 @@
 			"used_by_classes"
 			{
 				"medic"	"1"
-			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
 			}
 			"mouse_pressed_sound" 	"ui/item_helmet_pickup.wav"
 			"drop_sound" 		"ui/item_helmet_drop.wav"
@@ -7906,10 +7892,6 @@
 			{
 				"pyro"	"1"
 			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
-			}
 			"mouse_pressed_sound" 	"ui/item_hat_pickup.wav"
 			"drop_sound" 		"ui/item_hat_drop.wav"
 		}
@@ -7942,10 +7924,6 @@
 			"used_by_classes"
 			{
 				"scout"	"1"
-			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
 			}
 			"mouse_pressed_sound" 	"ui/item_helmet_pickup.wav"
 			"drop_sound" 		"ui/item_helmet_drop.wav"
@@ -7980,10 +7958,6 @@
 			{
 				"sniper"	"1"
 			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
-			}
 			"mouse_pressed_sound" 	"ui/item_hat_pickup.wav"
 			"drop_sound" 		"ui/item_hat_drop.wav"
 		}
@@ -8004,6 +7978,7 @@
 			"show_in_armory"	"1"
 			"item_name"	"#TF_Soldier_Hat_1"
 			"item_description"	"#TF_Soldier_Hat_1_Desc"
+			"equip_region"	"hat"
 			"item_slot"	"head"
 			"item_quality"	"unique"
 			"image_inventory"	"backpack/player/items/soldier/soldier_hat"
@@ -8014,10 +7989,6 @@
 			"used_by_classes"
 			{
 				"soldier"	"1"
-			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
 			}
 			"mouse_pressed_sound" 	"ui/item_helmet_pickup.wav"
 			"drop_sound" 		"ui/item_helmet_drop.wav"
@@ -8036,10 +8007,6 @@
 			"used_by_classes"
 			{
 				"spy"	"1"
-			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
 			}
 		}
 		"56"
@@ -8839,7 +8806,7 @@
 			"item_name"	"#TF_Sniper_Jarate_Headband"
 			"item_description"	"#TF_Sniper_Jarate_Headband_Desc"
 			"item_slot"	"head"
-			"equip_region"	"sniper_headband"
+			"equip_region"	"hat"
 			"item_quality"	"unique"
 			"image_inventory"	"backpack/player/items/sniper/jarate_headband"
 			"image_inventory_size_w"		"128"
@@ -9161,10 +9128,6 @@
 					"medal"			"1"
 				}
 			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
-			}
 			"mouse_pressed_sound"	"ui/item_metal_tiny_pickup.wav"
 			"drop_sound"		"ui/item_metal_tiny_drop.wav"
 		}
@@ -9281,6 +9244,7 @@
 			"item_name"	"#TF_HonestyHalo"
 			"item_description"	"#TF_HonestyHalo_Desc"
 			"item_slot"	"head"
+			"equip_region"	"hat"
 			"item_quality"	"unique"
 			"min_ilevel"	"1"
 			"max_ilevel"	"1"
@@ -9315,10 +9279,6 @@
 					"attribute_class"	"set_attached_particle_static"
 					"value"	"5"
 				}
-			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
 			}
 			"mouse_pressed_sound"	"ui/item_metal_tiny_pickup.wav"
 			"drop_sound"		"ui/item_metal_tiny_drop.wav"
@@ -9380,10 +9340,6 @@
 					"attribute_class"	"always_tradable"
 					"value"				"1"
 				}
-			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
 			}
 			"mouse_pressed_sound" 	"ui/item_hat_pickup.wav"
 			"drop_sound" 		"ui/item_hat_drop.wav"
@@ -10201,10 +10157,6 @@
 			{
 				"nameable"		"1"
 			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
-			}
 		}
 		"144"
 		{
@@ -10934,10 +10886,6 @@
 			{
 				"spy"	"1"
 			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
-			}
 			"mouse_pressed_sound"	"ui/item_light_gun_pickup.wav"
 			"drop_sound"		"ui/item_light_gun_drop.wav"
 			"xifier_class_remap"	"TTG Sam Revolver"
@@ -10959,6 +10907,7 @@
 			"item_type_name" "#TF_Wearable_Hat"
 			"item_name"	"#TF_TTG_MaxsHat"
 			"item_description"	"#TF_TTG_MaxsHat_Desc"
+			"equip_region"	"hat"
 			"item_slot"	"head"
 			"item_quality"	"unique"
 			"image_inventory"	"backpack/player/items/medic/medic_ttg_max"
@@ -10990,10 +10939,6 @@
 					"hat"			"1"
 					"headphones"	"1"
 				}
-			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
 			}
 		}
 		"163"
@@ -11554,6 +11499,58 @@
 			"mouse_pressed_sound"	"ui/item_hat_pickup.wav"
 			"drop_sound"		"ui/item_hat_drop.wav"
 		}
+		"189"
+		{
+			"name"	"Parasite Hat"
+			"first_sale_date"	"2010/09/29"
+			"prefab"		"base_hat"
+			"loadondemand"	"1"
+			"item_class"	"tf_wearable"
+			"capabilities"
+			{
+				"nameable"		"1"
+				"paintable"		"1"
+			}
+			"show_in_armory"	"1"
+			"item_type_name"	"#TF_Wearable_Hat"
+			"item_name"	"#TF_Parasite_Hat"
+			"item_description"	"#TF_Parasite_Hat_Desc"
+			"item_slot"	"head"
+			"equip_region"	"hat"
+			"image_inventory"	"backpack/player/items/all_class/parasite_hat"
+			"image_inventory_size_w"	"128"
+			"image_inventory_size_h"	"82"
+			"item_quality"		"unique"
+			"min_ilevel"	"20"
+			"max_ilevel"	"20"
+			"model_player_per_class"
+			{
+				"basename"	"models/player/items/all_class/parasite_hat_%s.mdl"
+			}
+			"drop_type"	"drop"
+			"used_by_classes"
+			{
+				"scout"	"1"
+				"sniper"	"1"
+				"soldier"	"1"
+				"demoman"	"1"
+				"medic"	"1"
+				"heavy"	"1"
+				"spy" "1"
+				"engineer" "1"
+				"pyro" "1"
+			}
+			"visuals"
+			{
+				"player_bodygroups"
+				{
+					"hat"			"1"
+					"headphones"	"1"
+				}
+			}
+			"mouse_pressed_sound"	"ui/item_as_parasite_pickup.wav"
+			"drop_sound"		"ui/item_as_parasite_drop.wav"
+		}
 		"240"
 		{
 			"name"	"Worms Gear"
@@ -11594,10 +11591,6 @@
 					"hat"			"1"
 					"grenades"		"1"
 				}
-			}
-			"static_attrs"
-			{
-				"limited quantity item"		"1"
 			}
 			"mouse_pressed_sound"	"ui/item_helmet_pickup.wav"
 			"drop_sound"		"ui/item_helmet_drop.wav"
@@ -19402,11 +19395,6 @@
 
 		"TF_MVM_COMPLETE_POP_FILE"	"489"	
 		
-		"ASW_PARA_HAT"
-		{ 
-			"SourceAppID"	"630"
-			"DefIndex"		"189"
-		}
 		"com.telltalegames.CelebrityPoker.SpecialItem.TheHeavy"
 		{ 
 			"SourceAppID"	"31280"

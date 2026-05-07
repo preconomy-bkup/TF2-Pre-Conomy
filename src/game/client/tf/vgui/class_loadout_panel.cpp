@@ -23,8 +23,8 @@
 
 extern ConVar tf_respawn_on_loadoutchanges;
 
-ConVar tf_show_preset_explanation_in_class_loadout( "tf_show_preset_explanation_in_class_loadout", "1", FCVAR_HIDDEN | FCVAR_CLIENTDLL | FCVAR_ARCHIVE );
-ConVar tf_show_taunt_explanation_in_class_loadout( "tf_show_taunt_explanation_in_class_loadout", "1", FCVAR_HIDDEN | FCVAR_CLIENTDLL | FCVAR_ARCHIVE );
+ConVar tf_show_preset_explanation_in_class_loadout( "tf_show_preset_explanation_in_class_loadout", "0", FCVAR_HIDDEN | FCVAR_CLIENTDLL | FCVAR_ARCHIVE );
+ConVar tf_show_taunt_explanation_in_class_loadout( "tf_show_taunt_explanation_in_class_loadout", "0", FCVAR_HIDDEN | FCVAR_CLIENTDLL | FCVAR_ARCHIVE );
 
 void ParticleSlider_UpdateRequest( int iLoadoutPosition, float value )
 {
@@ -114,8 +114,8 @@ const LoadoutPanelPositioningInstance g_DefaultLoadoutPanelPositioning =
 		0,	// LOADOUT_POSITION_PDA2,
 		5,	// LOADOUT_POSITION_HEAD,
 		6,	// LOADOUT_POSITION_MISC,
-		8,	// LOADOUT_POSITION_ACTION,
-		7,	// LOADOUT_POSITION_MISC2,
+		0,	// LOADOUT_POSITION_ACTION,
+		0,	// LOADOUT_POSITION_MISC2,
 		9,	// LOADOUT_POSITION_TAUNT,
 		10,	// LOADOUT_POSITION_TAUNT2,
 		11,	// LOADOUT_POSITION_TAUNT3,
@@ -135,13 +135,13 @@ const LoadoutPanelPositioningInstance g_LoadoutPanelPositioning_Spy =
 		1,	// LOADOUT_POSITION_SECONDARY,
 		2,	// LOADOUT_POSITION_MELEE,
 		0,	// LOADOUT_POSITION_UTILITY,  // STAGING ONLY
-		4,	// LOADOUT_POSITION_BUILDING,		// sapper
+		0,	// LOADOUT_POSITION_BUILDING,		// sapper
 		0,	// LOADOUT_POSITION_PDA,			// disguise kit (Hidden)
 		3,	// LOADOUT_POSITION_PDA2,			// Watch
 		5,	// LOADOUT_POSITION_HEAD,
 		6,	// LOADOUT_POSITION_MISC,
-		8,	// LOADOUT_POSITION_ACTION,
-		7,	// LOADOUT_POSITION_MISC2,
+		0,	// LOADOUT_POSITION_ACTION,
+		0,	// LOADOUT_POSITION_MISC2,
 		9,	// LOADOUT_POSITION_TAUNT,
 		10,	// LOADOUT_POSITION_TAUNT2,
 		11,	// LOADOUT_POSITION_TAUNT3,
@@ -161,12 +161,12 @@ const LoadoutPanelPositioningInstance g_LoadoutPanelPositioning_Engineer =
 		3,	// LOADOUT_POSITION_MELEE,
 		0,	// LOADOUT_POSITION_UTILITY,  // STAGING ONLY
 		0,	// LOADOUT_POSITION_BUILDING,
-		4,	// LOADOUT_POSITION_PDA,
+		0,	// LOADOUT_POSITION_PDA,
 		0,	// LOADOUT_POSITION_PDA2,
 		5,	// LOADOUT_POSITION_HEAD,
 		6,	// LOADOUT_POSITION_MISC,
-		8,	// LOADOUT_POSITION_ACTION,
-		7,	// LOADOUT_POSITION_MISC2,
+		0,	// LOADOUT_POSITION_ACTION,
+		0,	// LOADOUT_POSITION_MISC2,
 		9,	// LOADOUT_POSITION_TAUNT,
 		10,	// LOADOUT_POSITION_TAUNT2,
 		11,	// LOADOUT_POSITION_TAUNT3,
