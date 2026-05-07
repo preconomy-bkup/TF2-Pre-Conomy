@@ -37,7 +37,7 @@ const char *g_szEquipSlotHeader[] =
 	"#ItemSel_PDA",			// LOADOUT_POSITION_BUILDING,
 	"#ItemSel_PDA",			// LOADOUT_POSITION_PDA,
 	"#ItemSel_PDA",			// LOADOUT_POSITION_PDA2
-	"#ItemSel_MISC",		// LOADOUT_POSITION_HEAD
+	"#ItemSel_HEAD",		// LOADOUT_POSITION_HEAD
 	"#ItemSel_MISC",		// LOADOUT_POSITION_MISC
 	"#ItemSel_ACTION",		// LOADOUT_POSITION_ACTION
 	"#ItemSel_MISC",		// LOADOUT_POSITION_MISC2
@@ -834,7 +834,11 @@ CEquippableItemsForSlotGenerator::CEquippableItemsForSlotGenerator( int iClass, 
 	}
 	else
 	{
-		if ( IsMiscSlot( iSearchSlot ) )
+		if ( IsHeadSlot( iSearchSlot ) )
+		{
+			iSearchSlot = LOADOUT_POSITION_HEAD;
+		}
+		else if ( IsMiscSlot( iSearchSlot ) )
 		{
 			iSearchSlot = LOADOUT_POSITION_MISC;
 		}
