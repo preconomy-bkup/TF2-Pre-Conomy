@@ -220,6 +220,13 @@ INetworkStringTable *g_pStringTableInfoPanel = NULL;
 INetworkStringTable *g_pStringTableClientSideChoreoScenes = NULL;
 INetworkStringTable *g_pStringTableServerMapCycle = NULL;
 
+#ifdef TF_DLL
+INetworkStringTable *g_pStringTableServerPopFiles = NULL;
+INetworkStringTable *g_pStringTableServerMapCycleMvM = NULL;
+#endif
+
+INetworkStringTable* g_pStringTableDynamicModels = NULL;
+
 CStringTableSaveRestoreOps g_VguiScreenStringOps;
 
 // Holds global variables shared between engine and game.
@@ -1441,6 +1448,20 @@ void CServerGameDLL::CreateNetworkStringTables( void )
 	g_pStringTableInfoPanel = networkstringtable->CreateStringTable( "InfoPanel", MAX_INFOPANEL_STRINGS );
 	g_pStringTableClientSideChoreoScenes = networkstringtable->CreateStringTable( "Scenes", MAX_CHOREO_SCENES_STRINGS );
 	g_pStringTableServerMapCycle = networkstringtable->CreateStringTable( "ServerMapCycle", 128 );
+
+#ifdef TF_DLL
+	g_pStringTableServerPopFiles = networkstringtable->CreateStringTable( "ServerPopFiles", 128 );
+	g_pStringTableServerMapCycleMvM = networkstringtable->CreateStringTable( "ServerMapCycleMvM", 128 );
+#endif
+
+	g_pStringTableDynamicModels = networkstringtable->FindTable( "DynamicModels" );
+
+	bool bPopFilesValid = true;
+	(void)bPopFilesValid; // Avoid unreferenced variable warning
+
+#ifdef TF_DLL
+	bPopFilesValid = ( g_pStringTableServerPopFiles != NULL );
+#endif
 
 	Assert( g_pStringTableParticleEffectNames &&
 			g_pStringTableEffectDispatch &&
