@@ -4804,8 +4804,7 @@
 			"image_inventory"	"backpack/weapons/c_models/c_overhealer/c_overhealer"
 			"image_inventory_size_w"		"128"
 			"image_inventory_size_h"		"82"
-			"model_player"	"models/weapons/c_models/c_medigun/c_medigun.mdl"
-			"attach_to_hands"	"1"
+			"model_player"	"models/weapons/w_models/w_medigun.mdl"
 			"item_quality"	"unique"
 			"propername"	"1"
 			"min_ilevel"	"8"
@@ -4852,7 +4851,13 @@
 				{
 					"0"
 					{
-						"model"	"models/weapons/c_models/c_overhealer/c_overhealer.mdl"
+						"model"		"models/weapons/c_models/c_v_overhealer/c_v_overhealer.mdl"
+						"model_display_flags"	"2"
+					}
+					"1"
+					{
+						"model"		"models/weapons/c_models/c_overhealer/c_overhealer.mdl"
+						"model_display_flags"	"1"
 					}
 				}
 				"custom_particlesystem"
@@ -4866,7 +4871,13 @@
 				{
 					"0"
 					{
-						"model"	"models/weapons/c_models/c_overhealer/c_overhealer.mdl"
+						"model"		"models/weapons/c_models/c_v_overhealer/c_v_overhealer.mdl"
+						"model_display_flags"	"2"
+					}
+					"1"
+					{
+						"model"		"models/weapons/c_models/c_overhealer/c_overhealer.mdl"
+						"model_display_flags"	"1"
 					}
 				}
 				"custom_particlesystem"
