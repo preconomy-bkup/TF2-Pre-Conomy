@@ -2500,6 +2500,15 @@ void CTFFlameThrower::RestartParticleEffect( void )
 	m_iParticleWaterLevel = pOwner->GetWaterLevel();
 
 	m_FlameEffects.StartEffects( pOwner, GetParticleEffectName() );
+
+	C_BasePlayer* pLocalPlayer = C_BasePlayer::GetLocalPlayer();
+	if (pLocalPlayer && pLocalPlayer == GetOwner() )
+	{
+		if (pLocalPlayer->GetViewModel() )
+		{
+			pLocalPlayer->GetViewModel()->ParticleProp()->StopEmission();
+		}
+	}
 }
 
 //-----------------------------------------------------------------------------

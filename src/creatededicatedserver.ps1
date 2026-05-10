@@ -1,7 +1,7 @@
 # Use when powershell doesn't let you execute script
 # Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
-devtools\bin\vpc.exe /hl2mp /tf /define:SOURCESDK +dedicated /dedicated /mksln dedicated.sln
+devtools\bin\vpc.exe /tf /define:SOURCESDK +dedicated /dedicated /mksln dedicated.sln
 
 # Use DEDICATED define within tf sdk project
 $vcxprojPath = Resolve-Path ".\game\server\server_win64_srv_tf.vcxproj"
