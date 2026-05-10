@@ -7,7 +7,7 @@ Note: This is in very early stages!!! Expect crashes or missing weapon reverts.
 
 Clone the repository using the following command:
 
-`git clone https://github.com/bvvth556epic/TF2-GoldRush`
+`git clone https://github.com/bvvth556epic/TF2-Pre-Conomy`
 
 ### Windows
 
