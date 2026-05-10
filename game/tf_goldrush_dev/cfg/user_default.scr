@@ -57,13 +57,13 @@ DESCRIPTION INFO_OPTIONS
 	}
 	
 	// buttons don't work in the default gameui mpadvanced
-	//"chat_filter_settings"
-	//{
-	//	"#TF_ChatFilterSettings"
-	//	"#Tooltip_ChatFilterSettings"
-	//	{ BUTTON }
-	//	{ "open_chat_filter_settings" }
-	//}
+	"chat_filter_settings"
+	{
+		"#TF_ChatFilterSettings"
+		"#Tooltip_ChatFilterSettings"
+		{ BUTTON }
+		{ "open_chat_filter_settings" }
+	}
 
 	"category2"
 	{
@@ -75,14 +75,6 @@ DESCRIPTION INFO_OPTIONS
 	//{
 	//	"#TF_NoHats"
 	//	"#Tooltip_NoHats"
-	//	{ BOOL }
-	//	{ "0" }
-	//}
-
-	//"cl_backgroundmap"
-	//{
-	//	"#TF_BackgroundMap"
-	//	"#Tooltip_BackgroundMap"
 	//	{ BOOL }
 	//	{ "0" }
 	//}
@@ -495,14 +487,13 @@ DESCRIPTION INFO_OPTIONS
 		{ "1" }
 	}
 	
-// conn: uncomment when i figure out steam cloud
-//	"cl_cloud_settings"
-//	{
-//		"#Valve_UseSteamCloud"
-//		"#Tooltip_UseSteamCloud"
-//		{ BOOL }
-//		{ "1" }
-//	}
+	"cl_cloud_settings"
+	{
+		"#Valve_UseSteamCloud"
+		"#Tooltip_UseSteamCloud"
+		{ BOOL }
+		{ "1" }
+	}
 	
 	"cl_steamscreenshots"
 	{
