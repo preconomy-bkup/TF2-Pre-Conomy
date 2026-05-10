@@ -1,16 +1,13 @@
-# Team Fortress 2: Gold Rush
-New source repository for Team Fortress 2: Gold Rush, rebuilt on the Team Fortress 2 code now included in the Source SDK.
+# Team Fortress 2: Pre-Conomy
+Source repository for Team Fortress 2: Pre-Conomy, rebuilt on the Team Fortress 2 code now included in the Source SDK.
 
-[Discord server invite](https://discord.gg/AxVzvcccfX)
+Note: This is in very early stages!!! Expect crashes or missing weapon reverts.
 
-Note: VERY WIP!!!!! Right now we're in the process of tearing most of the new TF2 stuff that was added. Might take a while.
-
-(Meanwhile, you can download the old tf_port-based build [here](https://conneath.net/repo/tf_goldrush-20-02-25.7z).)
 ## Build instructions
 
 Clone the repository using the following command:
 
-`git clone https://github.com/conneath/TF2-GoldRush`
+`git clone https://github.com/bvvth556epic/TF2-GoldRush`
 
 ### Windows
 
