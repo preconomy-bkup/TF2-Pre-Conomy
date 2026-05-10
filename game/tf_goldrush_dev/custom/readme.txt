@@ -6,12 +6,12 @@ See gameinfo.txt for more details.
 
 For example, you might have the following file structure:
 
-	tf/custom/my_custom_stuff/   <<< This subfolder will be added as a search path
-	tf/custom/my_custom_stuff/models/custom_model.mdl
-	tf/custom/my_custom_stuff/materials/custom_material.vmt
-	tf/custom/my_custom_stuff/materials/vgui/custom_ui_thing.res
-	tf/custom/some_mod.vpk       <<< This VPK will be added as a search path
-	tf/custom/another_mod.vpk    <<< This VPK will be added as a search path
+	tf_goldrush_dev/custom/my_custom_stuff/   <<< This subfolder will be added as a search path
+	tf_goldrush_dev/custom/my_custom_stuff/models/custom_model.mdl
+	tf_goldrush_dev/custom/my_custom_stuff/materials/custom_material.vmt
+	tf_goldrush_dev/custom/my_custom_stuff/materials/vgui/custom_ui_thing.res
+	tf_goldrush_dev/custom/some_mod.vpk       <<< This VPK will be added as a search path
+	tf_goldrush_dev/custom/another_mod.vpk    <<< This VPK will be added as a search path
 
 
 Mounting a VPK to the filesystem is more efficient than adding a subfolder,
