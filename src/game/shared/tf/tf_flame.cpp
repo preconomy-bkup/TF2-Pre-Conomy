@@ -955,13 +955,19 @@ void CTFFlameManager::OnFiringStateChange()
 	if ( m_bIsFiring )
 	{
 		//DevMsg( "start new particle\n" );
+		C_TFPlayer* pLocalPlayer = C_TFPlayer::GetLocalTFPlayer();
+		if ( pLocalPlayer && m_hAttacker.Get() == pLocalPlayer && !input->CAM_IsThirdPerson() )
+		{
+			return;
+		}
+
 		CTFFlameThrower *pFlameThrower = NULL;
 		if ( m_hWeapon )
 		{
 			pFlameThrower = dynamic_cast< CTFFlameThrower* >( m_hWeapon.Get() );
 		}
 
-		const char *pszParticleName = pFlameThrower ? pFlameThrower->GetParticleEffectName() : "new_flame";
+		const char *pszParticleName = pFlameThrower ? pFlameThrower->GetParticleEffectName() : "flamethrower";
 		m_hParticleEffect = ParticleProp()->Create( pszParticleName, PATTACH_CUSTOMORIGIN, 0 );
 		if ( !m_hParticleEffect )
 		{

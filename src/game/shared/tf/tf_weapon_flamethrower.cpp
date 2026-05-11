@@ -294,7 +294,7 @@ const char *CTFFlameThrower::GetNewFlameEffectInternal( int nTeam, bool bCrit )
 			const CEconItemAttributeDefinition *pAttrDef = ( nTeam == TF_TEAM_BLUE ) ? ( bCrit ? pAttrDef_FireParticleBlueCrit : pAttrDef_FireParticleBlue ) : ( bCrit ? pAttrDef_FireParticleRedCrit : pAttrDef_FireParticleRed );
 			if ( !pItem->FindAttribute( pAttrDef, &attrModule ) || !attrModule.has_value() )
 			{
-				V_strncpy( pszParticleEffect, bCrit ? ( ( nTeam == TF_TEAM_BLUE ) ? "new_flame_crit_blue" : "new_flame_crit_red" ) : "new_flame", MAX_PARTICLE_EFFECT_NAME_LENGTH );
+				V_strncpy( pszParticleEffect, bCrit ? ( ( nTeam == TF_TEAM_BLUE ) ? "flamethrower_crit_blue" : "flamethrower_crit_red" ) : "flamethrower", MAX_PARTICLE_EFFECT_NAME_LENGTH );
 			}
 			else
 			{
@@ -2500,15 +2500,6 @@ void CTFFlameThrower::RestartParticleEffect( void )
 	m_iParticleWaterLevel = pOwner->GetWaterLevel();
 
 	m_FlameEffects.StartEffects( pOwner, GetParticleEffectName() );
-
-	C_BasePlayer* pLocalPlayer = C_BasePlayer::GetLocalPlayer();
-	if (pLocalPlayer && pLocalPlayer == GetOwner() )
-	{
-		if (pLocalPlayer->GetViewModel() )
-		{
-			pLocalPlayer->GetViewModel()->ParticleProp()->StopEmission();
-		}
-	}
 }
 
 //-----------------------------------------------------------------------------
@@ -2523,7 +2514,7 @@ const char* CTFFlameThrower::FlameEffectName( bool bIsFirstPersonView )
 	// Halloween Spell
 	if ( m_bHasHalloweenSpell )
 	{
-		return "flamethrower_halloween_new_flame";
+		return "flamethrower_halloween";
 	}
 
 	return GetNewFlameEffectInternal( pOwner->GetTeamNumber(), false );
@@ -2541,7 +2532,7 @@ const char* CTFFlameThrower::FlameCritEffectName( bool bIsFirstPersonView )
 	// Halloween Spell
 	if ( m_bHasHalloweenSpell )
 	{
-		return ( pOwner->GetTeamNumber() == TF_TEAM_BLUE ? "flamethrower_halloween_crit_blue_new_flame" : "flamethrower_halloween_crit_red_new_flame" );
+		return ( pOwner->GetTeamNumber() == TF_TEAM_BLUE ? "flamethrower_halloween_crit_blue" : "flamethrower_halloween_crit_red" );
 	}
 
 	return GetNewFlameEffectInternal( pOwner->GetTeamNumber(), true );
