@@ -214,9 +214,6 @@ private:
 	CPanelAnimationVar( bool, m_bDisableSpeakEvent, "disable_speak_event", "0" );
 
 	CEconItemView			*GetLoadoutItemFromMDLHandle( loadout_positions_t iPosition, MDLHandle_t mdlHandle );
-	bool					RenderStatTrack( CStudioHdr *pStudioHdr, matrix3x4_t *pWorldMatrix );
-	MDLData_t				m_StatTrackModel;
-	float					m_flStatTrackScale;
 };
 
 #endif // TF_PLAYERMODELPANEL_H

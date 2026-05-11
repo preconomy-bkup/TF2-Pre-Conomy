@@ -84,8 +84,6 @@ CBaseGameStats *gamestats = &s_GameStats_Singleton; //start out pointing at the 
 extern ConVar skill;
 void OverWriteCharsWeHate( char *pStr );
 
-bool StatsTrackingIsFullyEnabled( void );
-
 class CGamestatsData
 {
 public:
@@ -158,11 +156,6 @@ CBaseGameStats::CBaseGameStats() :
 	m_bLogging( false ),
 	m_bLoggingToFile( false )
 {
-}
-
-bool CBaseGameStats::StatTrackingAllowed( void )
-{
-	return CBGSDriver.m_bEnabled;
 }
 
 // Don't care about vcr hooks here...
@@ -408,9 +401,6 @@ void CBaseGameStats::Event_PreSaveGameLoaded( char const *pSaveName, bool bInGam
 
 bool CBaseGameStats::SaveToFileNOW( bool bForceSyncWrite /* = false */ )
 {
-	if ( !StatsTrackingIsFullyEnabled() )
-		return false;
-
 	// this code path is only for old format stats.  Products that use new format take a different path.
 	if ( !gamestats->UseOldFormat() )
 		return false;
@@ -529,7 +519,7 @@ void CBaseGameStats::Event_WindowShattered( CBasePlayer *pPlayer )
 
 bool CBaseGameStats::UploadStatsFileNOW( void )
 {
-	if( !StatsTrackingIsFullyEnabled() || !HaveValidData() || !gamestats->UseOldFormat() )
+	if( !HaveValidData() || !gamestats->UseOldFormat() )
 		return false;
 
 	if ( !filesystem->FileExists( gamestats->GetStatSaveFileName(), GAMESTATS_PATHID ) )
@@ -704,21 +694,6 @@ bool CBaseGameStats_Driver::Init()
 	}
 
 	ResetData();
-
-#ifdef GAME_DLL
-	if ( StatsTrackingIsFullyEnabled() )
-	{
-		// FIXME: Load m_tLastUpload from registry and save it back out, too
-#ifndef SWDS
-		IRegistry *reg = InstanceRegistry( "Steam" );
-		Assert( reg );
-		m_tLastUpload = reg->ReadInt( gamestats->GetStatUploadRegistryKeyName(), 0 );
-		ReleaseInstancedRegistry( reg );
-#endif
-		//load existing stats
-		gamestats->LoadFromFile();
-	}
-#endif // GAME_DLL
 		
 	if ( s_szPseudoUniqueID[ 0 ] != 0 )
 	{			
@@ -1316,11 +1291,6 @@ void CBaseGameStats_Driver::FrameUpdatePostEntityThink()
 		}
 		m_bGamePaused = bGamePaused;
 	}
-}
-
-bool StatsTrackingIsFullyEnabled( void )
-{
-	return CBGSDriver.m_bEnabled && gamestats->StatTrackingEnabledForMod();
 }
 
 void CBaseGameStats::Clear( void )

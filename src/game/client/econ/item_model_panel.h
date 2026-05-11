@@ -166,8 +166,6 @@ private:
 
 	CUtlVector< MDLData_t > m_AttachedModels;
 
-	float					m_flStatTrackScale;
-
 	CPanelAnimationVar( bool, m_bForceUseModel, "force_use_model", "0" );
 	CPanelAnimationVar( bool, m_bUseItemRenderTarget, "use_item_rendertarget", "0" );
 	CPanelAnimationVar( int, m_iInventoryImageType, "inventory_image_type", "0" );

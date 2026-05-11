@@ -1178,14 +1178,6 @@ void CTFPlayerModelPanel::UpdatePreviewVisuals()
 		SetMDLSkinForTeam( GetMergeMDL( m_MergeMDL ), GetPreviewItem( m_pHeldItem ), m_iTeam );
 	}
 
-	// Set the StatTrack model skin
-	if ( !m_StatTrackModel.m_bDisabled )
-	{
-		int iSkin = 0;
-		iSkin = m_iTeam == TF_TEAM_RED ? 0 : 1;
-		m_StatTrackModel.m_MDL.m_nSkin = iSkin;
-	}
-
 	// Set the skin for all other equipped items (wearables, etc).
 	for ( int i=0; i<m_vecDynamicAssetsLoaded.Count(); i++ )
 	{
@@ -1414,11 +1406,6 @@ void CTFPlayerModelPanel::RenderingMergedModel( IMatRenderContext *pRenderContex
 	// Update Misc Particles 1 by 1, Unfortunately the equip location is generic (MISC_SLOT) and not the specific slot
 	// so we have to test each slot individually
 	UpdateCosmeticParticles( pRenderContext, pStudioHdr, mdlHandle, pWorldMatrix, iSystem, pEconItem );
-
-	if ( m_iCurrentSlotIndex == iPosition )
-	{
-		RenderStatTrack( pStudioHdr, pWorldMatrix );
-	}
 }
 
 IMaterial* CTFPlayerModelPanel::GetOverrideMaterial( MDLHandle_t mdlHandle ) 
@@ -1441,53 +1428,6 @@ IMaterial* CTFPlayerModelPanel::GetOverrideMaterial( MDLHandle_t mdlHandle )
 	}
 
 	return NULL;
-}
-
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
-bool CTFPlayerModelPanel::RenderStatTrack( CStudioHdr *pStudioHdr, matrix3x4_t *pWorldMatrix )
-{
-	// Draw the merge MDLs.
-	if ( !m_StatTrackModel.m_bDisabled )
-	{
-		matrix3x4_t matMergeBoneToWorld[MAXSTUDIOBONES];
-
-		// Get the StatTrak model's studio header from the MDL cache
-		CStudioHdr* pStatTrackStudioHdr = m_StatTrackModel.m_pStudioHdr;
-
-		// If m_pStudioHdr isn't set, try to get it from the MDL directly
-		if ( !pStatTrackStudioHdr )
-		{
-			MDLHandle_t hStatTrackMDL = m_StatTrackModel.m_MDL.GetMDL();
-			if ( hStatTrackMDL != MDLHANDLE_INVALID )
-			{
-				pStatTrackStudioHdr = GetMergeMDLStudioHdr( hStatTrackMDL );
-			}
-		}
-
-		matrix3x4_t* pMergeBoneToWorld = &matMergeBoneToWorld[0];
-
-		// If we have a valid mesh, bonemerge it. If we have an invalid mesh we can't bonemerge because
-		// it'll crash trying to pull data from the missing header.
-		if ( pStatTrackStudioHdr != NULL && pStudioHdr != NULL )
-		{
-			// The StatTrak model should bone-merge with the WEAPON (pStudioHdr), not the player model
-			// Parameters: (source header, output matrices, parent header, parent matrices, local transform)
-			m_StatTrackModel.m_MDL.SetupBonesWithBoneMerge( pStatTrackStudioHdr, pMergeBoneToWorld, pStudioHdr, pWorldMatrix, m_StatTrackModel.m_MDLToWorld );
-
-			// Scale the StatTrak model's bones, not the player model bones
-			for ( int i = 0; i < pStatTrackStudioHdr->numbones(); ++i )
-			{
-				MatrixScaleBy( m_flStatTrackScale, pMergeBoneToWorld[i] );
-			}
-			m_StatTrackModel.m_MDL.Draw( m_StatTrackModel.m_MDLToWorld, pMergeBoneToWorld );
-		}
-
-		return true;
-	}
-
-	return false;
 }
 
 //-----------------------------------------------------------------------------
