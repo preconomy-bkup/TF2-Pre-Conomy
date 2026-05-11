@@ -9289,7 +9289,7 @@
 			{
 				"player_bodygroups"
 				{
-					"hat"			"0"
+					"hat"			"1"
 				}
 			}
 			"attributes"
