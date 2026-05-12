@@ -224,6 +224,10 @@ bool CTFWeaponInvis::ActivateInvisibilityWatch( void )
 			flDecloakRate = 1.0f;
 
 		pOwner->m_Shared.FadeInvis( 1.0f );
+		if ( HasFeignDeath() && pOwner->m_Shared.GetSpyCloakMeter() > 40.0f )
+		{
+		pOwner->m_Shared.SetSpyCloakMeter(40.0f);
+		}
 	}
 	else
 	{
