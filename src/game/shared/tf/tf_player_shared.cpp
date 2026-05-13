@@ -169,7 +169,7 @@ ConVar tf_demoman_charge_drain_time( "tf_demoman_charge_drain_time", "1.5", FCVA
 // STAGING_SPY
 ConVar tf_feign_death_duration( "tf_feign_death_duration", "6.0", FCVAR_REPLICATED | FCVAR_DEVELOPMENTONLY | FCVAR_CHEAT, "Time that feign death buffs last." );
 
-ConVar tf_allow_taunt_switch( "tf_allow_taunt_switch", "0", FCVAR_REPLICATED, "0 - players are not allowed to switch weapons while taunting, 1 - players can switch weapons at the start of a taunt (old bug behavior), 2 - players can switch weapons at any time during a taunt." );
+ConVar tf_allow_taunt_switch( "tf_allow_taunt_switch", "1", FCVAR_REPLICATED, "0 - players are not allowed to switch weapons while taunting, 1 - players can switch weapons at the start of a taunt (old bug behavior), 2 - players can switch weapons at any time during a taunt." );
 
 // AFTERBURN
 const float tf_afterburn_max_duration = 10.f;
