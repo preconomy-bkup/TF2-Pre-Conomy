@@ -372,24 +372,6 @@ void JarExplode( int iEntIndex, CTFPlayer *pAttacker, CBaseEntity *pOriginalWeap
 				if ( pAttacker && pPlayer->m_Shared.InCond( TF_COND_BURNING ) )
 				{
 					ExtinguishPlayer( dynamic_cast<CEconEntity *>( pWeapon ), pAttacker, pPlayer, "tf_weapon_jar" );
-
-					// Return some percentage of the jar to the thrown weapon if extinguishing an ally
-					auto pLauncher = dynamic_cast< CTFWeaponBase* >( pOriginalWeapon );
-					if ( pLauncher && pAttacker != pPlayer && pLauncher->HasEffectBarRegeneration() )
-					{
-						float fCooldown = 1.0f;
-						CALL_ATTRIB_HOOK_FLOAT_ON_OTHER( pLauncher, fCooldown, extinguish_reduces_cooldown );
-						fCooldown = 1.0f - fCooldown;
-						if ( fCooldown > 0 )
-						{
-							if ( pLauncher->GetEffectBarProgress() < fCooldown )
-							{
-								float fDuration = pLauncher->GetEffectBarRechargeTime();
-								float fIncrement = fDuration * fCooldown;
-								pLauncher->DecrementBarRegenTime( fIncrement );
-							}
-						}
-					}
 				}
 			}
 		}
