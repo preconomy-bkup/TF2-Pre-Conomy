@@ -66,9 +66,9 @@ jobs:
       - name: Clean and strip (Linux)
         if: runner.os == 'Linux'
         run: |
-          find game/tf_goldrush_dev/bin/linux64 -type f -executable -exec strip --strip-all {} +
-          if [ -f game/tf_goldrush_dev_linux64 ]; then
-            strip --strip-all game/tf_goldrush_dev_linux64
+          find game/tf2pc/bin/linux64 -type f -executable -exec strip --strip-all {} +
+          if [ -f game/tf2pc_linux64 ]; then
+            strip --strip-all game/tf2pc_linux64
           fi
         shell: bash
 
