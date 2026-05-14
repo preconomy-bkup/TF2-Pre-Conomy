@@ -14,7 +14,6 @@
 #include "shareddefs.h"
 #include "filesystem.h"
 #include "econ_item_description.h"				// only for CSteamAccountIDAttributeCollector
-#include "achievementmgr.h"
 
 #ifdef CLIENT_DLL
 #include <igameevents.h>
@@ -1743,9 +1742,6 @@ void CPlayerInventory::SOCacheSubscribed( const CSteamID & steamIDOwner, GCSDK::
 		GameItemDefinition_t* pItemDef = dynamic_cast<GameItemDefinition_t*>( itemMap[i] );
 		
 	#ifdef CLIENT_DLL
-		CAchievementMgr *pAchievementMgr = dynamic_cast<CAchievementMgr *>( engine->GetAchievementMgr() );
-		const AchievementAward_t* pAchievementAward = GetItemSchema()->GetAchievementRewardByDefIndex( pItemDef->GetDefinitionIndex() );
-
 		// Ignore hidden items
 		if ( pItemDef->IsHidden() )
 			continue;
@@ -1758,16 +1754,6 @@ void CPlayerInventory::SOCacheSubscribed( const CSteamID & steamIDOwner, GCSDK::
 		if ( !pItemDef->ShouldShowInArmory() ) 
 			continue;
 
-		// Is this an achievement item?
-		if ( pAchievementAward != NULL )
-		{
-			const char* cAchName = pAchievementAward->m_sNativeName.String();
-			CBaseAchievement* pAchievement = pAchievementMgr->GetAchievementByName( cAchName );
-
-			// We haven't earned this item yet, skip it.
-			if ( !pAchievement->IsAchieved() )
-				continue;
-		}
 	#endif
 
 		// Create the item
