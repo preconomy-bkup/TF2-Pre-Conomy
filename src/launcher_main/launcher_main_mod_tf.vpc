@@ -1,4 +1,4 @@
-$Macro OUTBINNAME "tf_goldrush_dev"
+$Macro OUTBINNAME "tf2pc"
 
 $Conditional "MOD_LAUNCHER" "1"
 
@@ -16,7 +16,7 @@ $Project "Launcher Main (TF Goldrush Dev)"
 {
     $Folder "Resource Files" [$WINDOWS]
     {
-        $File   "launcher_main_tf_goldrush_dev.rc"
-        $File   "res\tf_goldrush_dev.ico"
+        $File   "launcher_main_tf2pc.rc"
+        $File   "res\tf2pc.ico"
     }
 }

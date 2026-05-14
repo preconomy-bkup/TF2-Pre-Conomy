@@ -6,7 +6,7 @@
 
 $Macro SRCDIR		"..\.."
 $Macro GAMENAME 	"tf" [!$SOURCESDK]
-$Macro GAMENAME 	"tf_goldrush_dev" [$SOURCESDK]
+$Macro GAMENAME 	"tf2pc" [$SOURCESDK]
 
 // This code currently only builds on Windows (itemtest_lib and dependencies)
 $Conditional WORKSHOP_IMPORT_ENABLE	1 [$WINDOWS && !$SOURCESDK]
@@ -29,7 +29,7 @@ $Configuration
 	}
 }
 
-$Project "Client (TF Goldrush Dev)"
+$Project "Client (TF Pre-Conomy)"
 {
 	$Folder "Source Files"
 	{
