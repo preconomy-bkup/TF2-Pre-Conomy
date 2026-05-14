@@ -93,12 +93,22 @@ jobs:
         run: |
           mkdir -p dedicated_bins
           if [ "${{ runner.os }}" = "Windows" ]; then
-            find . -name "server.dll" -exec cp {} dedicated_bins/ \;
+            find . -name "server.dll" -type f -exec cp {} dedicated_bins/ \;
           else
-            find . -name "server_srv.so" -exec cp {} dedicated_bins/ \;
+            find . -name "server_srv.so" -type f -exec cp {} dedicated_bins/ \;
           fi
-        
+          
+          if [ -z "$(ls -A dedicated_bins)" ]; then
+            echo "Error: No binaries found"
+            find . -name "*.so" -o -name "*.dll"
+            exit 1
+          fi
           ls -R dedicated_bins/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}-bins
+          path: dedicated_bins/
 
 
 
