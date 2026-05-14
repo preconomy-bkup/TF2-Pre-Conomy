@@ -15,11 +15,11 @@ jobs:
           - os: windows-2025
             build_script: createallprojects.bat
             build_cmd: msbuild game.sln /p:Configuration=Release /p:Platform=win64 /m
-            artifact_name: rush-windows
+            artifact_name: tf2pc-windows
           - os: ubuntu-latest
             build_script: ./buildallprojects
             build_cmd: ""
-            artifact_name: rush-linux
+            artifact_name: tf2pc-linux
 
     steps:
       - name: Checkout repository
