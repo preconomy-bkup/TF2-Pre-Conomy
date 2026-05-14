@@ -396,6 +396,7 @@ public:
 	CNetworkVar( int, m_iDamageCustom );
 	CNetworkVar( int, m_iTeam );
 	CNetworkVar( int, m_iClass );
+	CNetworkVar( bool, m_bGoldRagdoll );
 	CNetworkVar( bool, m_bCritOnHardHit );
 	CNetworkVar( float, m_flHeadScale );
 	CNetworkVar( float, m_flTorsoScale );
@@ -423,6 +424,7 @@ IMPLEMENT_SERVERCLASS_ST_NOBASE( CTFRagdoll, DT_TFRagdoll )
 	SendPropInt( SENDINFO( m_iTeam ), 3, SPROP_UNSIGNED ),
 	SendPropInt( SENDINFO( m_iClass ), 4, SPROP_UNSIGNED ),			
 	SendPropUtlVector( SENDINFO_UTLVECTOR( m_hRagWearables ), 8, SendPropEHandle( NULL, 0 ) ),
+	SendPropBool( SENDINFO(m_bGoldRagdoll ) ),
 	SendPropBool( SENDINFO( m_bCritOnHardHit ) ),
 	SendPropFloat( SENDINFO( m_flHeadScale ) ),
 	SendPropFloat( SENDINFO( m_flTorsoScale ) ),
@@ -972,6 +974,24 @@ void CTFPlayer::ForcePlayerViewAngles( const QAngle& qTeleportAngles )
 bool CTFPlayer::CanBeForcedToLaugh( void )
 {
 	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: Give exclusive items only to devs
+//-----------------------------------------------------------------------------
+void CTFPlayer::GiveDevExclusiveItems()
+{
+	if (IsBot() )
+		return;
+
+	if ( UTIL_PlayerIsModDev(this) )
+	{
+		CEconItemDefinition* pItemDef = GetItemSchema()->GetItemDefinition(169);
+		if ( pItemDef )
+		{
+			GiveNamedItem( pItemDef->GetDefinitionName() );
+		}
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -2515,6 +2535,8 @@ void CTFPlayer::InitialSpawn( void )
 	UpdateInventory( true );
 
 	ResetDamagePerSecond();
+
+	GiveDevExclusiveItems();
 
 	IGameEvent * event = gameeventmanager->CreateEvent( "player_initial_spawn" );
 	if ( event )
@@ -10296,6 +10318,12 @@ void CTFPlayer::Event_Killed( const CTakeDamageInfo &info )
 		}
 	}
 
+	int iGoldRagdoll = 0;
+	if (pKillerWeapon)
+	{
+		CALL_ATTRIB_HOOK_INT_ON_OTHER( pKillerWeapon, iGoldRagdoll, set_turn_to_gold );
+	}
+
 	int iRagdollsBecomeAsh = 0;
 	if ( info.GetWeapon() )
 	{
@@ -10323,8 +10351,7 @@ void CTFPlayer::Event_Killed( const CTakeDamageInfo &info )
 	// Create the ragdoll entity.
 	if ( bGib || bRagdoll )
 	{
-
-		CreateRagdollEntity( bGib, bBurning, bElectrocuted, bOnGround, bCloakedCorpse, iRagdollsBecomeAsh != 0, iCustomDamage, ( iCritOnHardHit != 0 ) );
+		CreateRagdollEntity ( bGib, bBurning, bElectrocuted, bOnGround, bCloakedCorpse, iGoldRagdoll != 0, iRagdollsBecomeAsh != 0, iCustomDamage, (iCritOnHardHit != 0) );
 	}
 
 
@@ -12872,7 +12899,7 @@ void CTFPlayer::CreateRagdollEntity( void )
 //-----------------------------------------------------------------------------
 // Purpose: Create a ragdoll entity to pass to the client.
 //-----------------------------------------------------------------------------
-void CTFPlayer::CreateRagdollEntity( bool bGib, bool bBurning, bool bElectrocuted, bool bOnGround, bool bCloakedCorpse, bool bBecomeAsh, int iDamageCustom, bool bCritOnHardHit )
+void CTFPlayer::CreateRagdollEntity( bool bGib, bool bBurning, bool bElectrocuted, bool bOnGround, bool bCloakedCorpse, bool bGoldRagdoll, bool bBecomeAsh, int iDamageCustom, bool bCritOnHardHit )
 {
 	// If we already have a ragdoll destroy it.
 	CTFRagdoll *pRagdoll = dynamic_cast<CTFRagdoll*>( m_hRagdoll.Get() );
@@ -13096,6 +13123,13 @@ void CTFPlayer::CreateFeignDeathRagdoll( const CTakeDamageInfo& info, bool bGib,
 		pRagdoll->m_flHandScale = m_flHandScale;
 
 		{
+			int iGoldRagdoll = 0;
+			if ( info.GetWeapon() )
+			{
+				CALL_ATTRIB_HOOK_INT_ON_OTHER(info.GetWeapon(), iGoldRagdoll, set_turn_to_gold);
+			}
+			pRagdoll->m_bGoldRagdoll = iGoldRagdoll != 0;
+
 			int iRagdollsBecomeAsh = 0;
 			if ( info.GetWeapon() )
 			{

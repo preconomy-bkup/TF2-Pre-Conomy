@@ -147,9 +147,10 @@
 #include "econ/tool_items/custom_texture_cache.h"
 
 #endif
-
+#if defined( _WIN64 )
 #include "discord_rpc.h"
 #include <time.h>
+#endif
 
 extern vgui::IInputInternal *g_InputInternal;
 
@@ -330,9 +331,11 @@ static ConVar s_CV_ShowParticleCounts("showparticlecounts", "0", 0, "Display num
 static ConVar s_cl_team("cl_team", "default", FCVAR_USERINFO|FCVAR_ARCHIVE, "Default team when joining a game");
 static ConVar s_cl_class("cl_class", "default", FCVAR_USERINFO|FCVAR_ARCHIVE, "Default class when joining a game");
 
+#if defined( _WIN64 )
 // Discord RPC
 static ConVar cl_discord_appid("cl_discord_appid", "1504455286377807992", FCVAR_DEVELOPMENTONLY | FCVAR_CHEAT);
 static int64_t startTimestamp = time(0);
+#endif
 
 #ifdef HL1MP_CLIENT_DLL
 static ConVar s_cl_load_hl1_content("cl_load_hl1_content", "0", FCVAR_ARCHIVE, "Mount the content from Half-Life: Source if possible");
@@ -848,6 +851,7 @@ bool IsEngineThreaded()
 	return false;
 }
 
+#if defined( _WIN64 )
 //-----------------------------------------------------------------------------
 // Discord RPC
 //-----------------------------------------------------------------------------
@@ -883,6 +887,7 @@ static void HandleDiscordJoinRequest( const DiscordUser* request )
 {
 	// Not implemented
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Constructor
@@ -1142,7 +1147,7 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 	{
 		RegisterSecureLaunchProcessFunc( pfnUnsafeCmdLineProcessor );
 	}
-
+#if defined( _WIN64 )
 	// Discord RPC
 	DiscordEventHandlers handlers;
 	memset(&handlers, 0, sizeof(handlers));
@@ -1169,6 +1174,7 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 		discordPresence.largeImageKey = "ModImageHere";
 		Discord_UpdatePresence(&discordPresence);
 	}
+#endif
 
 	return true;
 }
@@ -1305,9 +1311,9 @@ void CHLClient::Shutdown( void )
 #ifndef NO_STEAM
 	ClientSteamContext().Shutdown();
 #endif
-
+#if defined( _WIN64 )
 	Discord_Shutdown();
-
+#endif
 	
 	// This call disconnects the VGui libraries which we rely on later in the shutdown path, so don't do it
 //	DisconnectTier3Libraries( );
@@ -1724,6 +1730,7 @@ void CHLClient::LevelInitPreEntity( char const* pMapName )
 	}
 #endif
 
+#if defined( _WIN64 )
 	// Discord RPC
 	if (!g_bTextMode)
 	{
@@ -1737,6 +1744,7 @@ void CHLClient::LevelInitPreEntity( char const* pMapName )
 		discordPresence.largeImageKey = "ModImageHere";
 		Discord_UpdatePresence(&discordPresence);
 	}
+#endif
 
 	// Check low violence settings for this map
 	g_RagdollLVManager.SetLowViolence( pMapName );
@@ -1835,6 +1843,7 @@ void CHLClient::LevelShutdown( void )
 
 	gHUD.LevelShutdown();
 
+#if defined( _WIN64 )
 	// Discord RPC
 	if (!g_bTextMode)
 	{
@@ -1847,6 +1856,7 @@ void CHLClient::LevelShutdown( void )
 		discordPresence.largeImageKey = "ModImageHere";
 		Discord_UpdatePresence(&discordPresence);
 	}
+#endif
 
 	internalCenterPrint->Clear();
 

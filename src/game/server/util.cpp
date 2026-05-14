@@ -647,6 +647,31 @@ bool UTIL_IsCommandIssuedByServerAdmin( void )
 	return true;
 }
 
+//-----------------------------------------------------------------------------
+// Purpose: Check if the player is part of the mod Dev Team
+// Output : CBasePlayer
+//-----------------------------------------------------------------------------
+
+bool UTIL_PlayerIsModDev( CBasePlayer* pPlayer )
+{
+	if (!pPlayer)
+		return false;
+
+	if (pPlayer->IsBot())
+		return false;
+
+	const uint64 steamID = pPlayer->GetSteamIDAsUInt64();
+
+	switch (steamID)
+	{
+	case 76561198392528524:
+		return true;
+
+	default:
+		return false;
+	}
+}
+
 
 //--------------------------------------------------------------------------------------------------------------
 /**

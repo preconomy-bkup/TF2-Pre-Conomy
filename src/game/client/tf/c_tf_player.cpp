@@ -418,6 +418,7 @@ IMPLEMENT_CLIENTCLASS_DT_NOBASE( C_TFRagdoll, DT_TFRagdoll, CTFRagdoll )
 	RecvPropInt( RECVINFO( m_iTeam ) ),
 	RecvPropInt( RECVINFO( m_iClass ) ),		
 	RecvPropUtlVector( RECVINFO_UTLVECTOR( m_hRagWearables ), 8,	RecvPropEHandle(NULL, 0, 0) ),
+	RecvPropBool( RECVINFO( m_bGoldRagdoll) ),
 	RecvPropBool( RECVINFO( m_bCritOnHardHit ) ),
 	RecvPropFloat( RECVINFO( m_flHeadScale ) ),
 	RecvPropFloat( RECVINFO( m_flTorsoScale ) ),
@@ -443,6 +444,7 @@ C_TFRagdoll::C_TFRagdoll()
 	m_bBecomeAsh = false;
 	m_flBurnEffectStartTime = 0.0f;
 	m_iDamageCustom = 0;
+	m_bGoldRagdoll = false;
 	m_iTeam = -1;
 	m_iClass = -1;
 	m_nForceBone = -1;
@@ -603,6 +605,14 @@ void C_TFRagdoll::CreateTFRagdoll()
 		C_TFPlayer::AdjustSkinIndexForZombie( m_iClass, m_nSkin );
 	}
 
+	// We check against new-style (special flag to indicate goldification) and old style (custom damage type)
+	// to maintain old demos involving the golden wrench.
+	if ( m_bGoldRagdoll || m_iDamageCustom == TF_DMG_CUSTOM_GOLD_WRENCH )
+	{
+		EmitSound("Saxxy.TurnGold");
+		m_bFixedConstraints = true;
+	}
+
 #ifdef _DEBUG
 	DevMsg( 2, "CreateTFRagdoll %d %d\n", gpGlobals->framecount, pPlayer ? pPlayer->entindex() : 0 );
 #endif
@@ -672,7 +682,7 @@ void C_TFRagdoll::CreateTFRagdoll()
 	// Play a death anim depending on the custom damage type.
 	bool bPlayDeathInAir = false;
 	int iDeathSeq = -1;
-	if ( pPlayer )
+	if ( pPlayer && !m_bGoldRagdoll )
 	{
 		iDeathSeq = pPlayer->m_Shared.GetSequenceForDeath( this, m_bBurning, m_iDamageCustom );
 
@@ -811,6 +821,17 @@ void C_TFRagdoll::CreateTFRagdoll()
 		breakablepropparams_t breakParams( m_vecRagdollOrigin, GetRenderAngles(), m_vecRagdollVelocity, angularImpulse );
 		breakParams.impactEnergyScale = 1.0f;
 		pPlayer->DropPartyHat( breakParams, m_vecRagdollVelocity.GetForModify() );
+	}
+
+	const char* materialOverrideFilename = NULL;
+
+	if ( m_bFixedConstraints )
+	{
+		if ( m_bGoldRagdoll )
+		{
+			// Gold texture...we've been turned into a golden corpse!
+			materialOverrideFilename = "models/player/shared/gold_player.vmt";
+		}
 	}
 }
 

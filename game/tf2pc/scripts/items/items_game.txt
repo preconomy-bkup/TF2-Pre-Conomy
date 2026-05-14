@@ -10994,6 +10994,61 @@
 				}
 			}
 		}
+		"169"
+		{
+			"name"	"Golden Wrench"
+			"first_sale_date"	"2010/09/29"
+			"item_class"	"tf_weapon_wrench"
+			"capabilities"
+			{
+				"nameable"		"1"
+			}
+			"tags"
+			{
+				"can_deal_damage"			"1"
+				"can_deal_critical_damage"	"1"
+				"can_destroy_sappers"		"1"
+			}
+			"show_in_armory"	"1"
+			"item_type_name"	"#TF_Weapon_Wrench"
+			"item_name"	"#TF_Unique_Golden_Wrench"
+			"item_slot"	"melee"
+			"item_quality"	"unique"
+			"min_ilevel"	"25"
+			"max_ilevel"	"25"
+			"propername"	"1"
+			"attach_to_hands"	"1"
+			"item_logname"	"wrench_golden"
+			"item_iconname"	"wrench_golden"
+			"image_inventory"	"backpack/weapons/c_models/c_wrench/gold_wrench"
+			"image_inventory_size_w"		"128"
+			"image_inventory_size_h"		"82"
+			"model_player"	"models/weapons/c_models/c_wrench/c_wrench.mdl"
+			"used_by_classes"
+			{
+				"engineer"	"1"
+			}
+			"visuals"
+			{
+				"material_override"	"models/weapons/c_items/gold_wrench.vmt"
+			}
+			"attributes"
+			{
+				"turn to gold"
+				{
+					"attribute_class"	"set_turn_to_gold"
+					"value" "1"
+				}
+			}
+			"static_attrs"
+			{
+				"limited quantity item"		"1"
+				"min_viewmodel_offset"		"10 -2 -9"
+			}
+			"mouse_pressed_sound"	"ui/item_medal_pickup.wav"
+			"drop_sound"		"ui/item_medal_pickup.wav"
+			"xifier_class_remap"	"wrench"
+		}
 		"171"
 		{
 			"name"	"The Tribalman's Shiv"
@@ -13135,6 +13190,16 @@
 			"hidden"	"0"
 			"effect_type"	"positive"
 			"armory_desc"	"on_hit bleed"
+			"stored_as_integer"	"0"
+		}
+		"150"
+		{
+			"name"	"turn to gold"
+			"attribute_class"	"set_turn_to_gold"
+			"description_string"	"#Attrib_TurnToGold"
+			"description_format"	"value_is_additive"
+			"hidden"	"0"
+			"effect_type"	"positive"
 			"stored_as_integer"	"0"
 		}
 		"151"

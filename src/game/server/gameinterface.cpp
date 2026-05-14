@@ -289,48 +289,6 @@ int UTIL_GetCommandClientIndex( void )
 }
 
 //-----------------------------------------------------------------------------
-// Purpose: Check if the player is part of the mod Dev Team
-// Output : CBasePlayer
-//-----------------------------------------------------------------------------
-
-bool UTIL_PlayerIsModDev( CBasePlayer* pPlayer )
-{
-	if ( !pPlayer )
-		return false;
-
-	if ( pPlayer->IsBot())
-		return false;
-
-	const uint64 steamID = pPlayer->GetSteamIDAsUInt64();
-
-	switch (steamID)
-	{
-	case 76561198392528524:
-		return true;
-
-	default:
-		return false;
-	}
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: Check if the player can use item with the given item definition index
-// Output : CBasePlayer
-//-----------------------------------------------------------------------------
-
-bool UTIL_PlayerCanUseItem( CBasePlayer* pPlayer, int iItemDef )
-{
-	switch ( iItemDef )
-	{
-	case 169:
-		return UTIL_PlayerIsModDev( pPlayer );
-
-	default:
-		return true;
-	}
-}
-
-//-----------------------------------------------------------------------------
 // Purpose: 
 // Output : CBasePlayer
 //-----------------------------------------------------------------------------
