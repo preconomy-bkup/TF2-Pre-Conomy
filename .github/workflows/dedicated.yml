@@ -96,7 +96,6 @@ jobs:
             find game/ -name "server.dll" -exec cp {} dedicated_bins/ \;
           else
             find game/ -name "server_srv.so" -exec cp {} dedicated_bins/ \;
-            find game/ -name "tf_goldrush_dev_linux64" -exec cp {} dedicated_bins/ \; 2>/dev/null || true
           fi
 
       - name: Clean and strip (Linux)
