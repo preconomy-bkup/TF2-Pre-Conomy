@@ -4,7 +4,7 @@
 devtools\bin\vpc.exe /tf /define:SOURCESDK +dedicated /dedicated /mksln dedicated.sln
 
 # Use DEDICATED define within tf sdk project
-$vcxprojPath = Resolve-Path ".\game\server\server_win64_srv_tf.vcxproj"
+$vcxprojPath = Resolve-Path ".\game\server\server_win64_tf.vcxproj"
 $updated = $false
 # Check vcxproj file
 $vcxproj = [xml] (Get-Content -Path $vcxprojPath)
