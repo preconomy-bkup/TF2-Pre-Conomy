@@ -56,7 +56,6 @@ DESCRIPTION INFO_OPTIONS
 		{ "1" }
 	}
 	
-	// buttons don't work in the default gameui mpadvanced
 	"chat_filter_settings"
 	{
 		"#TF_ChatFilterSettings"
@@ -422,6 +421,14 @@ DESCRIPTION INFO_OPTIONS
 	{
 		"#TF_OptionCategory_Misc"
 		{ CATEGORY }
+	}
+
+	"con_enable"
+	{
+		"#GameUI_DeveloperConsoleCheck"
+		"#Tooltip_DeveloperConsoleCheck"
+		{ BOOL }
+		{ "0" }
 	}
 	
 	"hud_takesshots"
