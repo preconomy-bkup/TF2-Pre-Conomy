@@ -3845,7 +3845,7 @@ void CTFGCServerSystem::WebapiEquipmentThink()
 	}
 }
 
-#ifdef DEDICATED
+#if 1
     #define STEAM_HTTP_INTERFACE SteamGameServerHTTP
 #else
     #define STEAM_HTTP_INTERFACE SteamHTTP
