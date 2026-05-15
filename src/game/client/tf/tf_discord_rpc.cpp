@@ -57,7 +57,7 @@ private:
 	void UpdateNetworkInfo();
 	void UpdatePlayerInfo();
 
-	DiscordRichPresence m_pRPC;
+	DiscordRichPresence m_RPC;
 	float m_flLastUpdatedTime;
 };
 
@@ -123,6 +123,8 @@ void CTFDiscordRPC::OnJoinRequest( const DiscordUser *joinRequest )
  */
 CTFDiscordRPC::CTFDiscordRPC()
 	: CAutoGameSystemPerFrame( "tf_discord_rpc" )
+	, m_flLastUpdatedTime( 0.0f )
+	, m_RPC()
 {
 }
 
@@ -231,9 +233,9 @@ void CTFDiscordRPC::UpdateRPC()
 		UpdateNetworkInfo();
 		//starts the elapsed timer for discord rpc
 		//-Nbc66
-		m_pRPC.startTimestamp = mktime( tStartTime );
+		m_RPC.startTimestamp = mktime( tStartTime );
 		//sets the map name
-		m_pRPC.details = "Currently in-game";
+		m_RPC.details = "Currently in-game";
 	}
 
 	//checks if the loading bar is being drawn
@@ -241,13 +243,13 @@ void CTFDiscordRPC::UpdateRPC()
 	//-Nbc66
 	if ( engine->IsDrawingLoadingImage() == true )
 	{
-		m_pRPC.state = "";
-		m_pRPC.details = "Currently loading...";
+		m_RPC.state = "";
+		m_RPC.details = "Currently loading...";
 	}
 
 	//SetLogo();
 
-	Discord_UpdatePresence( &m_pRPC );
+	Discord_UpdatePresence( &m_RPC );
 }
 
 /**
@@ -255,12 +257,12 @@ void CTFDiscordRPC::UpdateRPC()
  */
 void CTFDiscordRPC::Reset()
 {
-	Q_memset( &m_pRPC, 0, sizeof( m_pRPC ) );
-	m_pRPC.details = "Main Menu";
-	m_pRPC.state = "";
-	m_pRPC.endTimestamp;
+	Q_memset( &m_RPC, 0, sizeof( m_RPC ) );
+	m_RPC.details = "Main Menu";
+	m_RPC.state = "";
+	m_RPC.endTimestamp;
 
-	Discord_UpdatePresence( &m_pRPC );
+	Discord_UpdatePresence( &m_RPC );
 }
 
 /**
@@ -289,8 +291,8 @@ void CTFDiscordRPC::UpdatePlayerInfo()
 		}
 	}
 
-	m_pRPC.partySize = curPlayers;
-	m_pRPC.partyMax = maxPlayers;
+	m_RPC.partySize = curPlayers;
+	m_RPC.partyMax = maxPlayers;
 }
 
 /**
@@ -302,9 +304,9 @@ void CTFDiscordRPC::UpdateNetworkInfo()
 	INetChannelInfo *ni = engine->GetNetChannelInfo();
 	Q_snprintf( partyId, sizeof( partyId ), "%s-party", ni->GetAddress() ); // adding -party here because secrets cannot match the party id
 
-	m_pRPC.partyId = partyId;
+	m_RPC.partyId = partyId;
 
-	m_pRPC.joinSecret = ni->GetAddress();
+	m_RPC.joinSecret = ni->GetAddress();
 	//dosent work untill i can figgure out how to get the source tv ip
-	//m_pRPC.spectateSecret = "Spectate";
+	//m_RPC.spectateSecret = "Spectate";
 }
