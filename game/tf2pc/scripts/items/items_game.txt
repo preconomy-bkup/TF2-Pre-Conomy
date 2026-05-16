@@ -4085,11 +4085,6 @@
 					"attribute_class"	"special_taunt"
 					"value" "1"
 				}
-				"crit_vs_burning_FLARES_DISPLAY_ONLY"
-				{
-					"attribute_class"	"crit_vs_burning_FLARES_DISPLAY_ONLY"
-					"value"	"1"
-				}
 			}
 			"visuals"
 			{
