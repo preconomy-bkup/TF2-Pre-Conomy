@@ -249,7 +249,19 @@ void CTFProjectile_Flare::Explode( trace_t *pTrace, CBaseEntity *pOther )
 	// Flares that hit a burning player crit, unless it's a detonate flare - they mini-crit
 	if ( pTFVictim && pTFVictim->m_Shared.InCond( TF_COND_BURNING ) && !bDetonate && !bNoRandomCrit )
 	{
-		m_bCritical = true;
+		if (pAttacker)
+		{
+			float flDistSqr = (pAttacker->GetAbsOrigin() - pTFVictim->GetAbsOrigin()).Length2DSqr();
+
+			if (flDistSqr >= Square(800.0f))
+			{
+				m_bCritical = true;
+			}
+			else
+			{
+				m_bCritical = false;
+			}
+		}
 	}
 
 	CTakeDamageInfo info( this, pAttacker, m_hLauncher, vec3_origin, vecOrigin, GetDamage(), GetDamageType(), TF_DMG_CUSTOM_BURNING_FLARE );
