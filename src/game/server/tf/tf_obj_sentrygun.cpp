@@ -585,10 +585,10 @@ bool CObjectSentrygun::OnWrenchHit( CTFPlayer *pPlayer, CTFWrench *pWrench, Vect
 		// STAGING_ENGY
 		// Mod repair value by shield value
 		float flRepairAmount = pWrench->GetRepairAmount();
-		if ( m_nShieldLevel == SHIELD_NORMAL )
-		{
-			flRepairAmount *= SHIELD_NORMAL_VALUE;
-		}
+		// if ( m_nShieldLevel == SHIELD_NORMAL )
+		// {
+			// flRepairAmount *= SHIELD_NORMAL_VALUE;
+		// }
 		
 		if ( Command_Repair( pPlayer, flRepairAmount, 1.f ) )
 		{
@@ -627,10 +627,10 @@ bool CObjectSentrygun::OnWrenchHit( CTFPlayer *pPlayer, CTFWrench *pWrench, Vect
 
 			// STAGING_ENGY
 			// Mod Ammo if shielded
-			if ( m_nShieldLevel == SHIELD_NORMAL )
-			{
-				iAmountToAdd *= SHIELD_NORMAL_VALUE;
-			}
+			// if ( m_nShieldLevel == SHIELD_NORMAL )
+			// {
+				// iAmountToAdd *= SHIELD_NORMAL_VALUE;
+			// }
 
 			pPlayer->RemoveAmmo( iAmountToAdd * tf_sentrygun_metal_per_shell.GetInt(), TF_AMMO_METAL );
 			m_iAmmoShells += iAmountToAdd;
@@ -653,10 +653,10 @@ bool CObjectSentrygun::OnWrenchHit( CTFPlayer *pPlayer, CTFWrench *pWrench, Vect
 
 			// STAGING_ENGY
 			// Mod Ammo if shielded
-			if ( m_nShieldLevel == SHIELD_NORMAL )
-			{
-				iAmountToAdd *= SHIELD_NORMAL_VALUE;
-			}
+			// if ( m_nShieldLevel == SHIELD_NORMAL )
+			// {
+				// iAmountToAdd *= SHIELD_NORMAL_VALUE;
+			// }
 
 			pPlayer->RemoveAmmo( iAmountToAdd * tf_sentrygun_metal_per_rocket.GetFloat(), TF_AMMO_METAL );
 			m_iAmmoRockets += iAmountToAdd;
