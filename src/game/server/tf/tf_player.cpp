@@ -1366,11 +1366,11 @@ void CTFPlayer::RegenThink( void )
 
 		// If you are healing a hurt patient, increase your base regen
 		CTFPlayer *pPatient = ToTFPlayer( MedicGetHealTarget() );
-		if ( pPatient && pPatient->GetHealth() < pPatient->GetMaxHealth() )
-		{
-			// Double regen amount
-			flRegenAmt += TF_REGEN_AMOUNT;
-		}
+		// if ( pPatient && pPatient->GetHealth() < pPatient->GetMaxHealth() )
+		// {
+			// // Double regen amount
+			// flRegenAmt += TF_REGEN_AMOUNT;
+		// }
 
 		flRegenAmt *= flScale;
 
