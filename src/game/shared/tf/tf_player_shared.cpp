@@ -6674,10 +6674,10 @@ void CTFPlayerShared::Disguise( int nTeam, int nClass, CTFPlayer* pDesiredTarget
 
 	// STAGING_SPY
 	// Quick disguise if you already disguised
-	if ( InCond( TF_COND_DISGUISED ) )
-	{
-		flTimeToDisguise = TF_TIME_TO_QUICK_DISGUISE;
-	}
+//	if ( InCond( TF_COND_DISGUISED ) )
+//	{
+//		flTimeToDisguise = TF_TIME_TO_QUICK_DISGUISE;
+//	}
 
 	if ( pDesiredTarget )
 	{
