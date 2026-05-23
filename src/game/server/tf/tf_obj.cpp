@@ -2849,7 +2849,7 @@ bool CBaseObject::CanBeUpgraded( CTFPlayer *pPlayer )
 //-----------------------------------------------------------------------------
 // Purpose: Separated so it can be triggered by wrench hit or by vgui screen
 //-----------------------------------------------------------------------------
-int CBaseObject::Command_Repair( CTFPlayer *pActivator, float flAmount, float flRepairMod, float flRepairToMetalRatio /*= 3.f*/, bool bSendEvent /*= false*/ )
+int CBaseObject::Command_Repair( CTFPlayer *pActivator, float flAmount, float flRepairMod, float flRepairToMetalRatio /*= 5.f*/, bool bSendEvent /*= false*/ )
 {
 	if ( !CanBeRepaired() )
 		return false;
