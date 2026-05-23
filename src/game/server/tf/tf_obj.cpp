@@ -2123,7 +2123,7 @@ float CBaseObject::GetConstructionMultiplier( void )
 			// STAGING_ENGY
 			// each Player adds a fixed amount of speed boost
 			// Carry deploy hits add more
-			flMultiplier += ( m_ConstructorList[iThis].flValue );
+			flMultiplier *= ( m_ConstructorList[iThis].flValue );
 		}
 	}
 
