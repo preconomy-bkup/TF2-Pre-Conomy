@@ -5629,7 +5629,7 @@ bool CTFGameRules::ApplyOnDamageModifyRules( CTakeDamageInfo &info, CBaseEntity 
 			CObjectSentrygun *pSentry = dynamic_cast<CObjectSentrygun*>( info.GetInflictor() );
 			if ( pSentry )
 			{
-				vAttackerPos = pSentry->WorldSpaceCenter();
+				// vAttackerPos = pSentry->WorldSpaceCenter(); // this line makes damage falloff depend on sentry position; not the player
 				// Sentries have a much further optimal distance
 				flOptimalDistance = SENTRY_MAX_RANGE;
 			}
