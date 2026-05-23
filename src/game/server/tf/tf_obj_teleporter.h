@@ -81,7 +81,7 @@ public:
 	}
 
 	// Wrench hits
-	virtual int		Command_Repair( CTFPlayer *pActivator, float flAmount, float flRepairMod, float flRepairToMetalRatio = 3.f, bool bSendEvent = true ) OVERRIDE;
+	virtual int		Command_Repair( CTFPlayer *pActivator, float flAmount, float flRepairMod, float flRepairToMetalRatio = 5.f, bool bSendEvent = true ) OVERRIDE;
 	void			AddHealth( int nHealthToAdd )
 	{
 		SetHealth( MIN( GetMaxHealth(), GetHealth() + nHealthToAdd ) );

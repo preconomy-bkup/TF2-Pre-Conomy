@@ -630,7 +630,7 @@ void CObjectTeleporter::TeleporterTouch( CBaseEntity *pOther )
 //-----------------------------------------------------------------------------
 // Purpose:
 //-----------------------------------------------------------------------------
-int CObjectTeleporter::Command_Repair( CTFPlayer *pActivator, float flAmount, float flRepairMod, float flRepairToMetalRatio /*= 3.f*/, bool bSendEvent /*= false*/ )
+int CObjectTeleporter::Command_Repair( CTFPlayer *pActivator, float flAmount, float flRepairMod, float flRepairToMetalRatio /*= 5.f*/, bool bSendEvent /*= false*/ )
 {
 	// Teleporter-specific: 5 health costs 1 metal
 	flRepairToMetalRatio = 5.f;

@@ -184,7 +184,7 @@ public:
 	virtual bool	InputWrenchHit( CTFPlayer *pPlayer, CTFWrench *pWrench, Vector hitLoc );
 	virtual bool	OnWrenchHit( CTFPlayer *pPlayer, CTFWrench *pWrench, Vector hitLoc );
 	virtual bool	CheckUpgradeOnHit( CTFPlayer *pPlayer );
-	virtual int		Command_Repair( CTFPlayer *pActivator, float flAmount, float flRepairMod, float flRepairToMetalRatio = 3.f, bool bSendEvent = true );
+	virtual int		Command_Repair( CTFPlayer *pActivator, float flAmount, float flRepairMod, float flRepairToMetalRatio = 5.f, bool bSendEvent = true );
 	virtual void	DoWrenchHitEffect( Vector hitLoc, bool bRepairHit, bool bUpgradeHit );
 
 	virtual bool	ShouldBeMiniBuilding( CTFPlayer* pPlayer );

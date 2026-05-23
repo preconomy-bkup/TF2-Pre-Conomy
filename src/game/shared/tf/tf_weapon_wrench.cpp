@@ -225,16 +225,14 @@ void CTFWrench::Equip( CBaseCombatCharacter *pOwner )
 	CTFPlayer *pPlayer = ToTFPlayer( pOwner );
 	if ( pPlayer )
 	{
-		// if switching too gunslinger, blow up other sentry
-		int iMiniSentry = 0;
-		CALL_ATTRIB_HOOK_INT( iMiniSentry, wrench_builds_minisentry );
-		if ( iMiniSentry )
+		// detonate all buildings on wrench change
+		for ( int i = 0; i < pPlayer->GetObjectCount(); ++i )
 		{
-			// Just detonate Sentries
-			CObjectSentrygun *pSentry = dynamic_cast<CObjectSentrygun*>( pPlayer->GetObjectOfType( OBJ_SENTRYGUN ) );
-			if ( pSentry )
+			CBaseObject *pObject = pPlayer->GetObject( i );
+
+			if ( pObject )
 			{
-				pSentry->DetonateObject();
+				pObject->DetonateObject();
 			}
 		}
 	}
@@ -250,16 +248,14 @@ void CTFWrench::Detach( void )
 	CTFPlayer *pPlayer = GetTFPlayerOwner();
 	if ( pPlayer )
 	{
-		// if switching off of gunslinger detonate
-		int iMiniSentry = 0;
-		CALL_ATTRIB_HOOK_INT( iMiniSentry, wrench_builds_minisentry );
-		if ( iMiniSentry )
+		// detonate all buildings on wrench change
+		for ( int i = 0; i < pPlayer->GetObjectCount(); ++i )
 		{
-			// Just detonate Sentries
-			CObjectSentrygun *pSentry = dynamic_cast<CObjectSentrygun*>( pPlayer->GetObjectOfType( OBJ_SENTRYGUN ) );
-			if ( pSentry )
+			CBaseObject *pObject = pPlayer->GetObject( i );
+
+			if ( pObject )
 			{
-				pSentry->DetonateObject();
+				pObject->DetonateObject();
 			}
 		}
 	}
@@ -290,7 +286,7 @@ void CTFWrench::ApplyBuildingHealthUpgrade( void )
 #endif
 
 // STAGING_ENGY
-ConVar tf_construction_build_rate_multiplier( "tf_construction_build_rate_multiplier", "1.5f", FCVAR_REPLICATED | FCVAR_DEVELOPMENTONLY );
+ConVar tf_construction_build_rate_multiplier( "tf_construction_build_rate_multiplier", "2.0f", FCVAR_REPLICATED | FCVAR_DEVELOPMENTONLY );
 float CTFWrench::GetConstructionValue( void )
 {
 	float flValue = tf_construction_build_rate_multiplier.GetFloat();
