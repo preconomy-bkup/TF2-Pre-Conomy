@@ -2131,7 +2131,7 @@ float CBaseObject::GetConstructionMultiplier( void )
 	CTFPlayer* pBuilder = GetOwner();
 	if( pBuilder )
 	{
-		flMultiplier *= pBuilder->GetObjectBuildSpeedMultiplier( ObjectType(), m_bCarryDeploy );
+		flMultiplier += pBuilder->GetObjectBuildSpeedMultiplier( ObjectType(), m_bCarryDeploy );
 	}
 
 	return flMultiplier;
