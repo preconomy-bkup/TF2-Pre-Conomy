@@ -375,8 +375,8 @@ class CAchievementTFPlayGameFriendsOnly : public CBaseTFAchievementSimple
 	{
 		if ( 0 == Q_strcmp( event->GetName(), "teamplay_round_win" ) )
 		{
-			// Are there at least 5 friends in the game?  (at least 8 players total)
-			if ( CalcPlayersOnFriendsList( 5 ) )
+			// Are there at least 7 friends in the game?  (at least 8 players total)
+			if ( CalcPlayersOnFriendsList( 7 ) )
 			{
 				IncrementCount();
 			}
