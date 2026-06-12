@@ -4700,11 +4700,6 @@
 					"attribute_class"	"kill_eater_score_type"
 					"value" 	"4"									
 				}
-				"extinguish reduces cooldown"
-				{
-					"attribute_class" "extinguish_reduces_cooldown"
-					"value" "0.8"
-				}
 			}
 			"visuals"
 			{
